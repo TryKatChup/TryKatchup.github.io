@@ -131,7 +131,7 @@ syntax-highlight: True
 ############
 
 events:
-  - image: "/img/timeline/spidertocat.png"
+  - image: "/img/timeline/concert.jpg"
     date: "9th July 2015"
     description: "First big concert"
   - image: "/img/timeline/tux.jpg"
