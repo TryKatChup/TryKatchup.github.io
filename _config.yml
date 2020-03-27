@@ -140,7 +140,7 @@ events:
   - image: "/img/timeline/karate.png"
     date: "September 2013"
     description: "Black belt achieved"
-  - image: "/img/timeline/hell-oworld.png"
+  - image: "/img/timeline/hello-world.png"
     date: "September 2012"
     description: "First program"
   
