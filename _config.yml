@@ -3,7 +3,7 @@
 
 # NB! Set your site's url, otherwise stuff will break :)
 
-url: "https://le4ker.github.io"
+url: "https://trykatchup.github.io/"
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (https://yourusername.github.io/repository-name)
@@ -12,7 +12,7 @@ url: "https://le4ker.github.io"
 #
 # NB! Without this *nothing* will work, because it's used in every path :)
 
-baseurl: /personal-jekyll-theme
+baseurl: /TryKatChup.github.io
 
 # Google tracking id
 
@@ -29,10 +29,10 @@ force-https: True
 #############
 
 lang: "en"
-author: "John Smith"
-title: "{ John Smith }"
-description: "Blog and website of John Smith, blogging mainly for tech. Opinions expressed are mine."
-keywords: "smith, jones, personal, jekyll, theme"
+author: "Karina Chichifoi"
+title: "{ Karina Chichifoi }"
+description: "Personal site and blog of Karina Chichifoi"
+keywords: "chichifoi, karina, personal, jekyll, theme"
 favicon: "/img/favicon.ico"
 
 ################
@@ -55,8 +55,8 @@ type-speed: 10
 start-delay: 200
 delete-delay: 5000
 lines: # You can add HTML Tags in the Text
-  - text: "The lower you fall, the higher you'll fly."
-  - text: "Where’s your will to be weird?"
+  - text: "To those who believe in dreams, a step is enough to reach the stars."
+  - text: "Per aspera ad astra"
 
 me-img: "/img/jetpacktocat.png"
 
@@ -146,7 +146,7 @@ timeline-img: "/img/timeline/default.png"
 # Contact #
 ###########
 
-email: "your@email.here"
+email: "karina.chichifoi@gmail.com"
 
 ################
 # Author Blurb #
@@ -156,7 +156,9 @@ email: "your@email.here"
 # This works best when your author blurb image has a transparent background, or matches your site background color.
 
 # if the author_blurb is not set, then this feature is skipped
-author_blurb: "John Smith is an awesome person. He lives in Flatland, where he works on two-dimensional engineering projects. In his spare time, John likes to eat cotton candy."
+author_blurb: "I am really driven by curiosity, which makes me overcome anything.
+My code is the rapresentation of creativity taking form.
+Through a keyboard and with a thirst of knowledge I hope my software could revolutionize the world."
 author_blurb_image: "/img/author.png"
 
 ##################
@@ -164,14 +166,12 @@ author_blurb_image: "/img/author.png"
 ##################
 
 social:
-  - title: "facebook"
-    url: "https://facebook.com/"
   - title: "twitter"
-    url: "https://twitter.com/"
+    url: "https://twitter.com/KaryChan07"
   - title: "github"
-    url: "https://github.com/PanosSakkos/personal-jekyll-theme"
-  - title: "bitcoin"
-    url: "https://blockchain.info/address/1LHuKC9Em3KA5yoZaf7nngnNdf9K7s2gSi"
+    url: "https://github.com/TryKatChup"
+  - title: "linkedin"
+    url: "https://www.linkedin.com/in/karina-chichifoi/"
   - title: "rss"
     url: "/feed.xml"
 
@@ -185,7 +185,7 @@ err-404-img: "/img/labtocat.png"
 # GPG on Keybase #
 ##################
 
-keybase-username: johnsmith
+keybase-username: karinachichifoi
 keybase-in-social: True
 keybase-in-footer: True
 
