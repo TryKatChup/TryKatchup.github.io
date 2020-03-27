@@ -58,7 +58,7 @@ lines: # You can add HTML Tags in the Text
   - text: "To those who believe in dreams, a step is enough to reach the stars."
   - text: "Per aspera ad astra"
 
-me-img: "/img/jetpacktocat.png"
+me-img: "/img/me.jpg"
 
 # To use facebook profile pic comment the previous line and uncomment the following
 # line, and replace 'user_id' with your facebook user id.
@@ -136,18 +136,18 @@ events:
     description: "First big concert"
   - image: "/img/timeline/tux.jpg"
     date: "July 2014"
-    description: "First Linux installation: debian"
-  - image: "/img/timeline/karate.jpg"
+    description: "First Linux installation"
+  - image: "/img/timeline/karate.png"
     date: "September 2013"
     description: "Black belt achieved"
-  - image: "/img/timeline/helloworld.png"
+  - image: "/img/timeline/hell-oworld.png"
     date: "September 2012"
     description: "First program"
   
 
 # First image of the Timeline
 
-timeline-img: "/img/timeline/bigbang.jpg"
+timeline-img: "/img/timeline/guy.jpg"
 
 ###########
 # Contact #
