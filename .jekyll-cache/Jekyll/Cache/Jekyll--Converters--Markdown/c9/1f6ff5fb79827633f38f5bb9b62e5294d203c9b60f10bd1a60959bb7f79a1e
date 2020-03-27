@@ -1,0 +1,82 @@
+I"<p>The intro part of the index page (Header) is consisted of four elements:</p>
+
+<ol>
+  <li>A black favicon</li>
+  <li>Background image</li>
+  <li>Welcome text</li>
+  <li>Your image</li>
+</ol>
+
+<h3 id="black-favicon">Black favicon</h3>
+
+<p>The black favicon is an image on the left of the navigation bar.
+Preferably it should be a black and white version of your favicon.</p>
+
+<pre><code data-trim="" class="yaml">
+black-favicon: "/img/black-lab-glass.ico"
+</code></pre>
+
+<h3 id="background-image">Background image</h3>
+
+<p>In order to set the background, set the path to following variable:</p>
+
+<pre><code data-trim="" class="yaml">
+background-img: "../img/intro-bg.jpg"
+</code></pre>
+
+<p><small>NB! Keep the .. in the beginning of the background image path</small></p>
+
+<h3 id="welcome-text">Welcome text</h3>
+
+<p>The welcome text is controlled by the following (self-explanatory) variables:</p>
+
+<pre><code data-trim="" class="yaml">
+dynamic-typing: True
+shuffle: True # Shuffle the lines.
+loop: True
+loop-count: False # Set False for infinite loop, or set any number for finite loop.
+type-speed: 10 # Default 10
+start-delay: 200 # Default 200
+delete-delay: 5000 # Default 5000
+lines: # You can add HTML Tags in the Text
+  - text: "The lower you fall, the higher you'll fly."
+  - text: "Where’s your will to be weird?"
+</code></pre>
+
+<p><small>Many thanks to <a href="https://github.com/prashantsolanki3" target="blank">@prashantsolanki3</a> for the dynamic typing feature!</small></p>
+
+<h3 id="your-image">Your image</h3>
+
+<p>You can set your image from the following variable:</p>
+
+<pre><code data-trim="" class="yaml">
+me-img: "/img/jetpacktocat.png"
+</code></pre>
+
+<p>If you want to connect your Facebook profile image then you can use the following.               <br />
+Replace <code class="highlighter-rouge">user_id</code> with your facebook user id. Facebook user id can be found by clicking
+on your profile pic and the large number in the end of the url just before ‘&amp;type’ is your user id.         <br />
+Note: fbid is not the same as user id and user id only contains numbers.</p>
+
+<pre><code data-trim="" class="yaml">
+me-img: "https://graph.facebook.com/user_id/picture?type=large&amp;width=500&amp;height=500"
+</code></pre>
+
+<p>If you want to connect your Github profile image then you can use the following.            <br />
+Replace <code class="highlighter-rouge">user_name</code> with your Github user name.</p>
+
+<pre><code data-trim="" class="yaml">
+me-img: "https://github.com/user_name.png?size=500"
+</code></pre>
+
+<p>If you want to connect your Gravatar profile image then you can use the following.            <br />
+Replace <code class="highlighter-rouge">email_hash</code> with your Gravatar profile email hash.                    <br />
+You can create the email hash by using an online tool like <a href="http://www.md5hashgenerator.com/">md5hashgenerator</a>,
+just enter your email and it will generate the hash.</p>
+
+<pre><code data-trim="" class="yaml">
+me-img: "https://www.gravatar.com/avatar/email_hash?s=500"
+</code></pre>
+
+<p>All set!</p>
+:ET
