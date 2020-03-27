@@ -132,15 +132,22 @@ syntax-highlight: True
 
 events:
   - image: "/img/timeline/spidertocat.png"
-    date: "September 2013 - Today"
-    description: "Saving the neighborhood!"
-  - image: "/img/timeline/baracktocat.jpg"
-    date: "September 2007 - August 2013"
-    description: "Started coding"
+    date: "9th July 2015"
+    description: "First big concert"
+  - image: "/img/timeline/tux.jpg"
+    date: "July 2014"
+    description: "First Linux installation: debian"
+  - image: "/img/timeline/karate.jpg"
+    date: "September 2013"
+    description: "Black belt achieved"
+  - image: "/img/timeline/helloworld.png"
+    date: "September 2012"
+    description: "First program"
+  
 
 # First image of the Timeline
 
-timeline-img: "/img/timeline/default.png"
+timeline-img: "/img/timeline/bigbang.jpg"
 
 ###########
 # Contact #
@@ -159,7 +166,7 @@ email: "karina.chichifoi@gmail.com"
 author_blurb: "I am really driven by curiosity, which makes me overcome anything.
 My code is the representation of creativity taking form.
 Through a keyboard and with a thirst of knowledge I hope my software could revolutionize the world."
-author_blurb_image: "/img/author.png"
+author_blurb_image: "/img/me.jpg"
 
 ##################
 # Social Buttons #
@@ -183,9 +190,9 @@ err-404-img: "/img/labtocat.png"
 # GPG on Keybase #
 ##################
 
-keybase-username: karinachichifoi
-keybase-in-social: True
-keybase-in-footer: True
+#keybase-username: karinachichifoi
+#keybase-in-social: True
+#keybase-in-footer: True
 
 ################################################################################
 
