@@ -33,13 +33,13 @@ author: "Karina Chichifoi"
 title: "{ Karina Chichifoi }"
 description: "Personal site and blog of Karina Chichifoi"
 keywords: "chichifoi, karina, personal, jekyll, theme"
-favicon: "/img/yinyang.ico"
+favicon: "/img/coffee.ico"
 
 ################
 # Header layout #
 ################
 
-black-favicon: "/img/yinyang.ico"
+black-favicon: "/img/coffee.ico"
 
 background-img: "../img/intro-bg.jpg"
 
