@@ -57,7 +57,7 @@ delete-delay: 5000
 lines: # You can add HTML Tags in the Text
   - text: "To those who believe in dreams, a step is enough to reach the stars."
   - text: "Per aspera ad astra"
-
+  - text: "The future belongs to those who believe in the beauty of their dreams."
 me-img: "/img/me.jpg"
 
 # To use facebook profile pic comment the previous line and uncomment the following
@@ -184,7 +184,7 @@ social:
 # 404 page #
 ############
 
-err-404-img: "/img/labtocat.png"
+err-404-img: "/img/errorcat.png"
 
 ##################
 # GPG on Keybase #
