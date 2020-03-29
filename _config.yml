@@ -31,7 +31,7 @@ lang: "en"
 author: "Karina Chichifoi"
 title: "{ Karina Chichifoi }"
 description: "Personal site and blog of Karina Chichifoi"
-keywords: "chichifoi, karina, personal, jekyll, theme"
+keywords: "chichifoi, karina, personal"
 favicon: "/img/coffee.ico"
 
 ################
@@ -122,7 +122,7 @@ pinterest-share: True
 pocket-share: True
 vkontakte-share: True
 
-disqus-shortname: "personal-jekyll-theme"
+disqus-shortname: "personal-site"
 
 syntax-highlight: True
 
