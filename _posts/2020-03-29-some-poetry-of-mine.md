@@ -10,8 +10,7 @@ tags: [ 'poetry', 'moth' ]
 <font size="+2"> <strong>Moth</strong> </font>
 <br>
 <br>
-
-![](assets/2020-03-29-some-poetry-of-mine-a48ec1ec.jpg)
+<img src="../moth.jpg" alt="Moth" height="250" width="250">
 
 <br>
 <br>
