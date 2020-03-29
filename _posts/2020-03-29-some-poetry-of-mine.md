@@ -10,7 +10,7 @@ tags: [ 'poetry', 'moth' ]
 <font size="+2"> <strong>Moth</strong> </font>
 <br>
 <br>
-<img src="../moth.jpg" alt="Moth" height="250" width="250">
+<img src="https://github.com/TryKatChup/TryKatChup.github.io/blob/master/_posts/assets/2020-03-29-some-poetry-of-mine-a48ec1ec.jpg" alt="Moth" height="250" width="250">
 
 <br>
 <br>
