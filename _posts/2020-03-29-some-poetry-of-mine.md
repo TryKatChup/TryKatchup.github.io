@@ -5,11 +5,12 @@ title: Some poetry of mine
 category: poetry
 tags: [ 'poetry', 'moth' ]
 ---
+
  <center>
 <font size="+2"> <strong>Moth</strong> </font>
 <br>
 <br>
-<img src="/images/moth.jpg" alt="Moth" height="250" width="250">
+<img src="../\_posts/images/moth.jpg" alt="Moth" height="250" width="250">
 
 <br>
 <br>
@@ -20,3 +21,7 @@ tags: [ 'poetry', 'moth' ]
  makes its appearance.<br>
  These little enchanted creatures<br>
  overwhelm my mind.</center>
+
+ <br>
+ <br>
+ <br>
