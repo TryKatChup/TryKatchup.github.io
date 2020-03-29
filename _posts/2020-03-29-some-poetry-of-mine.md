@@ -10,7 +10,7 @@ tags: [ 'poetry', 'moth' ]
 <font size="+2"> <strong>Moth</strong> </font>
 <br>
 <br>
-<img src="../\_posts/images/moth.jpg" alt="Moth" height="250" width="250">
+<img src="../moth.jpg" alt="Moth" height="250" width="250">
 
 <br>
 <br>
