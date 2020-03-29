@@ -6,7 +6,7 @@ category: poetry
 tags: [ 'poetry', 'moth' ]
 ---
 
- <center>
+<center>
 <font size="+3"> <strong>Moth</strong> </font>
 <br>
 <br>
