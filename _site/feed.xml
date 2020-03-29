@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>{ Karina Chichifoi }</title>
+		<description>Personal site and blog of Karina Chichifoi</description>
+		<link>https://trykatchup.github.io/</link>
+		<atom:link href="https://trykatchup.github.io//feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>Some poetry of mine</title>
+				
+				
+					<description>&lt;center&gt;
+&lt;font size=&quot;+3&quot;&gt; &lt;strong&gt;Moth&lt;/strong&gt; &lt;/font&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/assets/moth.jpg&quot; alt=&quot;Moth&quot; height=&quot;250&quot; width=&quot;250&quot; /&gt;
+&lt;font size=&quot;3.5&quot;&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+ When the darkness arises&lt;br /&gt;
+ And the first light appears&lt;br /&gt;
+ A mystical gentle dance&lt;br /&gt;
+ makes its appearance.&lt;br /&gt;
+ These little enchanted creatures&lt;br /&gt;
+ overwhelm my mind.&lt;/font&gt;&lt;/center&gt;
+</description>
+				
+				<pubDate>Sun, 29 Mar 2020 00:00:00 +0100</pubDate>
+				<link>https://trykatchup.github.io//poetry/2020/03/29/some-poetry-of-mine.html</link>
+				<guid isPermaLink="true">https://trykatchup.github.io//poetry/2020/03/29/some-poetry-of-mine.html</guid>
+			</item>
+		
+	</channel>
+</rss>
