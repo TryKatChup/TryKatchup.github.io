@@ -7,11 +7,11 @@ tags: [ 'poetry', 'moth' ]
 ---
 
  <center>
-<font size="+2"> <strong>Moth</strong> </font>
+<font size="+3"> <strong>Moth</strong> </font>
 <br>
 <br>
 <img src="/assets/moth.jpg" alt="Moth" height="250" width="250">
-
+<font size="3.5">
 <br>
 <br>
 <br>
