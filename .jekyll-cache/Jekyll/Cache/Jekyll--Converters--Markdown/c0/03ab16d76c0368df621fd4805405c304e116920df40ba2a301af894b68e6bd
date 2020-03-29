@@ -1,0 +1,94 @@
+I"<h3 id="creating-a-new-post">Creating a new post</h3>
+
+<p>Run the ./scripts/newpost script with the file name of the post as an argument:</p>
+
+<pre><code data-trim="" class="bash">
+cd &lt;your { Personal } repo&gt;
+./scripts/newpost hello-world
+</code></pre>
+
+<p>A a new post template with name YYYY-MM-DD-hello-world.md will be created under ./_posts, with the current date.</p>
+
+<p>In the created post, just replace the Title, Category and tags and you can
+start writing your post in markdown right bellow the end of the post header.</p>
+
+<p>Every file with the format <i>YYYY-MM-DD-post-title.md</i> will be processed as a
+post, with publication date <i>YYYY-MM-DD</i>.</p>
+
+<p>The content starts with:</p>
+
+<pre><code data-trim="" class="yaml">
+---
+layout: post
+section-type: post
+title: Title
+category: Category
+tags: [ 'tag1', 'tag2' ]
+---
+</code></pre>
+
+<p>The <em>layout</em> and <em>section-type</em> variables are used by the theme and you shouldn’t remove them.</p>
+
+<h3 id="hashtags">Hashtags</h3>
+
+<p>Jekyll generates a static pages.
+As a result we have to create the tag pages before building and publishing the site.
+In order to generate the tag pages, simply run the <em>generate-tags</em> script from the repo’s root directory:</p>
+
+<pre><code data-trim="" class="bash">
+./scripts/generate-tags
+</code></pre>
+
+<p>The script will parse all your posts, and generate the tag pages for the newly added tags.</p>
+
+<p><small>If you are not using GitHub Pages, you can automate the execution of this script during build time.</small></p>
+
+<h3 id="categories">Categories</h3>
+
+<p>You can organize your posts under categories. Categories are behaving like hashtags,
+they have to be generated offline, by running the ./scripts/generate-categories script.</p>
+
+<p>The category of the post is specified in the yaml header, in the Category variable.</p>
+
+<p>NB! Only one category can be defined per post.</p>
+
+<h3 id="syntax-highlighting">Syntax highlighting</h3>
+
+<p>If you want to demonstrate source code in your posts, syntax highlighting is provided.
+If you want to see how to render your code with the highlight, simply check the source
+code of this tutorial post :smile:</p>
+
+<pre><code data-trim="" class="c">
+
+int main()
+{
+  printf("Hello, world of syntax highlighting!");
+
+  return 0;
+}
+
+</code></pre>
+
+<p><small>If you don’t need syntax highlight in your website you can disable it by setting the syntax-highlight variable to False</small></p>
+
+<h3 id="emoji-support">Emoji support</h3>
+
+<p>You can add emojis to your posts by simply typing their <a href="http://www.emoji-cheat-sheet.com/">emoji code</a> :wink:</p>
+
+<h3 id="author-blurb">Author Blurb</h3>
+
+<p>You can add a short description of yourself bellow your posts, by setting the next two variables in the site config</p>
+
+<pre><code data-trim="" class="yaml">
+################
+# Author Blurb #
+################
+
+# The author blurb goes underneath blog posts.
+# This works best when your author blurb image has a transparent background, or matches your site background color.
+
+# if the author_blurb is not set, then this feature is skipped
+author_blurb: "John Smith is an awesome person. He lives in Flatland, where he works on two-dimensional engineering projects. In his spare time, John likes to eat cotton candy."
+author_blurb_image: "/img/author.png"
+</code></pre>
+:ET

@@ -1,0 +1,42 @@
+I"ç<p>You can make your website behave like a native web app in iOS and Android devices
+by providing links for the icons for each resolution:</p>
+
+<pre><code data-trim="" class="yaml">
+web-app-mode: True
+
+# Icons for Web App mode
+
+icon-36p: "/img/web-app/icon-36p.png"
+icon-48p: "/img/web-app/icon-48p.png"
+icon-72p: "/img/web-app/icon-72p.png"
+icon-96p: "/img/web-app/icon-96p.png"
+icon-144p: "/img/web-app/icon-144p.png"
+icon-192p: "/img/web-app/icon-192p.png"
+</code></pre>
+
+<p><small>If you want to disable this feature, simply set the web-app-mode variable to False</small></p>
+
+<p>This is how your website will look when added to the homescreen:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/8522559/personal-jekyll-theme/ios.jpg" alt="iOS" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/8522559/personal-jekyll-theme/pinned.jpg" alt="Android" /></p>
+
+<p>And when the user opens it (note that it renders in fullscreen):</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/8522559/personal-jekyll-theme/web-app.jpg" alt="Web App" /></p>
+
+<h1 id="browser-status-bar-customization">Browser status bar customization</h1>
+
+<p>You can color the browser status bar when in mobile mode, by setting it to a color.</p>
+
+<p>The color is define in the site config with the following variables</p>
+
+<pre><code data-trim="" class="yaml">
+##############################
+# Color the browser elements #
+##############################
+color-browser: "#000000"
+apple-status-bar-style: "black"
+</code></pre>
+:ET
