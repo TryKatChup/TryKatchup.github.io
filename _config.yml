@@ -58,6 +58,8 @@ lines: # You can add HTML Tags in the Text
   - text: "Per aspera ad astra"
   - text: "The future belongs to those who believe in the beauty of their dreams."
   - text: "It's never too late to focus on your dreams"
+  - text: "You have the power to heal yourself!"
+  - text: "When you change yourself, you change the world"
 me-img: "/img/me.jpg"
 
 # To use facebook profile pic comment the previous line and uncomment the following
