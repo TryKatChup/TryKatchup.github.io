@@ -1,15 +1,9 @@
 # Site settings
 
-# NB! Set your site's url, otherwise stuff will break :)
+# Personal site url
 
 url: "https://trykatchup.github.io/"
 
-# If you're hosting your site at a Project repository on GitHub pages
-# (https://yourusername.github.io/repository-name)
-# and NOT your user repository (https://yourusername.github.io)
-# then add in the baseurl here, like this: "/repository-name"
-#
-# NB! Without this *nothing* will work, because it's used in every path :)
 
 baseurl: ""
 
@@ -149,7 +143,7 @@ events:
 
 # First image of the Timeline
 
-timeline-img: "/img/timeline/guy.jpg"
+timeline-img: "/img/timeline/chibiMe.jpg"
 
 ###########
 # Contact #
