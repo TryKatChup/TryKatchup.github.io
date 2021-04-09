@@ -8,8 +8,6 @@ tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
 
 <div align="center">
     <img src="/assets/logo.png">
-</div>
-
 
 # Table of Contents
 - [Introduction](#introduction)
