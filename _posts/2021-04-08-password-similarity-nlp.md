@@ -6,10 +6,6 @@ category: deep-neural-networks
 tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
 ---
 
-<div align="center">   
-   # Password Similarity Detection Using Deep Neural Networks    
-</div>
-    
 <div align="center">
     <img src="/assets/logo.png" ></img>
 </div>
