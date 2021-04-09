@@ -10,6 +10,7 @@ tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
     <img src="/assets/logo.png">
 </div>
 
+{:refdef: style="text-align: left;"}
 # Table of Contents
 - [Introduction](#introduction)
 - [Data pre-processing](#data-pre-processing)
@@ -334,3 +335,4 @@ To simplify the comprehension of the project topic, password similarity is repre
 <div align="center">
     <img style="max-height: 350px" src="/assets/3dplot.png">
 </div>
+{: refdef}
