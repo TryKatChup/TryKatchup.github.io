@@ -2,7 +2,7 @@
 layout: post
 section-type: post
 title: Password Similarity Detection Using Deep Neural Networks
-category: deep_neural_networks
+category: deep-neural-networks
 tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
 ---
 
