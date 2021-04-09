@@ -15,7 +15,7 @@ tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
 <div align="center">
     
 <div align="center">
-    <img src="./assets/logo.png" ></img>
+    <img src="/assets/logo.png" ></img>
 </div>
 
 # Table of Contents
@@ -98,7 +98,7 @@ Every password in the first dataset was translated in a keypress sequence on an 
           Hello@!! -> <s>hello<s>2<s>1<s>1```
 
 <div align="center">
-    <img style="max-height: 256px" src="./assets/US_keyboard_layout.png" ></img>
+    <img style="max-height: 256px" src="/assets/US_keyboard_layout.png" ></img>
 </div>
 
 ## Splitting dataset
@@ -124,18 +124,21 @@ Word2Vec is based on two architectures:
 CBOW is faster and effective with larger dataset, however, despite the greater complexity, Skip-gram is capable to find _out of dictionary_ words for smaller datasets.
 
 <div align="center">
-    <img style="max-height: 256px" src="./assets/cbow_vs_skipgram.png" ></img>
+    <img style="max-height: 256px" src="/assets/cbow_vs_skipgram.png" ></img>
 </div>
 
 ## FastText
 [FastText](https://fasttext.cc/) is a open source library created by Facebook which extends Word2Vec and is capable to learn word representation and sentence classification efficiently. The training is based on password n-grams. 
 N-grams of a specific word that contains `n` characters are defined as follow:
 <div align="center">
-    <img src="./assets/nngram_formula.png" ></img>
+    <img src="/assets/nngram_formula.png" ></img>
 </div>
 
 For example, the ngrams of the word `world`, with `n_mingram = 1` and `n_maxgram = 5` are:   
+
+{% raw %}
 `world = {{w, o, r, l, d}, {wo, or, rl, ld}, {wor, orl, rld}, {world}}`   
+{% endraw %}
 
 `world` is represented as the subset of substrings with 1 and 5 as respectively minimum and maximum length.
 FastText, comparing to Word2Vec, is capable to obtain more _out of dictionary_ words, which are unknown during the training phase.
@@ -171,9 +174,10 @@ In this project _Skip-gram_ model (`sg = 1`) and negative sampling were used:
 
 - N-grams are used in statistical natural language processing to predict a word and/or the context of a word. In this case they represent a contiguous sequence of n characters and their purpose is to give subword information.
 
-  - For example a password `w = qwerty` with `min_n = 4` and `m_max = 5`, will have the following n-grams.    
-  `zw = {<qwe, qwer, wert, erty, rty>, <qwer, qwert, werty, erty>}`
-
+  - For example a password `w = qwerty` with `min_n = 4` and `m_max = 5`, will have the following n-grams. 
+   {% raw %}  
+  `zw = { <qwe, qwer, wert, erty, rty>, <qwer, qwert, werty, erty> }`
+   {% endraw %}
   NB `<` and `>` are considered as characters.
 
 ## Saving the model
@@ -232,7 +236,7 @@ For the evaluation of the models, compressed versions obtained with product quan
 An effective valutation of both model is based on _precision_ and _recall_. 
 Not remarkable differences were observed: for this reason only the compressed version of the models are considered.
 <div align="center">
-    <img style="max-height: 350px" src="./assets/big_model.png"></img>
+    <img style="max-height: 350px" src="/assets/big_model.png"></img>
 </div>
 
 <div align="center">
@@ -242,7 +246,7 @@ Precision and recall in the uncompressed model of Bijeeta et al.
 <br></br>
 
 <div align="center">
-    <img style="max-height: 350px" src="./assets/w2kp_nmingram=1_epochs=5.png"></img>
+    <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png"></img>
 </div>
 
 <div align="center">
@@ -269,7 +273,7 @@ Ground truth depends on the candidate two passwords and the chosen euristhics, w
 
 **Recall** represents the number of positive elements detected from a set of false negatives and true positives.
 <div align="center">
-    <img style="max-height: 500px" src="./assets/precisionrecall.png" ></img>
+    <img style="max-height: 500px" src="/assets/precisionrecall.png" ></img>
 </div>
 
 In this case:
@@ -282,7 +286,7 @@ In order to find out _precision_ and _recall_ it is important to re-define few c
 - **False positives (FP)**: its value increments only if ground truth value is zero and  if prediction has a strictly positive value.
 - **False negatives (FP)**: its value increments only if ground truth value is strictly positive and if prediction value is zero.
 <div align="center">
-    <img src="./assets/precision_recall_formula.png"></img>
+    <img src="/assets/precision_recall_formula.png"></img>
 </div>
 
 ## Comparing the results of the models
@@ -300,7 +304,7 @@ In this case study, it is more important an higher value of recall. In this way 
 It is also important to not have too many false positives identified by couples of password which are different from each other but are considered similar. For this reason I have chosen an higher value of precision, comparing to Bijeeta et al. paper and α = 0.6.
 
 <div align="center">
-    <img style="max-height: 350px" src="./assets/w2kp_nmingram=1_epochs=5.png"></img>
+    <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png"></img>
 </div>
 
 <div align="center">
@@ -311,7 +315,7 @@ Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)
 
 <div align="center">
 <figure>
-    <img style="max-height: 350px" src="./assets/no_w2kp_nmingram=2_epochs=5.png"></img>
+    <img style="max-height: 350px" src="/assets/no_w2kp_nmingram=2_epochs=5.png"></img>
 </div>
 
 <div align="center">
@@ -336,5 +340,5 @@ will be considered similar.
 
 To simplify the comprehension of the project topic, password similarity is represented with a 3-dimensional graphic. [`t-SNE` algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) is used to reduce the model dimension from 200 to 3. In the next figure it is possible to see the top 5 most similar passwords to `ipwnedyou` and `numBerOne` and their distances. 
 <div align="center">
-    <img style="max-height: 350px" src="./assets/3dplot.png" ></img>
+    <img style="max-height: 350px" src="/assets/3dplot.png" ></img>
 </div>
