@@ -6,31 +6,8 @@ category: deep-neural-networks
 tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
 ---
 
+Password Similarity Detection Using Deep Neural Networks. This project was the case study of my bachelor's thesis. 
 ![](/assets/logo.png)
-
-{:refdef: style="text-align: left;"}
-
-# Table of Contents
-- [Introduction](#introduction)
-- [Data pre-processing](#data-pre-processing)
-  - [Word2keypress](#word2keypress)
-  - [Splitting dataset](#splitting-dataset)
-- [Training FastText](#training-fasttext)
-  - [Word2Vec](#word2vec)
-  - [FastText](#fasttext)
-  - [Environment setup](#environment-setup)
-  - [FastText parameters](#fasttext-parameters)
-  - [Saving the model](#saving-the-model)
-  - [More trainings](#more-trainings)
-- [Compressing the model](#compressing-the-model)
-- [Evaluating the model](#evaluating-the-model)
-  - [Euristhics](#euristhics)
-  - [Ground truth and prediction](#ground-truth-and-prediction)
-  - [Precision and recall](#precision-and-recall)
-  - [Comparing the results of the models](#comparing-the-results-of-the-models)
-  - [Bijeeta et al. model issues](#bijeeta-et-al-model-issues)
-- [Graphic representation of words distance](#graphic-representation-of-words-distance)
-
 
 Source code can be found [here](https://github.com/TryKatChup/password-similarity-nlp)
 
