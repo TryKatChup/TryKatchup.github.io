@@ -40,16 +40,21 @@ First of all I used a compilation of password leaks containing 1.4 billion email
   - `&#` (HTML entity code);
   - `amp`.
 
+
 - Due to the impossibility of similarity detection, accounts with less than 2 password were removed.
 
 After that, two dataset were build:
+
 
 - The first one, according with Bijeeta et alii, contains all the passwords in key-presses format (using the `word2keypress` package).
 - The second one contains all the passwords as they are.   
     
 The filtered datasets were saved in two `.csv` files in this format:
+
+
 - in the first dataset: `sample@gmail.com:["’97314348’", "’voyager<s>1’"]`
 - in the second dataset: `sample@gmail.com:["’97314348’", "’voyager!’"]`
+
 
 ## Word2keypress
 
