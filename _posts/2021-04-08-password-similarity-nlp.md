@@ -24,11 +24,15 @@ As a reference, a [scientific article published at IEEE Symposium on Security an
 **File:** [`preparing_dataset.py`](https://github.com/TryKatChup/password-similarity-nlp/blob/main/preparing_dataset.py)
 
 First of all I used a compilation of password leaks containing 1.4 billion email-password pairs from the Deep Web. Further operations were applied on the dataset:
+
+
 - Passwords longer than 30 characters or shorter than 4 removal.
 - Non ASCII printable characters in password removal.
 - Bot (which are recognisable by the same mail used more than 100 times) removal.
 - HEX passwords (identified by `$HEX[]`) and `\x` removal.
 - HTML char set removal, for example:
+
+
   - `&gt`;
   - `&ge`;
   - `&lt`;
