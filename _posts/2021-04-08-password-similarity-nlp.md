@@ -69,11 +69,13 @@ Every password in the first dataset was translated in a keypress sequence on an 
  <br>e.g. <code>PASSWORD -> &lt;c&gt;password</code>
   <br><code>passWORD -> pass&lt;c&gt;word</code></li>
     <li>If a password contains ASCII 128 special characters, the <code>&lt;s&gt;</code> tag will be placed before the special character, which is translated as <code>SHIFT + <key for the specific character></code>
-        e.g. <br><code>PASSWORD! -> &lt;c&gt;password&lt;s&gt;1</code>
+        <br>e.g. <br><code>PASSWORD! -> &lt;c&gt;password&lt;s&gt;1</code>
         <br><code>Hello@!! -> &lt;s&gt;hello&lt;s&gt;2&lt;s&gt;1&lt;s&gt;1</code></li>
 </ul>
 
-<img style="max-height: 256px" src="/assets/US_keyboard_layout.png">
+<br>
+<img style="max-height: 256px" src="/assets/US_keyboard_layout.png" >
+
 
 ## Splitting dataset
 **File:** [`split_dataset.py`](https://github.com/TryKatChup/password-similarity-nlp/blob/main/split_dataset.py)
