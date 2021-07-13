@@ -32,6 +32,15 @@ First of all I used a compilation of password leaks containing 1.4 billion email
 - HEX passwords (identified by `$HEX[]`) and `\x` removal.
 - HTML char set removal, for example:
 
+<ul>
+    <li><code>&gt</code></li>
+    <li><code>&ge</code></li>
+    <li><code>&lt</code></li>
+    <li><code>&le</code></li>
+    <li><code>&#</code>(HTML entity code)</li>
+    <li><code>amp</code></li>
+    
+</ul>
 
   - `&gt`;
   - `&ge`;
