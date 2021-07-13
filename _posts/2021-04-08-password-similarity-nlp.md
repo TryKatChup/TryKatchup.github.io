@@ -232,6 +232,7 @@ Not remarkable differences were observed: for this reason only the compressed ve
 <img style="max-height: 350px" src="/assets/big_model.png">
 <center>Precision and recall in the uncompressed model of Bijeeta et al.</center>
 <br>
+<br>
 <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
 <center>Precision and recall in the compressed model of Bijeeta et al.</center>
 
@@ -335,7 +336,7 @@ will be considered similar.
 </ul>
 
 ---
-# Graphic representation of words distance
+## Graphic representation of words distance
 **File:** [`visualize_embeddings.py`](https://github.com/TryKatChup/password-similarity-nlp/blob/main/visualize_embeddings.py)
 
 To simplify the comprehension of the project topic, password similarity is represented with a 3-dimensional graphic. [`t-SNE` algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) is used to reduce the model dimension from 200 to 3. In the next figure it is possible to see the top 5 most similar passwords to `ipwnedyou` and `numBerOne` and their distances. 
