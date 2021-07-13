@@ -25,30 +25,21 @@ As a reference, a [scientific article published at IEEE Symposium on Security an
 
 First of all I used a compilation of password leaks containing 1.4 billion email-password pairs from the Deep Web. Further operations were applied on the dataset:
 
-
-- Passwords longer than 30 characters or shorter than 4 removal.
-- Non ASCII printable characters in password removal.
-- Bot (which are recognisable by the same mail used more than 100 times) removal.
-- HEX passwords (identified by `$HEX[]`) and `\x` removal.
-- HTML char set removal, for example:
-
 <ul>
-    <li><code>&gt</code></li>
-    <li><code>&ge</code></li>
-    <li><code>&lt</code></li>
-    <li><code>&le</code></li>
-    <li><code>&#</code>(HTML entity code)</li>
-    <li><code>amp</code></li>
-    
+    <li>Passwords longer than 30 characters or shorter than 4 removal.</li>
+    <li>Non ASCII printable characters in password removal.</li>
+    <li>Bot (which are recognisable by the same mail used more than 100 times) removal.</li>
+    <li>HEX passwords (identified by <code>$HEX[]</code>) and <code>\x</code> removal.</li>
+    <li>HTML char set removal, for example:</li>  
+    <ul>
+        <li><code>&gt</code></li>
+        <li><code>&ge</code></li>
+        <li><code>&lt</code></li>
+        <li><code>&le</code></li>
+        <li><code>&#</code>(HTML entity code)</li>
+        <li><code>amp</code></li>
+    </ul>
 </ul>
-
-  - `&gt`;
-  - `&ge`;
-  - `&lt`;
-  - `&le`;
-  - `&#` (HTML entity code);
-  - `amp`.
-
 
 - Due to the impossibility of similarity detection, accounts with less than 2 password were removed.
 
