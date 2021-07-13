@@ -39,46 +39,42 @@ First of all I used a compilation of password leaks containing 1.4 billion email
         <li><code>&#</code>(HTML entity code)</li>
         <li><code>amp</code></li>
     </ul>
+    <li>Due to the impossibility of similarity detection, accounts with less than 2 password were removed.</li> 
 </ul>
-
-- Due to the impossibility of similarity detection, accounts with less than 2 password were removed.
 
 After that, two dataset were build:
 
-
-- The first one, according with Bijeeta et alii, contains all the passwords in key-presses format (using the `word2keypress` package).
-- The second one contains all the passwords as they are.   
+<ul>
+    <li>The first one, according with Bijeeta et alii, contains all the passwords in key-presses format (using the `word2keypress` package).</li>
+    <li>The second one contains all the passwords as they are.</li>
+</ul>   
     
 The filtered datasets were saved in two `.csv` files in this format:
 
-
-- in the first dataset: `sample@gmail.com:["’97314348’", "’voyager<s>1’"]`
-- in the second dataset: `sample@gmail.com:["’97314348’", "’voyager!’"]`
-
-
+<ul>
+    <li>in the first dataset: <code>sample@gmail.com:["’97314348’", "’voyager<s>1’"]</code></li>
+    <li>in the second dataset: <code>sample@gmail.com:["’97314348’", "’voyager!’"]</code></li>
+</ul>
 
 ## Word2keypress
 
 Every password in the first dataset was translated in a keypress sequence on an ANSI american keyboard:
 
+<ul>
+    <li>Every capital letter was represented by <code><s></code> (the <code>SHIFT</code> key) before the lowercase version.
+        <br>e.g. <code>Hello -> <s>hello</code></li>
+    <li>If there is a sequence of consecutive capital letters, followed by lowercase letters, the <code><c></code> tag (the <code>CAPS LOCK</code> key) is inserted <i>before</i> and <i>after</i> the sequence, which will be represented by lowercase letters. 
+  e.g. <br><code>Password -> <c>pass<c>word</code></li>
+    <li>If a sequence of capital letters ends at the end of the word, the <code><c></code> tag wil be placed before the sequence.
+ <br>e.g. <code>PASSWORD -> <c>password</code>
+  <br><code>passWORD -> pass<c>word</code></li>
 
-- Every capital letter was represented by `<s>` (the `SHIFT` key) before the lowercase version.
+    <li>If a password contains ASCII 128 special characters, the <code><s></code> tag will be placed before the special character, which is translated as <code>SHIFT + <key for the specific character></code>
+        e.g. <br><code>PASSWORD! -> <c>password<s>1</code>
+        <br><code>Hello@!! -> <s>hello<s>2<s>1<s>1</code></li>
+</ul>
 
-   e.g. `Hello -> <s>hello`
-- If there is a sequence of consecutive capital letters, followed by lowercase letters, the `<c>` tag (the `CAPS LOCK` key) is inserted _before_ and _after_ the sequence, which will be represented by lowercase letters.
-
-  e.g. `Password -> <c>pass<c>word`
-- If a sequence of capital letters ends at the end of the word, the `<c>` tag wil be placed before the sequence.
-
-  e.g. ```PASSWORD -> <c>password
-  passWORD -> pass<c>word```
-
-- If a password contains ASCII 128 special characters, the `<s>` tag will be placed before the special character, which is translated as `SHIFT + <key for the specific character>`
-
-  e.g. ```PASSWORD! -> <c>password<s>1
-          Hello@!! -> <s>hello<s>2<s>1<s>1```
-
-<img style="max-height: 256px" src="/assets/US_keyboard_layout.png" >
+<img style="max-height: 256px" src="/assets/US_keyboard_layout.png">
 
 ## Splitting dataset
 **File:** [`split_dataset.py`](https://github.com/TryKatChup/password-similarity-nlp/blob/main/split_dataset.py)
