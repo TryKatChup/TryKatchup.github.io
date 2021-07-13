@@ -18,6 +18,11 @@ body {
     background-color: $primary-color;
 }
 
+ul {
+    text-align: center;
+    list-style-position: inside;
+}
+
 html {
     width: 100%;
     height: 100%;
