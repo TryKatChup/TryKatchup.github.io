@@ -66,7 +66,7 @@ Every password in the first dataset was translated in a keypress sequence on an 
     <li>If there is a sequence of consecutive capital letters, followed by lowercase letters, the <code>&lt;c&gt;</code> tag (the <code>CAPS LOCK</code> key) is inserted <i>before</i> and <i>after</i> the sequence, which will be represented by lowercase letters. 
   e.g. <br><code>Password -> &lt;c&gt;pass&lt;c&gt;word</code></li>
     <li>If a sequence of capital letters ends at the end of the word, the <code>&lt;c&gt;</code> tag wil be placed before the sequence.
- <br>e.g. <code>PASSWORD -> &lt;c&gt;password</code>
+ <br>e.g.<br> <code>PASSWORD -> &lt;c&gt;password</code>
   <br><code>passWORD -> pass&lt;c&gt;word</code></li>
     <li>If a password contains ASCII 128 special characters, the <code>&lt;s&gt;</code> tag will be placed before the special character, which is translated as <code>SHIFT + &lt;key for the specific character&gt;</code>
         <br>e.g. <br><code>PASSWORD! -> &lt;c&gt;password&lt;s&gt;1</code>
@@ -95,10 +95,12 @@ A model trained with Word2Vec can detect similar words (based on context) thanks
 
 Word2Vec is based on two architectures:
 
+<ul>
+    <li><b>CBOW</b> (continuous bag of words): the main purpose is to combine the representation of surrounding words, in order to predict the word in the middle.</li>
+    <li><b>Skip-gram</b>: similar to CBOW, except for the word in the middle, which is used to predict words related to the same context.</li>
+</ul>
 
-- **CBOW** (continuous bag of words): the main purpose is to combine the representation of surrounding words, in order to predict the word in the middle.
-- **Skip-gram:** similar to CBOW, except for the word in the middle, which is used to predict words related to the same context.
-  
+
 CBOW is faster and effective with larger dataset, however, despite the greater complexity, Skip-gram is capable to find _out of dictionary_ words for smaller datasets.
 
 
@@ -111,10 +113,9 @@ N-grams of a specific word that contains `n` characters are defined as follow:
 <img src="/assets/nngram_formula.png" >
 
 For example, the ngrams of the word `world`, with `n_mingram = 1` and `n_maxgram = 5` are:   
+<br>
+<code>world = {{w, o, r, l, d}, {wo, or, rl, ld}, {wor, orl, rld}, {world}}</code>   
 
-{% raw %}
-`world = {{w, o, r, l, d}, {wo, or, rl, ld}, {wor, orl, rld}, {world}}`   
-{% endraw %}
 
 `world` is represented as the subset of substrings with 1 and 5 as respectively minimum and maximum length.
 FastText, comparing to Word2Vec, is capable to obtain more _out of dictionary_ words, which are unknown during the training phase.
@@ -137,26 +138,30 @@ sg = 1
 In this project _Skip-gram_ model (`sg = 1`) and negative sampling were used:
   
 
-- Skip-gram approach is chosen, as the distributed representation of the input word is used to predict the context. Skip-gram model works better with subword information, so it is recommended for learning passwords and rare words in general.
+<ul>
+    <li>Skip-gram approach is chosen, as the distributed representation of the input word is used to predict the context. Skip-gram model works better with subword information, so it is recommended for learning passwords and rare words in general.</li>
 
-- Negative sampling makes the training faster. Each training sample updates only a small percentage of the model weights. For larger datasets (like this case) it is recommended to set negative sampling between 2 and 5.
+    <li>Negative sampling makes the training faster. Each training sample updates only a small percentage of the model weights. For larger datasets (like this case) it is recommended to set negative sampling between 2 and 5.</li>
 
-- The dimension of vectors is set to 200, in order to have train the model faster. Generally it is recommended to have `SIZE = 300`.
+    <li>The dimension of vectors is set to 200, in order to have train the model faster. Generally it is recommended to have <code>SIZE = 300</code></li>
 
-- The `subsampling` ignores the most frequent password (more than 1000 occurrences).
+    <li> The <code>subsampling</code> ignores the most frequent password (more than 1000 occurrences).</li>
 
-- `min_count` represents the minimum number of occurences of a password in the training dataset.
+    <li><code>min_count</code> represents the minimum number of occurences of a password in the training dataset.</li>
 
-- `min_n` and `max_n` are the number of respectively minimum and maximum n-grams.
+    <li><code>min_n</code> and <code>max_n</code> are the number of respectively minimum and maximum n-grams.</li>
 
-- N-grams are used in statistical natural language processing to predict a word and/or the context of a word. In this case they represent a contiguous sequence of n characters and their purpose is to give subword information.
+    <li>N-grams are used in statistical natural language processing to predict a word and/or the context of a word. In this case they represent a contiguous sequence of n characters and their purpose is to give subword information.</li>
 
+    <ul>
+        <li>For example a password <code>w = qwerty</code> with <code>min_n = 4</code> and <code>m_max = 5</code>, will have the following n-grams. 
+        <br> 
+  <code>zw = { &lt;qwe, qwer, wert, erty, rty&gt;, &lt;qwer, qwert, werty, erty&gt; }</code></li>
+   <br>
+  NB &lt; and &gt; are considered as characters.
+    </ul>
+</ul>
 
-  - For example a password `w = qwerty` with `min_n = 4` and `m_max = 5`, will have the following n-grams. 
-   {% raw %}  
-  `zw = { <qwe, qwer, wert, erty, rty>, <qwer, qwert, werty, erty> }`
-   {% endraw %}
-  NB `<` and `>` are considered as characters.
 
 ## Saving the model
 Finally, the trained model is saved as `.bin`.
@@ -181,9 +186,10 @@ print("Model saved successfully.")
 
 The trained model is 4.8 GB. There are some problems about the size:
 
-
-- Too much space occupied in memory.
-- It is harder to use the model in client/server architectures. Everyone should use this model, which can be sent as a payload. Embeddings are not reversible, and they guarantee password anonymization.
+<ul>
+    <li>Too much space occupied in memory.</li>
+    <li>It is harder to use the model in client/server architectures. Everyone should use this model, which can be sent as a payload. Embeddings are not reversible, and they guarantee password anonymization.</li>
+</ul>
 
 For these reasons, [`compress_fasttext`](https://pypi.org/project/compress-fasttext/) is used.
 ```python
@@ -193,11 +199,12 @@ import compress_fasttext
 
 In order to obtain a compressed model, without impacting significantly on performances, product quantitation and feature selection are applied.
 
+<ul>
+<li>Feature selection is the process of selecting a subset of relevant features for use in model construction or in other words, the selection of the most important features.</li>
 
-- Feature selection is the process of selecting a subset of relevant features for use in model construction or in other words, the selection of the most important features.
+<li>Product quantization is a particolar type of vector quantization, a lossy compression technique used in speech and image coding. A product quantizer can generate anexponentially large codebook at very low memory/time cost.</li>
 
-- Product quantization is a particolar type of vector quantization, a lossy compression technique used in speech and image coding. A product quantizer can generate anexponentially large codebook at very low memory/time cost.
-
+</ul>
 ``` python
 big_model = gensim.models.fasttext.load_facebook_vectors('model_password_similarity.bin')
 small_model = compress_fasttext.prune_ft_freq(big_model, pq=True)
@@ -211,11 +218,12 @@ The compressed_model is 20MB.
 
 For the evaluation of the models, compressed versions obtained with product quantization were used. In order to measure any performance differences between the original model and the compressed version, Bijeeta et al. model is chosen, with the following features:
 
-
-- translation of the sequence of key pressed for the password;
-- `min_gram = 1`;
-- `max_gram = 4`;
-- `epochs = 5`.
+<ul>
+<li>translation of the sequence of key pressed for the password;
+<li><code>min_gram = 1</code>;</li>
+<li><code>max_gram = 4</code>;</li>
+<li>epochs = 5.</li>
+</ul>
 
 An effective valutation of both model is based on _precision_ and _recall_. 
 Not remarkable differences were observed: for this reason only the compressed version of the models are considered.
@@ -234,11 +242,13 @@ Precision and recall in the compressed model of Bijeeta et al.
 ## Euristhics
 For a proper evaluation the following euristhics is adopted:
 
+<ul>
+<li>comparing the password to the lowercase version;</li>
+<li>comparing the password to the uppercase version;</li>
+<li>comparing the password to the <code>l33t</code> code version;</li>
+<li>verifing if edit distance is greater than 5.</li>
+</ul>
 
-- comparing the password to the lowercase version;
-- comparing the password to the uppercase version;
-- comparing the password to the `l33t` code version;
-- verifing if edit distance is greater than 5.
 
 ## Ground truth and prediction
 Ground truth is the ideal result expected and it is used in order to verify how much correct are model prediction.
@@ -251,21 +261,25 @@ Ground truth depends on the candidate two passwords and the chosen euristhics, w
 **Precision** represents the number of true positive detected from true positives and false positives.
 
 **Recall** represents the number of positive elements detected from a set of false negatives and true positives.
+
 <img style="max-height: 500px" src="/assets/precisionrecall.png" >
 
 In this case:
 
-
-- A couple of similar passwords detected correctly represents **true positives**
-- A couple of different password detected as similar are **false positives**. 
-- A couple of similar passwords not detected as similar are **false negatives**.
+<ul>
+    <li>A couple of similar passwords detected correctly represents <b>true positives</b></li>
+    <li>A couple of different password detected as similar are <b>false positives</b>.</li>
+    <li>A couple of similar passwords not detected as similar are <b>false negatives</b>.</li>
+</ul>
 
 In order to find out _precision_ and _recall_ it is important to re-define few concepts, according to [ground truth and prediction subchapter](#ground-truth-and-prediction):
 
-
-- **True positives (TP)**: its value increments only if both prediction and ground truth have a strictly positive value.
-- **False positives (FP)**: its value increments only if ground truth value is zero and  if prediction has a strictly positive value.
-- **False negatives (FP)**: its value increments only if ground truth value is strictly positive and if prediction value is zero.
+<ul>
+    <li> <b>True positives (TP)</b>: its value increments only if both prediction and ground truth have a strictly positive value.</li>
+    <li> <b>False positives (FP)</b>: its value increments only if ground truth value is zero and  if prediction has a strictly positive value.</li>
+    <li> <b>False negatives (FP)</b>: its value increments only if ground truth value is strictly positive and if prediction value is zero.</li>
+</ul>
+    
 <div align="center">
     <img src="/assets/precision_recall_formula.png">
 </div>
@@ -273,19 +287,21 @@ In order to find out _precision_ and _recall_ it is important to re-define few c
 ## Comparing the results of the models
 In order to classify passwords, it is necessary to define a threeshold α, which it is chosen considering the best precision and recall values.
 
+<ul>
+    <li>Model with <code>word2keypress</code>, <code>n_mingram = 1</code>, <code>epochs = 5</code> (Bijeeta et al.):</li>
 
-- Model with `word2keypress`, `n_mingram = 1`, `epochs = 5` (Bijeeta et al.):
+  <ul>
+      <li>α = 0.5: precision ≈ 57%, recall ≈ 95%</li>
+      <li>α = 0.6: precision ≈ 67%, recall ≈ 89%</li>
+  </ul>
 
+    <li>Model without <code>word2keypress</code>, <code>n_mingram = 2</code>, <code>epochs = 5</code>: </li>
+    <ul>
+        <li>α = 0.5: precision ≈ 65%, recall ≈ 95%</li>
+        <li>α = 0.6: precision ≈ 77%, recall ≈ 89%</li>
+    </ul>
+</ul>
 
-  - α = 0.5: precision ≈ 57%, recall ≈ 95%
-  - α = 0.6: precision ≈ 67%, recall ≈ 89%
-
-
-- Model without `word2keypress`, `n_mingram = 2`, `epochs = 5`:
-
-
-  - α = 0.5: precision ≈ 65%, recall ≈ 95%
-  - α = 0.6: precision ≈ 77%, recall ≈ 89%
 
 In this case study, it is more important an higher value of recall. In this way more similar passwords are detected.   
 It is also important to not have too many false positives identified by couples of password which are different from each other but are considered similar. For this reason I have chosen an higher value of precision, comparing to Bijeeta et al. paper and α = 0.6.
@@ -301,19 +317,20 @@ Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best mode
 ## Bijeeta et al. model issues
 The worst performances were noticed in the Bijeeta et al. model. The main problems are:
 
-
-- `word2keypress` library translates each character as a key press sequence. When a password is expressed in camel notation, an alternation of capital letters and lowercase letters is present. As a consequence, different passwords in camel notation will be considered similar, because of the repetition of `<s>` and `<c>`.
-- Two passwords expressed as key presses like:
-
-
-    - `$1mp@t1c*`  which is translated as `<s>41mp<s>2t1c<s>8`
-    - `#wlng%p*m}` which is translated as `<s>3wlng<s>5p<s>8m<s>[`
+<ul>
+<li><code>word2keypress</code> library translates each character as a key press sequence. When a password is expressed in camel notation, an alternation of capital letters and lowercase letters is present. As a consequence, different passwords in camel notation will be considered similar, because of the repetition of <code>&lt;s&gt;</code> and <code>&lt;c&gt;</code>.</li>
+<li>Two passwords expressed as key presses like:</li>
+<ul>
+    <li><code>$1mp@t1c*</code>  which is translated as <code>&lt;s&gt;41mp&lt;s&gt;2t1c&lt;s&gt;8</code></li>
+    <li><code>#wlng%p*m}</code> which is translated as <code>&lt;s&gt;3wlng&lt;s&gt;5p&lt;s&gt;8m&lt;s&gt;[</code></li>
+</ul>
 will be considered similar.   
-`SHIFT` is translated as `<s>`: for this reason two passwords which are secure will appear similar.
+<li><code>SHIFT</code> is translated as <code>&lt;s&gt;</code>: for this reason two passwords which are secure will appear similar.</li>
 
 
-- Setting `n_mingram = 1` make the evaluation less precise than using `n_mingram = 2`.   
-  In fact, in passwords, single characters in passwords do not depend on syntactic rules (unlike in english literature). There are multiple factors really different from each other in order to establish a set of rules for the position of a character in a password, so it is impossible to define how a character is placed.  
+<li>Setting <code>n_mingram = 1</code> make the evaluation less precise than using <code>n_mingram = 2</code>.   
+  In fact, in passwords, single characters in passwords do not depend on syntactic rules (unlike in english literature). There are multiple factors really different from each other in order to establish a set of rules for the position of a character in a password, so it is impossible to define how a character is placed.</li>
+</ul>
 
 ---
 # Graphic representation of words distance
