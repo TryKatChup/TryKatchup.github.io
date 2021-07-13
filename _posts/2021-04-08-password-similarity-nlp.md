@@ -45,15 +45,15 @@ First of all I used a compilation of password leaks containing 1.4 billion email
 After that, two dataset were build:
 
 <ul>
-    <li>The first one, according with Bijeeta et alii, contains all the passwords in key-presses format (using the `word2keypress` package).</li>
+    <li>The first one, according with Bijeeta et alii, contains all the passwords in key-presses format (using the <code>word2keypress</code> package).</li>
     <li>The second one contains all the passwords as they are.</li>
 </ul>   
     
 The filtered datasets were saved in two `.csv` files in this format:
 
 <ul>
-    <li>in the first dataset: <code>sample@gmail.com:["’97314348’", "’voyager<s>1’"]</code></li>
-    <li>in the second dataset: <code>sample@gmail.com:["’97314348’", "’voyager!’"]</code></li>
+    <li>in the first dataset: <code>sample@gmail.com:["'97314348'", "'voyager<s>1'"]</code></li>
+    <li>in the second dataset: <code>sample@gmail.com:["'97314348'", "'voyager!'"]</code></li>
 </ul>
 
 ## Word2keypress
