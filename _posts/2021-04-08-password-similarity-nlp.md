@@ -260,7 +260,6 @@ Ground truth depends on the candidate two passwords and the chosen euristhics, w
 
 ## Precision and recall
 **Precision** represents the number of true positive detected from true positives and false positives.
-
 **Recall** represents the number of positive elements detected from a set of false negatives and true positives.
 
 <br>
@@ -286,6 +285,9 @@ In order to find out _precision_ and _recall_ it is important to re-define few c
     <img src="/assets/precision_recall_formula.png">
 </div>
 
+<br>
+
+---
 ## Comparing the results of the models
 In order to classify passwords, it is necessary to define a threeshold α, which it is chosen considering the best precision and recall values.
 
@@ -316,6 +318,7 @@ Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)
 
 Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).
 
+---
 ## Bijeeta et al. model issues
 The worst performances were noticed in the Bijeeta et al. model. The main problems are:
 
@@ -323,6 +326,7 @@ The worst performances were noticed in the Bijeeta et al. model. The main proble
 <li><code>word2keypress</code> library translates each character as a key press sequence. When a password is expressed in camel notation, an alternation of capital letters and lowercase letters is present. As a consequence, different passwords in camel notation will be considered similar, because of the repetition of <code>&lt;s&gt;</code> and <code>&lt;c&gt;</code>.</li>
 <li>Two passwords expressed as key presses like:</li>
 <ul>
+    <br>
     <li><code>$1mp@t1c*</code>  which is translated as <code>&lt;s&gt;41mp&lt;s&gt;2t1c&lt;s&gt;8</code></li>
     <li><code>#wlng%p*m}</code> which is translated as <code>&lt;s&gt;3wlng&lt;s&gt;5p&lt;s&gt;8m&lt;s&gt;[</code></li>
 </ul>
