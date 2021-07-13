@@ -231,12 +231,12 @@ Not remarkable differences were observed: for this reason only the compressed ve
 <br>
 <img style="max-height: 350px" src="/assets/big_model.png">
 
-Precision and recall in the uncompressed model of Bijeeta et al.
+<center>Precision and recall in the uncompressed model of Bijeeta et al.</center>
 <br>
 <br>
 <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
 
-Precision and recall in the compressed model of Bijeeta et al.
+<center>Precision and recall in the compressed model of Bijeeta et al.</center>
 
 
 
@@ -337,7 +337,6 @@ will be considered similar.
 <li>Setting <code>n_mingram = 1</code> make the evaluation less precise than using <code>n_mingram = 2</code>.   
   In fact, in passwords, single characters in passwords do not depend on syntactic rules (unlike in english literature). There are multiple factors really different from each other in order to establish a set of rules for the position of a character in a password, so it is impossible to define how a character is placed.</li>
 </ul>
-
 
 ---
 # Graphic representation of words distance
