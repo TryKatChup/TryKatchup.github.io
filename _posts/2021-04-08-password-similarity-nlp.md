@@ -114,7 +114,7 @@ N-grams of a specific word that contains `n` characters are defined as follow:
 
 For example, the ngrams of the word `world`, with `n_mingram = 1` and `n_maxgram = 5` are:   
 <br>
-<code ng-non-bindable>world = {{w, o, r, l, d}, {wo, or, rl, ld}, {wor, orl, rld}, {world}}</code>   
+  
 
 
 `world` is represented as the subset of substrings with 1 and 5 as respectively minimum and maximum length.
