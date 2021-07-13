@@ -230,12 +230,9 @@ An effective valutation of both model is based on _precision_ and _recall_.
 Not remarkable differences were observed: for this reason only the compressed version of the models are considered.
 <br>
 <img style="max-height: 350px" src="/assets/big_model.png">
-
 <center>Precision and recall in the uncompressed model of Bijeeta et al.</center>
 <br>
-<br>
 <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
-
 <center>Precision and recall in the compressed model of Bijeeta et al.</center>
 
 
@@ -311,12 +308,11 @@ In this case study, it is more important an higher value of recall. In this way 
 It is also important to not have too many false positives identified by couples of password which are different from each other but are considered similar. For this reason I have chosen an higher value of precision, comparing to Bijeeta et al. paper and α = 0.6.
 
 <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
-Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)
+<center>Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)</center>
 <br>
 
 <img style="max-height: 350px" src="/assets/no_w2kp_nmingram=2_epochs=5.png">
-
-Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).
+<center>Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).</center>
 
 ---
 ## Bijeeta et al. model issues
