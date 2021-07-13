@@ -61,17 +61,16 @@ The filtered datasets were saved in two `.csv` files in this format:
 Every password in the first dataset was translated in a keypress sequence on an ANSI american keyboard:
 
 <ul>
-    <li>Every capital letter was represented by <code><s></code> (the <code>SHIFT</code> key) before the lowercase version.
-        <br>e.g. <code>Hello -> <s>hello</code></li>
-    <li>If there is a sequence of consecutive capital letters, followed by lowercase letters, the <code><c></code> tag (the <code>CAPS LOCK</code> key) is inserted <i>before</i> and <i>after</i> the sequence, which will be represented by lowercase letters. 
-  e.g. <br><code>Password -> <c>pass<c>word</code></li>
-    <li>If a sequence of capital letters ends at the end of the word, the <code><c></code> tag wil be placed before the sequence.
- <br>e.g. <code>PASSWORD -> <c>password</code>
-  <br><code>passWORD -> pass<c>word</code></li>
-
-    <li>If a password contains ASCII 128 special characters, the <code><s></code> tag will be placed before the special character, which is translated as <code>SHIFT + <key for the specific character></code>
-        e.g. <br><code>PASSWORD! -> <c>password<s>1</code>
-        <br><code>Hello@!! -> <s>hello<s>2<s>1<s>1</code></li>
+    <li>Every capital letter was represented by <code>&lt;s&gt;</code> (the <code>SHIFT</code> key) before the lowercase version.
+        <br>e.g. <code>Hello -> &lt;s&gt;hello</code></li>
+    <li>If there is a sequence of consecutive capital letters, followed by lowercase letters, the <code>&lt;c&gt;</code> tag (the <code>CAPS LOCK</code> key) is inserted <i>before</i> and <i>after</i> the sequence, which will be represented by lowercase letters. 
+  e.g. <br><code>Password -> &lt;c&gt;pass&lt;c&gt;word</code></li>
+    <li>If a sequence of capital letters ends at the end of the word, the <code>&lt;c&gt;</code> tag wil be placed before the sequence.
+ <br>e.g. <code>PASSWORD -> &lt;c&gt;password</code>
+  <br><code>passWORD -> pass&lt;c&gt;word</code></li>
+    <li>If a password contains ASCII 128 special characters, the <code>&lt;s&gt;</code> tag will be placed before the special character, which is translated as <code>SHIFT + <key for the specific character></code>
+        e.g. <br><code>PASSWORD! -> &lt;c&gt;password&lt;s&gt;1</code>
+        <br><code>Hello@!! -> &lt;s&gt;hello&lt;s&gt;2&lt;s&gt;1&lt;s&gt;1</code></li>
 </ul>
 
 <img style="max-height: 256px" src="/assets/US_keyboard_layout.png">
