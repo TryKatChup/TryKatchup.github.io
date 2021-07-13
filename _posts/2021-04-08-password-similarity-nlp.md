@@ -170,6 +170,8 @@ from gensim.models.fasttext import save_facebook_model
 save_facebook_model(trained_model, "model_password_similarity.bin")
 print("Model saved successfully.")
 ```
+
+---
 ## More trainings
 
 5 models were trained:
@@ -185,7 +187,6 @@ print("Model saved successfully.")
 # Compressing the model
 
 The trained model is 4.8 GB. There are some problems about the size:
-
 <ul>
     <li>Too much space occupied in memory.</li>
     <li>It is harder to use the model in client/server architectures. Everyone should use this model, which can be sent as a payload. Embeddings are not reversible, and they guarantee password anonymization.</li>
@@ -210,7 +211,7 @@ big_model = gensim.models.fasttext.load_facebook_vectors('model_password_similar
 small_model = compress_fasttext.prune_ft_freq(big_model, pq=True)
 small_model.save('compressed_model')
 ```
-The compressed_model is 20MB.
+The compressed model is 20MB.
 
 ---
 # Evaluating the model
@@ -219,7 +220,7 @@ The compressed_model is 20MB.
 For the evaluation of the models, compressed versions obtained with product quantization were used. In order to measure any performance differences between the original model and the compressed version, Bijeeta et al. model is chosen, with the following features:
 
 <ul>
-<li>translation of the sequence of key pressed for the password;
+<li>translation of the sequence of key pressed for the password;</li>
 <li><code>min_gram = 1</code>;</li>
 <li><code>max_gram = 4</code>;</li>
 <li>epochs = 5.</li>
@@ -227,11 +228,11 @@ For the evaluation of the models, compressed versions obtained with product quan
 
 An effective valutation of both model is based on _precision_ and _recall_. 
 Not remarkable differences were observed: for this reason only the compressed version of the models are considered.
-
+<br>
 <img style="max-height: 350px" src="/assets/big_model.png">
 
 Precision and recall in the uncompressed model of Bijeeta et al.
-
+<br>
 <br>
 <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
 
@@ -249,7 +250,7 @@ For a proper evaluation the following euristhics is adopted:
 <li>verifing if edit distance is greater than 5.</li>
 </ul>
 
-
+---
 ## Ground truth and prediction
 Ground truth is the ideal result expected and it is used in order to verify how much correct are model prediction.
 The term _prediction_ refers to the model output after the training. It is applied to new data when is required to verify an event probability.
@@ -262,6 +263,7 @@ Ground truth depends on the candidate two passwords and the chosen euristhics, w
 
 **Recall** represents the number of positive elements detected from a set of false negatives and true positives.
 
+<br>
 <img style="max-height: 500px" src="/assets/precisionrecall.png" >
 
 In this case:
@@ -331,6 +333,7 @@ will be considered similar.
 <li>Setting <code>n_mingram = 1</code> make the evaluation less precise than using <code>n_mingram = 2</code>.   
   In fact, in passwords, single characters in passwords do not depend on syntactic rules (unlike in english literature). There are multiple factors really different from each other in order to establish a set of rules for the position of a character in a password, so it is impossible to define how a character is placed.</li>
 </ul>
+
 
 ---
 # Graphic representation of words distance
