@@ -68,7 +68,7 @@ Every password in the first dataset was translated in a keypress sequence on an 
     <li>If a sequence of capital letters ends at the end of the word, the <code>&lt;c&gt;</code> tag wil be placed before the sequence.
  <br>e.g. <code>PASSWORD -> &lt;c&gt;password</code>
   <br><code>passWORD -> pass&lt;c&gt;word</code></li>
-    <li>If a password contains ASCII 128 special characters, the <code>&lt;s&gt;</code> tag will be placed before the special character, which is translated as <code>SHIFT + <key for the specific character></code>
+    <li>If a password contains ASCII 128 special characters, the <code>&lt;s&gt;</code> tag will be placed before the special character, which is translated as <code>SHIFT + &lt;key for the specific character&gt;</code>
         <br>e.g. <br><code>PASSWORD! -> &lt;c&gt;password&lt;s&gt;1</code>
         <br><code>Hello@!! -> &lt;s&gt;hello&lt;s&gt;2&lt;s&gt;1&lt;s&gt;1</code></li>
 </ul>
