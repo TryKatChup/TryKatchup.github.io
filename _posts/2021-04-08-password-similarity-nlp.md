@@ -52,7 +52,7 @@ After that, two dataset were build:
 The filtered datasets were saved in two `.csv` files in this format:
 
 <ul>
-    <li>in the first dataset: <code>sample@gmail.com:["'97314348'", "'voyager&lts&gt1'"]</code></li>
+    <li>in the first dataset: <code>sample@gmail.com:["'97314348'", "'voyager&lt;s&gt;1'"]</code></li>
     <li>in the second dataset: <code>sample@gmail.com:["'97314348'", "'voyager!'"]</code></li>
 </ul>
 
