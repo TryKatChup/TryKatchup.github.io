@@ -24,7 +24,7 @@ As a reference, a [scientific article published at IEEE Symposium on Security an
 **File:** [`preparing_dataset.py`](https://github.com/TryKatChup/password-similarity-nlp/blob/main/preparing_dataset.py)
 
 First of all I used a compilation of password leaks containing 1.4 billion email-password pairs from the Deep Web. Further operations were applied on the dataset:
-
+<p align="left">
 <ul>
     <li>Passwords longer than 30 characters or shorter than 4 removal.</li>
     <li>Non ASCII printable characters in password removal.</li>
@@ -41,7 +41,7 @@ First of all I used a compilation of password leaks containing 1.4 billion email
     </ul>
     <li>Due to the impossibility of similarity detection, accounts with less than 2 password were removed.</li> 
 </ul>
-
+</p>
 After that, two dataset were build:
 
 <ul>
