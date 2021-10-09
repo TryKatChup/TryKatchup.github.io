@@ -3,18 +3,18 @@ title: Karina's Blog (@TryKatChup)
 description: >-
   My personal website  <a href="https://github.com/TryKatChup" target="_blank" rel="noopener">@github</a>.
 lang: en-US
-timezone: Asia/Jakarta
+timezone: Rome/Europe
 image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
-repo: https://github.com/piharpi/jekyll-klise
+repo: https://github.com/TryKatChup/TryKatchup.github.io
 mode: "dark" # default theme "dark" | "light"
 
 # Profile settings
 author:
   name: Karina
   bio: >-
-    My personal website <a href="https://github.com/piharpi" target="_blank" rel="noopener">@github</a>.
-  username: piharpi
-  email: fyi@harpi.rocks
+    My personal website <a href="https://github.com/TryKatChup" target="_blank" rel="noopener">@github</a>.
+  username: TryKatChup
+  email: 
   open_to_work: true
   avatar: /assets/img/avatar.png
 
