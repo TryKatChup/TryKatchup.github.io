@@ -1,24 +1,21 @@
-
-<!-- Pagination Links Start -->
-
-<div class="pagination">
-
-  <h4>
-
+<!-- NOTE: unused file, but u can use if necessary -->
+<!-- <div class="pagination">
   {% if paginator.previous_page %}
-    <a href="{{site.baseurl}}{{paginator.previous_page_path}}" class="previous">Newer Posts</a>
+  <a
+    class="page-previous"
+    href="{{ paginator.previous_page_path }}"
+    class="previous"
+  >
+    <span aria-hidden="true">←</span> NEWER POSTS
+  </a>
   {% endif %}
-
-  {% if paginator.previous_page and paginator.next_page %}
-    |
-  {% endif %}
-
+  <span class="page_number"
+    >PAGE {{ paginator.page }} OF {{ paginator.total_pages }}</span
+  >
   {% if paginator.next_page %}
-    <a href="{{site.baseurl}}{{paginator.next_page_path}}" class="next">Older Posts</a>
+  <a class="page-next" href="{{ paginator.next_page_path }}" class="next"
+    >OLDER POSTS
+    <span aria-hidden="true">→</span>
+  </a>
   {% endif %}
-
-  </h4>
-
-</div>
-
-<!-- Pagination Links End -->
+</div> -->

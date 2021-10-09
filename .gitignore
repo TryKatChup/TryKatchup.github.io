@@ -1,0 +1,9 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.catat
+resume.md
+_drafts
+Gemfile.lock
+.vercel

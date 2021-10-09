@@ -1,67 +1,93 @@
-
-<!-- Post Layout Start -->
+---
+layout: compress
+---
 
 <!DOCTYPE html>
-<html lang="{{ site.lang }}">
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-  {% include head.html %}
+{% include header.html %}
 
-  <body>
+<body data-theme="{{ site.mode }}" class="notransition">
 
-    {% include navigation.html %}
+  <script>
+    const body = document.body;
+    const data = body.getAttribute("data-theme");
 
-    <section id="post" class="container content-section text-center">
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+    const initTheme = (state) => {
+      if (state === "dark") {
+        body.setAttribute("data-theme", "dark");
+      } else if (state === "light") {
+        body.removeAttribute("data-theme");
+      } else {
+        localStorage.setItem("theme", data);
+      }
+    };
 
-          {% include swipe-instructions.html %}
+    initTheme(localStorage.getItem("theme"));
 
-          <h1><strong>{{ page.title }}</strong></h1>
-          <h4>
-            <strong>{{ page.date | date_to_string }}</strong>
-            <small>
-              . category:
-              <a class="category" href="{{site.baseurl}}/categories/{{page.category | downcase}}.html">
-                {{ page.category }}
-              </a>.
-              <a href="{{site.baseurl}}{{page.url }}#disqus_thread">Comments</a>
-              <br />
-              {% for tag in page.tags %}
-                <a class="tag" href="{{site.baseurl}}/tags/{{tag | downcase}}.html">#{{ tag }}</a>
+    setTimeout(() => body.classList.remove("notransition"), 75);
+  </script>
+
+  {% include navbar.html %}
+  <div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+      <article itemscope itemtype="https://schema.org/BlogPosting">
+
+        <header class="header">
+          {% if page.tags and page.tags != empty %}
+          <div class="tags">
+            {% assign tags = page.tags %}
+            <span itemprop="keywords">
+              {% for tag in tags %}
+              <a class="tag"
+                href="/tags/#{{tag | downcase | slugify}}">{{tag | upcase }}</a>{% unless forloop.last %},{% endunless %}
               {% endfor %}
-            </small>
-          </h4>
-
-          <section class="text-justify">
-            {{ page.content | markdownify }}
-          </section>
-
-          {% include share.html %}
-
-          {% if jekyll.environment == "production" %}
-            {% include comments.html %}
-          {% endif %}
-
-
-          <hr />
-
-          {% if site.author_blurb %}
-          <div class="author row">
-            <img class="col-xs-4 col-sm-3 col-md-2" src="{{site.baseurl}}{{site.author_blurb_image}}" alt="Me" />
-            <p class="col-xs-8 col-sm-9 col-md-10">
-              {{ site.author_blurb }}
-            </p>
+            </span>
           </div>
-          {% endif%}
+          {% endif %}
+          <h1 class="header-title" itemprop="headline">{{ page.title | escape }}</h1>
+          {% if page.date %}
+          <div class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+              {{ page.date | date: "%b %d, %Y" }}
+            </time>
+            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <span itemprop="name">{{ site.author.name }}</span>
+            </span>
+            <time hidden datetime="{{ page.modified | date_to_xmlschema }}" itemprop="dateModified">
+              {{ page.date | date: "%b %d, %Y" }}
+            </time>
+            <span hidden itemprop="publisher" itemtype="Person">{{ site.author.name }}</span>
+            <span hidden itemprop="image">{{ page.image }}</span>
+            <span hidden itemprop="mainEntityOfPage">{{ page.excerpt }}</span>
+          </div>
+          {% endif %}
+        </header>
+
+        <div class="page-content" itemprop="articleBody">
+          {% include anchor_headings.html html=content anchorClass="anchor-head" beforeHeading=true h_min=1 h_max=4 %}
+          {% if page.tweet %}
+          <p>Comments this article on 
+            <a href="https://twitter.com/{{site.username}}/status/{{page.tweet}}">Twitter</a>.
+          </p>
+          {% endif %}
         </div>
-      </div>
-    </section>
+      </article>
+      {% if page.comments %}
+        {% include comments.html %}
+      {% endif %}
 
-    {% include footer.html %}
+    </main>
+    {% if page.modified %}
+      <small class="post-updated-at">updated_at {{page.modified | date: "%d-%m-%Y"}}</small>
+    {% endif %}
+    {% if page.next or page.previous %}
+      {% include navigation.html %}
+    {% endif %}
+  </div>
 
-    {% include js.html %}
+  {% include footer.html %}
 
-  </body>
+</body>
+
 </html>
-
-<!-- Post Layout End -->

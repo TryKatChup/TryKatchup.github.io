@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "regions": [
+    "sin1"
+  ],
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/gh",
+      "destination": "https://github.com/TryKatChup"
+    },
+    {
+      "source": "/tw",
+      "destination": "https://twitter.com/piharpi"
+    },
+    {
+      "source": "/in",
+      "destination": "https://www.linkedin.com/in/karina-chichifoi/"
+    },
+    {
+      "source": "/rickroll",
+      "destination": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "permanent": true
+    }
+  ]
+}

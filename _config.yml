@@ -1,220 +1,86 @@
 # Site settings
+title: Karina's Blog (@TryKatChup)
+description: >-
+  My personal website  <a href="https://github.com/TryKatChup" target="_blank" rel="noopener">@github</a>.
+lang: en-US
+timezone: Asia/Jakarta
+image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
+repo: https://github.com/piharpi/jekyll-klise
+mode: "dark" # default theme "dark" | "light"
 
-# Personal site url
+# Profile settings
+author:
+  name: Karina
+  bio: >-
+    My personal website <a href="https://github.com/piharpi" target="_blank" rel="noopener">@github</a>.
+  username: piharpi
+  email: fyi@harpi.rocks
+  open_to_work: true
+  avatar: /assets/img/avatar.png
 
-url: "https://trykatchup.github.io/"
+# Url settings
+url: "https://trykatchup.github.io"
+baseurl:
+permalink: /:title/
+google_analytics:
+fb_appid:
 
+disqus:
+  shortname: 'TryKatChup'
 
-baseurl: ""
+# Collection setting
+collections:
+  posts:
+    output: true
 
-# Google tracking id
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
 
-google-tracking-id: ""
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      icon: "💭️"
+      layout: post
+      comments: false
 
-# Forces https everywhere in your website, except when you serve it locally
-# If you are not hosted on Github Pages, and your host doesn't support https
-# then you should disable it
+# Jekyll Compose default front matter
+jekyll_compose:
+  post_default_front_matter:
+    modified:
+    tags: []
+    description:
+  draft_default_front_matter:
+    modified:
+    tags: []
+    description:
 
-force-https: True
-
-#############
-# HTML Head #
-#############
-
-lang: "en"
-author: "Karina Chichifoi"
-title: "{ Karina Chichifoi }"
-description: "Personal site and blog of Karina Chichifoi"
-keywords: "chichifoi, karina, personal"
-favicon: "/img/coffee.ico"
-
-################
-# Header layout #
-################
-
-black-favicon: "/img/coffee.ico"
-
-background-img: "../img/intro-bg.jpg"
-
-##############################
-# Dynamic Text on the Header #
-##############################
-
-dynamic-typing: True
-shuffle: True # Shuffle the lines.
-loop: True
-loop-count: False # Set False for infinite loop, or set any number for finite loop.
-type-speed: 10
-start-delay: 200
-delete-delay: 5000
-lines: # You can add HTML Tags in the Text
-  - text: "To those who believe in dreams, a step is enough to reach the stars."
-  - text: "Per aspera ad astra"
-  - text: "The future belongs to those who believe in the beauty of their dreams."
-  - text: "It's never too late to focus on your dreams"
-  - text: "You have the power to heal yourself!"
-  - text: "When you change yourself, you change the world"
-me-img: "/img/me.jpg"
-
-# To use facebook profile pic comment the previous line and uncomment the following
-# line, and replace 'user_id' with your facebook user id.
-# Facebook user id can be found by clicking on your profile pic and the large number
-# in the end of the url just before '&type' is your user id.
-# Note: fbid is not the same as user id and user id only contains numbers
-
-# me-img: "https://graph.facebook.com/user_id/picture?type=large&width=500&height=500"
-
-# To use github profile pic uncomment the following line and replace 'user_name'
-# with your github user name.
-
-# me-img: "https://github.com/user_name.png?size=500"
-
-# To use gravatar profile pic uncomment the following line and replace 'email_hash'
-# with your gravatar profile email hash.
-# You can create the email hash by using an online tool like 'http://www.md5hashgenerator.com/'
-# just enter your email and it will generate the hash.
-
-# me-img: "https://www.gravatar.com/avatar/email_hash?s=500"
-
-##############################
-# Color the browser elements #
-##############################
-color-browser: "#000000"
-apple-status-bar-style: "black"
-
-################
-# Web app mode #
-################
-
-web-app-mode: True
-
-# Icons for Web App mode
-
-icon-36p: "/img/web-app/icon-36p.png"
-icon-48p: "/img/web-app/icon-48p.png"
-icon-72p: "/img/web-app/icon-72p.png"
-icon-96p: "/img/web-app/icon-96p.png"
-icon-144p: "/img/web-app/icon-144p.png"
-icon-192p: "/img/web-app/icon-192p.png"
-
-########
-# Blog #
-########
-
-enable-gesture-navigation: True
-
-post-preview-words: 10
-
-paginate: 5
-
-email-share: True
-fb-share: True
-twitter-share: True
-linkedin-share: True
-reddit-share: True
-google-plus-share: True
-tumblr-share: True
-pinterest-share: True
-pocket-share: True
-vkontakte-share: True
-
-disqus-shortname: "personal-site"
-
-syntax-highlight: True
-
-############
-# Timeline #
-############
-
-events:
-  - image: "/img/timeline/concert.jpg"
-    date: "9th July 2015"
-    description: "First big concert"
-  - image: "/img/timeline/tux.jpg"
-    date: "July 2014"
-    description: "First Linux installation"
-  - image: "/img/timeline/karate.png"
-    date: "September 2013"
-    description: "Black belt achieved"
-  - image: "/img/timeline/hello-world.png"
-    date: "September 2012"
-    description: "First program"
-  
-
-# First image of the Timeline
-
-timeline-img: "/img/timeline/chibiMe.jpg"
-
-###########
-# Contact #
-###########
-
-email: "karina.chichifoi@gmail.com"
-
-################
-# Author Blurb #
-################
-
-# The author blurb goes underneath blog posts.
-# This works best when your author blurb image has a transparent background, or matches your site background color.
-
-# if the author_blurb is not set, then this feature is skipped
-author_blurb: "I am really driven by curiosity, which makes me overcome anything.
-My code is the representation of creativity taking form.
-Through a keyboard and with a thirst of knowledge I hope my software could revolutionize the world."
-author_blurb_image: "/img/me.jpg"
-
-##################
-# Social Buttons #
-##################
-
-social:
-  - title: "twitter"
-    url: "https://twitter.com/KaryChan07"
-  - title: "github"
-    url: "https://github.com/TryKatChup"
-  - title: "linkedin"
-    url: "https://www.linkedin.com/in/karina-chichifoi/"
-
-############
-# 404 page #
-############
-
-err-404-img: "/img/errorcat.png"
-
-##################
-# GPG on Keybase #
-##################
-
-#keybase-username: karinachichifoi
-#keybase-in-social: True
-#keybase-in-footer: True
-
-################################################################################
-
-# NB! Tread carefully if you want to change the variables below this point!
-
-# Sections shown in the index page
-
-pages_list:
-  About: 'about'
-  Blog: 'latest-post'
-  Timeline: 'timeline'
-  Contact: 'contact'
-
-# Exclusion list from the generated _site
-
-exclude: ["LICENSE", "README.md", "CONTRIBUTING", "CONTRIBUTORS", "scripts"]
-
-# Pagination path
-
-paginate_path: "blog/page:num/"
-
-# Enable minification SASS
-
+# Build settings
 sass:
   style: compressed
 
-gems:
-  - jekyll-paginate
-  - jemoji
+include:
+  - _redirects
+  - .htaccess
+
+exclude:
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - CHANGELOG.md
+  - README.md
+  - node_modules
+  - bangsring.gemspec
+  - CODE_OF_CONDUCT.md
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sass-converter
+  - jekyll-sitemap
+  - jekyll-postfiles
