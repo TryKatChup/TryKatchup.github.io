@@ -10,7 +10,7 @@ Password Similarity Detection Using Deep Neural Networks. This project was the c
 
 Source code can be found [here](https://github.com/TryKatChup/password-similarity-nlp)
 <div align="center">
- <img src="/assets/logo.png)">
+ <img src="/assets/logo.png">
 </div>
 ---
 # Introduction
@@ -74,7 +74,6 @@ Every password in the first dataset was translated in a keypress sequence on an 
         <br><code>Hello@!! -> &lt;s&gt;hello&lt;s&gt;2&lt;s&gt;1&lt;s&gt;1</code></li>
 </ul>
 
-<br>
 <div align="center">
     <img style="max-height: 256px" src="/assets/US_keyboard_layout.png">
 </div>
