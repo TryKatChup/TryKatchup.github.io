@@ -48,13 +48,17 @@ I love going to concerts too: it's an opportunity to live the music and for exch
   <p><i class="icon-camera-retro icon-2x"></i></p>
 </span>
 
-<!--{% include social-buttons.html %}-->
+{% include social-buttons.html %}
 
-{% include social-media-links.html %}
-<a href="https://twitter.com/karychan07" title="Twitter"><i class="fa fa-twitter"></i></a>
+<!--{% include social-media-links.html %}-->
 
 <a href="{{ site.data.social-media.email.href }}{{ site.data.social-media.email.id }}" title="Email me">Click here to send me an email!</a>
  
+ <div class="container text-center">
+        <p>Copyright &copy; {{ site.author }} {{ site.time | date: "%Y" }}</p>
+        <p style="font-size: 16px;"><a href="https://keybase.io/{{site.keybase-username}}" target="_blank"><i
+                class="fa fa-key"></i> {{site.keybase-username}} on Keybase</a></p>
+    </div>
                                        
 * [github.com/TryKatChup]
 * [linkedin.com/karina-chichifoi]
