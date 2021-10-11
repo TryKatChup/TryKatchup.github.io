@@ -39,7 +39,8 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 
 
 ##### Contacts
-<a href="https://www.linkedin.com/karina-chichifoi" title="Linkedin"><i class="fa fa-linkedin-square"></i></a>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 
 * [github.com/TryKatChup]
