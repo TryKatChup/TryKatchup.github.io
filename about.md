@@ -5,6 +5,10 @@ layout: page
 excerpt: I live and study Computer Engineering in the motherland of lasagne, tortellini and tagliatelle al ragù.
 comments: false
 ---
+<head>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+</head>
 
 ## About
 
@@ -39,9 +43,7 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 
 
 ##### Contacts
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
+<p><i class="icon-camera-retro icon-2x"></i> icon-camera-retro</p>
 
 * [github.com/TryKatChup]
 * [linkedin.com/karina-chichifoi]
