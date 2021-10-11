@@ -39,10 +39,5 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 
 ##### Contacts
 
-
-<!--{% include social-buttons.html %}-->
-
 {% include social-media-links.html %}
-
-<a href="https://twitter.com/KaryChan07" title="Twitter"><i class="fa fa-twitter"></i></a>
 
