@@ -102,6 +102,3 @@ plugins:
   - jekyll-sass-converter
   - jekyll-sitemap
   - jekyll-postfiles
-
-gems:
-  - jekyll-font-awesome-sass
