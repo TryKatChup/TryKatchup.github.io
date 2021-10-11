@@ -51,7 +51,7 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 <!--{% include social-buttons.html %}-->
 
 {% include social-media-links.html %}
-<a href="{{ site.data.social-media.twitter.href }}{{ site.data.social-media.twitter.id }}" title="Twitter"><i class="fa fa-twitter"></i></a>
+<a href="https://twitter.com/karychan07" title="Twitter"><i class="fa fa-twitter"></i></a>
 
 <a href="{{ site.data.social-media.email.href }}{{ site.data.social-media.email.id }}" title="Email me">Click here to send me an email!</a>
  
