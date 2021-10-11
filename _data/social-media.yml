@@ -2,22 +2,22 @@ email:
   id: 'karina.chichifoi@gmail.com'
   href: 'mailto:'
   title: 'Email'
-  fa-icon: 'fa-envelope-square'
+  fa-icon: 'fa-envelope'
 
 linkedin:
   id: 'karina-chichifoi'
   href: 'https://www.linkedin.com/'
   title: 'Linkedin'
-  fa-icon: 'fa-linkedin-square'
+  fa-icon: 'fa-linkedin'
 
 twitter:
   id: 'karychan007'
   href: 'https://www.twitter.com/'
   title: 'Twitter'
-  fa-icon: 'fa-twitter-square'
+  fa-icon: 'fa-twitter'
 
 github:
   id: 'TryKatChup'
   href: 'https://github.com/'
   title: 'GitHub'
-  fa-icon: 'fa-github-square' 
+  fa-icon: 'fa-github' 
