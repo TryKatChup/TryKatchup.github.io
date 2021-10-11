@@ -24,25 +24,15 @@ baseurl:
 permalink: /:title/
 google_analytics:
 fb_appid:
-social_links:
-    twitter: karychan007
-    github:  TryKatChup
-    linkedin_username: karina-chichifoi
-    # devto: jekyll
-    # dribbble: jekyll
-    # facebook: jekyll
-    # flickr:   jekyll
-    # instagram: jekyll
-    # linkedin: jekyll
-    # pinterest: jekyll
-    # youtube: jekyll
-    # youtube_channel: UC8CXR0-3I70i1tfPg1PAE1g
-    # youtube_channel_name: CloudCannon
-    # telegram: jekyll
-    # googleplus: +jekyll
-    # microdotblog: jekyll
-    # keybase: jekyll
-    
+
+social:
+  - title: "twitter"
+    url: "https://twitter.com/KaryChan07"
+  - title: "github"
+    url: "https://github.com/TryKatChup"
+  - title: "linkedin"
+    url: "https://www.linkedin.com/in/karina-chichifoi/"
+ 
 disqus:
   shortname: 'TryKatChup'
 
