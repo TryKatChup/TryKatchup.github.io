@@ -6,8 +6,9 @@ category: deep-neural-networks
 tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
 ---
 
-Password Similarity Detection Using Deep Neural Networks. This project was the case study of my bachelor's thesis. 
 ![](/assets/logo.png)
+
+Password Similarity Detection Using Deep Neural Networks. This project was the case study of my bachelor's thesis.
 
 Source code can be found [here](https://github.com/TryKatChup/password-similarity-nlp)
 
