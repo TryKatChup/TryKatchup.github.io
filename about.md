@@ -48,7 +48,7 @@ I love going to concerts too: it's an opportunity to live the music and for exch
   <p><i class="icon-camera-retro icon-2x"></i></p>
 </span>
 
-{% include social-media-links.html %}
+{% include social-buttons.html %}
 
                                        
 * [github.com/TryKatChup]
