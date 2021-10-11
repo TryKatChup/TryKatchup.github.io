@@ -45,7 +45,7 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 ##### Contacts
 
 <span style="font-size: 3em; color: Tomato;">
-  <i class="icon-camera-retro icon-2x""></i>
+  <p><i class="icon-camera-retro icon-2x"></i></p>
 </span>
 
                                        
