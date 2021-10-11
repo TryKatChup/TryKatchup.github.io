@@ -43,7 +43,10 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 
 
 ##### Contacts
-<p><i class="icon-camera-retro icon-2x"></i> icon-camera-retro</p>
+
+<span style="font-size: 3em; color: Tomato;">
+  <i class="fas fa-camera"></i>
+</span>
 
 * [github.com/TryKatChup]
 * [linkedin.com/karina-chichifoi]
