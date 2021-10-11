@@ -40,6 +40,11 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 
 ##### Contacts
 
+<a href="https://www.linkedin.com/in/{{ include.username }}">
+  <span class="icon icon--linkedin">{% include icon-linkedin.svg %}</span>
+  <span class="label">{{ include.label | default: include.username }}</span>
+</a>
+
 * [github.com/TryKatChup]
 * [linkedin.com/karina-chichifoi]
 * [twitter.com/karychan007]
