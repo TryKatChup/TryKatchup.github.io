@@ -12,6 +12,7 @@ Source code can be found [here](https://github.com/TryKatChup/password-similarit
 <div align="center">
  <img src="/assets/logo.png">
 </div>
+
 ---
 # Introduction
 
@@ -108,7 +109,6 @@ CBOW is faster and effective with larger dataset, however, despite the greater c
 <div align="center">
  <img style="max-height: 256px" src="/assets/cbow_vs_skipgram.png">
 </div>
-
 
 
 ## FastText
@@ -245,8 +245,6 @@ Not remarkable differences were observed: for this reason only the compressed ve
 </div>
 <center>Precision and recall in the compressed model of Bijeeta et al.</center>
 
-
-
 ## Euristhics
 For a proper evaluation the following euristhics is adopted:
 
@@ -330,6 +328,7 @@ It is also important to not have too many false positives identified by couples 
 </div>
 
 <center>Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).</center>
+
 
 ---
 ## Bijeeta et al. model issues
