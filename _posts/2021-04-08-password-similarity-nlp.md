@@ -6,12 +6,12 @@ category: deep-neural-networks
 tags: [ 'password-similarity', 'NLP', 'privacy', 'word-embedding']
 ---
 
-![](/assets/logo.png)
-
 Password Similarity Detection Using Deep Neural Networks. This project was the case study of my bachelor's thesis.
 
 Source code can be found [here](https://github.com/TryKatChup/password-similarity-nlp)
-
+<div align="center">
+ <img src="/assets/logo.png)">
+</div>
 ---
 # Introduction
 
@@ -75,7 +75,9 @@ Every password in the first dataset was translated in a keypress sequence on an 
 </ul>
 
 <br>
-<img style="max-height: 256px" src="/assets/US_keyboard_layout.png" >
+<div align="center">
+    <img style="max-height: 256px" src="/assets/US_keyboard_layout.png">
+</div>
 
 
 ## Splitting dataset
@@ -104,8 +106,10 @@ Word2Vec is based on two architectures:
 
 CBOW is faster and effective with larger dataset, however, despite the greater complexity, Skip-gram is capable to find _out of dictionary_ words for smaller datasets.
 
+<div align="center">
+ <img style="max-height: 256px" src="/assets/cbow_vs_skipgram.png">
+</div>
 
-<img style="max-height: 256px" src="/assets/cbow_vs_skipgram.png" >
 
 
 ## FastText
@@ -229,12 +233,17 @@ For the evaluation of the models, compressed versions obtained with product quan
 
 An effective valutation of both model is based on _precision_ and _recall_. 
 Not remarkable differences were observed: for this reason only the compressed version of the models are considered.
+
 <br>
-<img style="max-height: 350px" src="/assets/big_model.png">
+<div align="center">
+  <img style="max-height: 350px" src="/assets/big_model.png">
+</div>
 <center>Precision and recall in the uncompressed model of Bijeeta et al.</center>
 <br>
 <br>
-<img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
+<div align="center">
+  <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
+</div>
 <center>Precision and recall in the compressed model of Bijeeta et al.</center>
 
 
@@ -262,8 +271,9 @@ Ground truth depends on the candidate two passwords and the chosen euristhics, w
 **Recall** represents the number of positive elements detected from a set of false negatives and true positives.
 
 <br>
-<img style="max-height: 500px" src="/assets/precisionrecall.png" >
-
+<div align="center">
+  <img style="max-height: 500px" src="/assets/precisionrecall.png" >
+</div>
 In this case:
 
 <ul>
@@ -309,11 +319,17 @@ In order to classify passwords, it is necessary to define a threeshold α, which
 In this case study, it is more important an higher value of recall. In this way more similar passwords are detected.   
 It is also important to not have too many false positives identified by couples of password which are different from each other but are considered similar. For this reason I have chosen an higher value of precision, comparing to Bijeeta et al. paper and α = 0.6.
 
-<img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
+<div align="center">
+  <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
+</div>
+
 <center>Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)</center>
 <br>
 
-<img style="max-height: 350px" src="/assets/no_w2kp_nmingram=2_epochs=5.png">
+<div align="center">
+  <img style="max-height: 350px" src="/assets/no_w2kp_nmingram=2_epochs=5.png">
+</div>
+
 <center>Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).</center>
 
 ---
@@ -342,4 +358,6 @@ will be considered similar.
 
 To simplify the comprehension of the project topic, password similarity is represented with a 3-dimensional graphic. [`t-SNE` algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) is used to reduce the model dimension from 200 to 3. In the next figure it is possible to see the top 5 most similar passwords to `ipwnedyou` and `numBerOne` and their distances. 
 
-<img style="max-height: 350px" src="/assets/3dplot.png">
+<div align="center">
+ <img style="max-height: 350px" src="/assets/3dplot.png">
+</div>
