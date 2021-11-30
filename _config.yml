@@ -5,14 +5,14 @@ description: >-
 lang: en-US
 timezone: Rome/Europe
 image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
-repo: https://github.com/TryKatChup/TryKatchup.github.io
+repo: https://github.com/tryKatchup.github.io
 mode: "dark" # default theme "dark" | "light"
 
 # Profile settings
 author:
   name: Karina
   bio: >-
-   AI wizard by day, desperate sysadmin by night 👩‍💻. Cat lover, and kiwi enthusiast 🥝. InfoSec 🌠.
+   AI wizard by day, desperate sysadmin by night 👩‍💻. Cat lover and kiwi enthusiast 🥝. InfoSec 🌠.
   username: TryKatChup
   email: karina.chichifoi@gmail.com
   open_to_work: true
