@@ -19,8 +19,7 @@ author:
   avatar: /assets/img/avatar.png
 
 # Url settings
-url: "https://trykatchup.github.io"
-baseurl:
+url: "https://trykatchup.com"
 permalink: /:title/
 google_analytics:
 fb_appid:
