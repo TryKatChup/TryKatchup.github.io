@@ -39,5 +39,4 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 
 ##### Contacts
 
-<!--{% include social-media-links.html %}-->
-<i class="fas fa-camera"></i> 
+{% include social-media-links.html %}
