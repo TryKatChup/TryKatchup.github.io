@@ -361,3 +361,6 @@ To simplify the comprehension of the project topic, password similarity is repre
 <div align="center">
  <img style="max-height: 350px" src="/assets/3dplot.png">
 </div>
+
+## Explanation video (Italian only)
+![](https://www.youtube.com/watch?v=G1sf4kpTGTk)
