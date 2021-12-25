@@ -266,6 +266,19 @@ Ground truth depends on the candidate two passwords and the chosen euristhics, w
 ## Precision and recall
 **Precision** represents the number of true positive detected from true positives and false positives.
 **Recall** represents the number of positive elements detected from a set of false negatives and true positives.
+un esperimento:
+
+<div align="center">
+ $ precision = \frac{TP}{TP + FP} $
+ $ recall = \frac{TP}{TP + FN} $
+</div>
+<br>
+
+Un altro esperimento 
+<center>
+$ precision = \frac{TP}{TP + FP} $
+$ recall = \frac{TP}{TP + FN} $
+</center>
 
 <br>
 <div align="center">
