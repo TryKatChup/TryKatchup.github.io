@@ -40,7 +40,7 @@ I love going to concerts too: it's an opportunity to live the music and for exch
 ##### Contacts
 
 <!--{% include social-media-links.html %}-->
-<a href="https://github.com/TryKatChup"><i class='fa fa-github'></i> Home</a>
-<a href="https://www.linkedin.com/karina-chichifoi"><i class='fa fa-linkedin'></i> Home</a>
-<a href="https://www.twitter.com/karychan07"><i class='fa fa-twitter'></i> Home</a>
-<a href="mailto:karina.chichifoi@gmail.com"><i class='fa fa-envelope'></i> Home</a>
+<a href="https://github.com/TryKatChup"><i class='fa fa-github'></i></a>
+<a href="https://www.linkedin.com/karina-chichifoi"><i class='fa fa-linkedin'></i></a>
+<a href="https://www.twitter.com/karychan07"><i class='fa fa-twitter'></i></a>
+<a href="mailto:karina.chichifoi@gmail.com"><i class='fa fa-envelope'></i></a>
