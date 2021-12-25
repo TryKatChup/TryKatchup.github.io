@@ -1,7 +1,7 @@
 # Site settings
 title: Karina's Blog (@TryKatChup)
 description: >-
-  My personal website  <a href="https://github.com/TryKatChup" target="_blank" rel="noopener">@github</a>.
+  My personal website and stream of consciousness land 🏕️  <a href="https://github.com/TryKatChup" target="_blank" rel="noopener">@github</a>.
 lang: en-US
 timezone: Rome/Europe
 image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
@@ -12,7 +12,7 @@ mode: "dark" # default theme "dark" | "light"
 author:
   name: Karina
   bio: >-
-   AI wizard by day, desperate sysadmin by night 👩‍💻. Cat lover and kiwi enthusiast 🥝. InfoSec 🌠.
+   AI wizard by day, desperate sysadmin by night 👩‍💻 Cat lover and kiwi enthusiast 🥝 InfoSec 🌠
   username: TryKatChup
   email: karina.chichifoi@gmail.com
   open_to_work: false
