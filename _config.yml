@@ -93,6 +93,7 @@ exclude:
 # Plugins
 plugins:
   - jekyll-feed
+  - jekyll-data
   - jekyll-sass-converter
   - jekyll-sitemap
   - jekyll-spaceship
