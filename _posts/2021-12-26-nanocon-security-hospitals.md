@@ -1,7 +1,7 @@
 ---
 layout: post
 section-type: post
-title: A security vaccine for healthcare: how to protect sensitive data
+title: A security vaccine for healthcare - how to protect sensitive data
 category: cybersec-hospitals
 tags: [ 'cybersecurity', 'hospitals'. 'data-anonymization', 'data-breach', 'best-practices']
 ---
@@ -9,7 +9,8 @@ tags: [ 'cybersecurity', 'hospitals'. 'data-anonymization', 'data-breach', 'best
 A security vaccine for healthcare: how to protect sensitive data
 
 ---
-In September 2021 I was invited to ![NanoCon]() to talk about cyberSecurity in hospitals and data anonymization.
+# Abstract
+In September 2021 I was invited to NanoCon to talk about cybersecurity in hospitals and data anonymization.
 
 The main topics were:
 - cybersecurity applications in healthcare;
