@@ -3,7 +3,7 @@ layout: post
 section-type: post
 title: A security vaccine for healthcare - how to protect sensitive data
 category: cybersec-hospitals
-tags: [ 'cybersecurity', 'hospitals'. 'data-anonymization', 'data-breach', 'best-practices']
+tags: [ 'cybersecurity', 'hospitals', 'data-anonymization', 'data-breach', 'best-practices']
 ---
 
 A security vaccine for healthcare: how to protect sensitive data
