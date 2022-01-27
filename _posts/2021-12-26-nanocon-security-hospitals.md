@@ -3,7 +3,7 @@ layout: post
 section-type: post
 title: A Security Vaccine for Healthcare - How To Protect Sensitive Data
 category: cybersec-hospitals
-image: /assets/hospitals.jpg
+thumbnail: /assets/hospitals.jpg
 tags: [ 'cybersecurity', 'hospitals', 'data-anonymization', 'best-practices']
 ---
 
