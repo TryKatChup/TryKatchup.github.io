@@ -10,7 +10,7 @@ Password Similarity Detection Using Deep Neural Networks. This project was the c
 
 Source code can be found [here](https://github.com/TryKatChup/password-similarity-nlp)
 <div align="center">
- <img src="/assets/logo.png">
+ <img src="/assets/images/password-similarity/logo.png">
 </div>
 
 ---
@@ -76,7 +76,7 @@ Every password in the first dataset was translated in a keypress sequence on an 
 </ul>
 
 <div align="center">
-    <img style="max-height: 256px" src="/assets/US_keyboard_layout.png">
+    <img style="max-height: 256px" src="/assets/images/password-similarity/US_keyboard_layout.png">
 </div>
 
 
@@ -107,14 +107,14 @@ Word2Vec is based on two architectures:
 CBOW is faster and effective with larger dataset, however, despite the greater complexity, Skip-gram is capable to find _out of dictionary_ words for smaller datasets.
 
 <div align="center">
- <img style="max-height: 256px" src="/assets/cbow_vs_skipgram.png">
+ <img style="max-height: 256px" src="/assets/images/password-similarity/cbow_vs_skipgram.png">
 </div>
 
 
 ## FastText
 [FastText](https://fasttext.cc/) is a open source library created by Facebook which extends Word2Vec and is capable to learn word representation and sentence classification efficiently. The training is based on password n-grams. 
 N-grams of a specific word that contains `n` characters are defined as follow:
-<img src="/assets/nngram_formula.png" >
+<img src="/assets/images/password-similarity/nngram_formula.png" >
 
 For example, the ngrams of the word `world`, with `n_mingram = 1` and `n_maxgram = 5` are:   
 <br>
@@ -235,13 +235,13 @@ Not remarkable differences were observed: for this reason only the compressed ve
 
 <br>
 <div align="center">
-  <img style="max-height: 350px" src="/assets/big_model.png">
+  <img style="max-height: 350px" src="/assets/images/password-similarity/big_model.png">
 </div>
 <center>Precision and recall in the uncompressed model of Bijeeta et al.</center>
 <br>
 <br>
 <div align="center">
-  <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
+  <img style="max-height: 350px" src="/assets/images/password-similarity/w2kp_nmingram=1_epochs=5.png">
 </div>
 <center>Precision and recall in the compressed model of Bijeeta et al.</center>
 
@@ -269,7 +269,7 @@ Ground truth depends on the candidate two passwords and the chosen euristhics, w
 
 <br>
 <div align="center">
-  <img style="max-height: 500px" src="/assets/precisionrecall.png" >
+  <img style="max-height: 500px" src="/assets/images/password-similarity/precisionrecall.png" >
 </div>
 In this case:
 
@@ -319,14 +319,14 @@ In this case study, it is more important an higher value of recall. In this way 
 It is also important to not have too many false positives identified by couples of password which are different from each other but are considered similar. For this reason I have chosen an higher value of precision, comparing to Bijeeta et al. paper and α = 0.6.
 
 <div align="center">
-  <img style="max-height: 350px" src="/assets/w2kp_nmingram=1_epochs=5.png">
+  <img style="max-height: 350px" src="/assets/images/password-similarity/w2kp_nmingram=1_epochs=5.png">
 </div>
 
 <center>Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)</center>
 <br>
 
 <div align="center">
-  <img style="max-height: 350px" src="/assets/no_w2kp_nmingram=2_epochs=5.png">
+  <img style="max-height: 350px" src="/assets/images/password-similarity/no_w2kp_nmingram=2_epochs=5.png">
 </div>
 
 <center>Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).</center>
@@ -359,7 +359,7 @@ will be considered similar.
 To simplify the comprehension of the project topic, password similarity is represented with a 3-dimensional graphic. [`t-SNE` algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html) is used to reduce the model dimension from 200 to 3. In the next figure it is possible to see the top 5 most similar passwords to `ipwnedyou` and `numBerOne` and their distances. 
 
 <div align="center">
- <img style="max-height: 350px" src="/assets/3dplot.png">
+ <img style="max-height: 350px" src="/assets/images/password-similarity/3dplot.png">
 </div>
 
 ## Explanation video (Italian only)
