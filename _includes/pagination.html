@@ -1,21 +1,27 @@
-<!-- NOTE: unused file, but u can use if necessary -->
-<!-- <div class="pagination">
-  {% if paginator.previous_page %}
-  <a
-    class="page-previous"
-    href="{{ paginator.previous_page_path }}"
-    class="previous"
-  >
-    <span aria-hidden="true">←</span> NEWER POSTS
-  </a>
-  {% endif %}
-  <span class="page_number"
-    >PAGE {{ paginator.page }} OF {{ paginator.total_pages }}</span
-  >
-  {% if paginator.next_page %}
-  <a class="page-next" href="{{ paginator.next_page_path }}" class="next"
-    >OLDER POSTS
-    <span aria-hidden="true">→</span>
-  </a>
-  {% endif %}
-</div> -->
+<div class="row">
+  <div class="col col-12">
+    <div class="pagination">
+      <ul class="pagination-list list-reset">
+        {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
+        <li class="previous-posts">
+          <a class="previous-link" href="{{ site.baseurl }}/">
+            <i class="ion ion-ios-arrow-back"></i> Previous posts</a>
+        </li>
+        {% else %}
+        <li class="newer-posts">
+          <a class="newer-link" href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">
+            <i class="ion ion-ios-arrow-back"></i> Previous posts</a>
+        </li>
+        {% endif %} {% endif %}
+
+        {% if paginator.next_page %}
+        <li class="older-posts">
+          <a class="older-link" href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Older posts
+            <i class="ion ion-ios-arrow-forward"></i>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div> <!-- /.pagination -->
+  </div>
+</div>

@@ -1,43 +1,21 @@
----
-layout: compress
----
-<!--
-  🚨 Oh so you're an inspector? 
-  You may need this: {{ site.repo }} you're welcome.
--->
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: " en " }}">
-{% include header.html %}
+<html lang="en">
 
-<body data-theme="{{ site.mode }}" class="notransition">
+{% include head.html %}
 
-  <script>
-    const body = document.body;
-    const data = body.getAttribute("data-theme");
+<body>
 
-    const initTheme = (state) => {
-      if (state === "dark") {
-        body.setAttribute("data-theme", "dark");
-      } else if (state === "light") {
-        body.removeAttribute("data-theme");
-      } else {
-        localStorage.setItem("theme", data);
-      }
-    };
+  {% if site.google-analytics %}
+    {% include google-analytics.html %}
+  {% endif %}
+  {% include loader.html %}
+  {% include header.html %}
 
-    initTheme(localStorage.getItem("theme"));
-
-    setTimeout(() => body.classList.remove("notransition"), 75);
-  </script>
-
-  {% include navbar.html %}
-  <div class="wrapper" id="wrapper">
-    {% include author.html %}
-    <main aria-label="Content">
       {{ content }}
-    </main>
-    {% include footer.html %}
-  </div>
+
+  {% include footer.html %}
+  {% include javascripts.html %}
+
 </body>
-<!-- LAST BUILD: {{ site.time | date_to_rfc822 }} -->
+
 </html>

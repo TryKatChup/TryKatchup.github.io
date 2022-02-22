@@ -1,21 +1,38 @@
 <footer class="footer">
-  <a class="footer_item" href="/thanks">Ack</a>
-  <a class="footer_item" href="/interests">Interests</a>
-  <a class="footer_item" href="/FindMe">Find me</a>
-  <span class="footer_item">&copy; {{ site.time | date: "%Y" }}</span>
-  <small class="footer_theme-copyright">
-    <!-- Klisé Theme: https://github.com/piharpi/jekyll-klise -->
-    Copyright &copy; Karina Chichifoi {{ 'now' | date: "%Y" }}
-  </small>
-</footer>
-<script defer src="/assets/js/main.js"></script>
-{%- if page.url == '/archive/' -%}
-  <script defer src="/assets/js/search.min.js"></script>
-  <script>
-    let sjs = SimpleJekyllSearch({
-      searchInput: document.getElementById('search-input'),
-      resultsContainer: document.getElementById('search-results'),
-      json: '/assets/search.json',
-    });
-  </script>
-{%- endif -%}
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <div class="footer-top">
+          <h2 class="logo-title">
+            <a href="{{site.baseurl}}/" class="logo-text">Karina</a>
+          </h2>
+          <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+        </div>
+        <div class="footer-bottom">
+          <div class="copyright">
+            <p>&copy; {{site.time | date: '%Y'}} <a href="https://github.com/trykatchup">Karina Chichifoi</a></p>
+          </div>
+          <div class="footer-social">
+            <ul class="list-reset">
+              {% if site.facebook %}
+              <li><a href="{{ site.facebook }}">Facebook</a></li>
+              {% else %} {% endif %}
+
+              {% if site.twitter %}
+              <li><a href="{{ site.twitter }}">Twitter</a></li>
+              {% else %} {% endif %}
+
+              {% if site.instagram %}
+              <li><a href="{{ site.instagram }}">Instagram</a></li>
+              {% else %} {% endif %}
+
+              {% if site.pinterest %}
+              <li><a href="{{ site.pinterest }}">Pinterest</a></li>
+              {% else %} {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> <!-- /.footer -->

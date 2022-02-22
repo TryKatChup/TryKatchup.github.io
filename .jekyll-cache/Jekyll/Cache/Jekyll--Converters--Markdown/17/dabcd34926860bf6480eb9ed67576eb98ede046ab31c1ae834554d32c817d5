@@ -1,0 +1,141 @@
+I".P<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="n">go</span>
+<span class="kn">from</span> <span class="nn">MulticoreTSNE</span> <span class="kn">import</span> <span class="n">MulticoreTSNE</span> <span class="k">as</span> <span class="n">TSNE</span>
+<span class="kn">import</span> <span class="nn">compress_fasttext</span>
+<span class="kn">import</span> <span class="nn">gensim.downloader</span> <span class="k">as</span> <span class="n">gloader</span>
+
+
+<span class="k">def</span> <span class="nf">append_list</span><span class="p">(</span><span class="n">sim_passwords</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+    <span class="n">list_of_passwords</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sim_passwords</span><span class="p">)):</span>
+        <span class="n">sim_passwords_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sim_passwords</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">sim_passwords_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+        <span class="n">sim_passwords_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sim_passwords_list</span><span class="p">)</span>
+        <span class="n">list_of_passwords</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">sim_passwords_tuple</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">list_of_passwords</span>
+
+
+<span class="k">def</span> <span class="nf">display_tsne_scatterplot_3D</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
+                                <span class="n">user_input</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                                <span class="n">words</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                                <span class="n">label</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                                <span class="n">color_map</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                                <span class="n">perplexity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="n">learning_rate</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="n">iteration</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                                <span class="n">topn</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+                                <span class="n">sample</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">words</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sample</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">vocab</span><span class="p">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">sample</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">model</span><span class="p">.</span><span class="n">vocab</span><span class="p">]</span>
+    <span class="n">word_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">model</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">])</span>
+
+    <span class="c1"># For 2D, change the three_dim variable into something like two_dim like the following:
+</span>    <span class="c1"># two_dim = TSNE(n_components = 2, random_state=0, perplexity = perplexity, learning_rate = learning_rate, n_iter = iteration).fit_transform(word_vectors)[:,:2]
+</span>    <span class="n">three_dim</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="n">perplexity</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="n">iteration</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">).</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">word_vectors</span><span class="p">)[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">user_input</span><span class="p">)):</span>
+        <span class="c1"># For 2D, instead of using go.Scatter3d, we need to use go.Scatter and delete the z variable. Also, instead of using
+</span>        <span class="c1"># variable three_dim, use the variable that we have declared earlier (e.g two_dim)
+</span>        <span class="n">trace</span> <span class="o">=</span> <span class="n">go</span><span class="p">.</span><span class="n">Scatter3d</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">three_dim</span><span class="p">[</span><span class="n">count</span><span class="p">:</span><span class="n">count</span> <span class="o">+</span> <span class="n">topn</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">three_dim</span><span class="p">[</span><span class="n">count</span><span class="p">:</span><span class="n">count</span> <span class="o">+</span> <span class="n">topn</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">z</span><span class="o">=</span><span class="n">three_dim</span><span class="p">[</span><span class="n">count</span><span class="p">:</span><span class="n">count</span> <span class="o">+</span> <span class="n">topn</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">words</span><span class="p">[</span><span class="n">count</span><span class="p">:</span><span class="n">count</span> <span class="o">+</span> <span class="n">topn</span><span class="p">],</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">user_input</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">textposition</span><span class="o">=</span><span class="s">"top center"</span><span class="p">,</span>
+            <span class="n">textfont_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s">'markers+text'</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="p">{</span>
+                <span class="s">'size'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="s">'opacity'</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+                <span class="s">'color'</span><span class="p">:</span> <span class="mi">2</span>
+            <span class="p">}</span>
+
+        <span class="p">)</span>
+
+        <span class="n">data</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">+</span><span class="n">topn</span>
+
+    <span class="c1"># For 2D, instead of using go.Scatter3d, we need to use go.Scatter and delete the z variable.  Also, instead of using
+</span>    <span class="c1"># variable three_dim, use the variable that we have declared earlier (e.g two_dim)
+</span>    <span class="n">trace_input</span> <span class="o">=</span> <span class="n">go</span><span class="p">.</span><span class="n">Scatter3d</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">three_dim</span><span class="p">[</span><span class="n">count</span><span class="p">:,</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">three_dim</span><span class="p">[</span><span class="n">count</span><span class="p">:,</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">three_dim</span><span class="p">[</span><span class="n">count</span><span class="p">:,</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">words</span><span class="p">[</span><span class="n">count</span><span class="p">:],</span>
+        <span class="n">name</span><span class="o">=</span><span class="s">'input words'</span><span class="p">,</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s">"top center"</span><span class="p">,</span>
+        <span class="n">textfont_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s">'markers+text'</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">'size'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s">'opacity'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s">'color'</span><span class="p">:</span> <span class="s">'black'</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="n">data</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace_input</span><span class="p">)</span>
+
+    <span class="c1"># Configure the layout
+</span>    <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="p">.</span><span class="n">Layout</span><span class="p">(</span>
+        <span class="n">margin</span><span class="o">=</span><span class="p">{</span><span class="s">'l'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'r'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">'t'</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="n">showlegend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">family</span><span class="o">=</span><span class="s">"Courier New"</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s">"black"</span>
+        <span class="p">)),</span>
+        <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">family</span><span class="o">=</span><span class="s">" Courier New "</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span>
+        <span class="n">autosize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">1000</span>
+    <span class="p">)</span>
+
+    <span class="n">plot_figure</span> <span class="o">=</span> <span class="n">go</span><span class="p">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+    <span class="n">plot_figure</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Insert at least a password.'</span><span class="p">)</span>
+        <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">input_passwords</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">small_model</span> <span class="o">=</span> <span class="n">compress_fasttext</span><span class="p">.</span><span class="n">models</span><span class="p">.</span><span class="n">CompressedFastTextKeyedVectors</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'no_w2kp_compressed_model_minngram=2'</span><span class="p">)</span>
+
+    <span class="c1"># For each input password, find the 5 most similar ones using small_model embeddings
+</span>    <span class="k">for</span> <span class="n">password</span> <span class="ow">in</span> <span class="n">input_passwords</span><span class="p">:</span>
+        <span class="n">sim_passwords</span> <span class="o">=</span> <span class="n">small_model</span><span class="p">.</span><span class="n">most_similar</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">sim_passwords</span> <span class="o">=</span> <span class="n">append_list</span><span class="p">(</span><span class="n">sim_passwords</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">sim_passwords</span><span class="p">)</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sim_passwords</span><span class="p">)</span>
+
+    <span class="n">similar_password</span> <span class="o">=</span> <span class="p">[</span><span class="n">password</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">password</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+    <span class="n">similarity</span> <span class="o">=</span> <span class="p">[</span><span class="n">password</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">password</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+    <span class="n">similar_password</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">input_passwords</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">password</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">password</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+    <span class="n">label_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">labels</span><span class="p">))])</span>
+    <span class="n">color_map</span> <span class="o">=</span> <span class="p">[</span><span class="n">label_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+
+    <span class="n">display_tsne_scatterplot_3D</span><span class="p">(</span><span class="n">small_model</span><span class="p">,</span> <span class="n">input_passwords</span><span class="p">,</span> <span class="n">similar_password</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">color_map</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+:ET

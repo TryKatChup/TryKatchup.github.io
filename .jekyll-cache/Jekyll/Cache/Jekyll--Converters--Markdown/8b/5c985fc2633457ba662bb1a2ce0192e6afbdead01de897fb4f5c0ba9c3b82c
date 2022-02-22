@@ -1,0 +1,356 @@
+I"`<p>This project was the case study of my bachelor’s thesis.</p>
+
+<p>Source code can be found <a href="https://github.com/TryKatChup/password-similarity-nlp">here</a></p>
+<div align="center">
+ <img src="/img/password-similarity/logo.png" />
+</div>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Nowadays people tend to create more profiles or change password of their current profiles for security reasons. Existent passwords and literature-based words have a great impact on the candidate password. This could be a risk for the user privacy. For example, an user has the password <code class="language-plaintext highlighter-rouge">mum77</code> and he/she wants to create a new account for a different website. A candidate password could be <code class="language-plaintext highlighter-rouge">mommy1977</code>, which is a variation of <code class="language-plaintext highlighter-rouge">mum77</code> and it more risky if an attacker has discovered the first password in a leak.</p>
+
+<p>The purpose of this project is to give a feedback about password similarity between the new password and the old one using Deep Neural Networks. 
+As a reference, a <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8835247was">scientific article published at IEEE Symposium on Security and Privacy 2019</a> chosen. Then the entire architecture was reimplemented and improved, and a comparison between the obtained results and the case study was made.</p>
+
+<hr />
+<h1 id="data-pre-processing">Data pre-processing</h1>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/preparing_dataset.py"><code class="language-plaintext highlighter-rouge">preparing_dataset.py</code></a></p>
+
+<p>First of all I used a compilation of password leaks containing 1.4 billion email-password pairs from the Deep Web. Further operations were applied on the dataset:</p>
+<td style="text-align: left;">
+<ul>
+    <li>Passwords longer than 30 characters or shorter than 4 removal.</li>
+    <li>Non ASCII printable characters in password removal.</li>
+    <li>Bot (which are recognisable by the same mail used more than 100 times) removal.</li>
+    <li>HEX passwords (identified by <code>$HEX[]</code>) and <code>\x</code> removal.</li>
+    <li>HTML char set removal, for example:</li>  
+    <ul>
+        <li><code>&amp;gt</code></li>
+        <li><code>&amp;ge</code></li>
+        <li><code>&amp;lt</code></li>
+        <li><code>&amp;le</code></li>
+        <li><code>&amp;#</code>(HTML entity code)</li>
+        <li><code>amp</code></li>
+    </ul>
+    <li>Due to the impossibility of similarity detection, accounts with less than 2 password were removed.</li> 
+</ul>
+</td>
+<p>After that, two dataset were build:</p>
+
+<ul>
+    <li>The first one, according with Bijeeta et alii, contains all the passwords in key-presses format (using the <code>word2keypress</code> package).</li>
+    <li>The second one contains all the passwords as they are.</li>
+</ul>
+
+<p>The filtered datasets were saved in two <code class="language-plaintext highlighter-rouge">.csv</code> files in this format:</p>
+
+<ul>
+    <li>in the first dataset: <code>sample@gmail.com:["'97314348'", "'voyager&lt;s&gt;1'"]</code></li>
+    <li>in the second dataset: <code>sample@gmail.com:["'97314348'", "'voyager!'"]</code></li>
+</ul>
+
+<h2 id="word2keypress">Word2keypress</h2>
+
+<p>Every password in the first dataset was translated in a keypress sequence on an ANSI american keyboard:</p>
+
+<ul>
+    <li>Every capital letter was represented by <code>&lt;s&gt;</code> (the <code>SHIFT</code> key) before the lowercase version.
+        <br />e.g. <code>Hello -&gt; &lt;s&gt;hello</code></li>
+    <li>If there is a sequence of consecutive capital letters, followed by lowercase letters, the <code>&lt;c&gt;</code> tag (the <code>CAPS LOCK</code> key) is inserted <i>before</i> and <i>after</i> the sequence, which will be represented by lowercase letters. 
+  e.g. <br /><code>Password -&gt; &lt;c&gt;pass&lt;c&gt;word</code></li>
+    <li>If a sequence of capital letters ends at the end of the word, the <code>&lt;c&gt;</code> tag wil be placed before the sequence.
+ <br />e.g.<br /> <code>PASSWORD -&gt; &lt;c&gt;password</code>
+  <br /><code>passWORD -&gt; pass&lt;c&gt;word</code></li>
+    <li>If a password contains ASCII 128 special characters, the <code>&lt;s&gt;</code> tag will be placed before the special character, which is translated as <code>SHIFT + &lt;key for the specific character&gt;</code>
+        <br />e.g. <br /><code>PASSWORD! -&gt; &lt;c&gt;password&lt;s&gt;1</code>
+        <br /><code>Hello@!! -&gt; &lt;s&gt;hello&lt;s&gt;2&lt;s&gt;1&lt;s&gt;1</code></li>
+</ul>
+
+<div align="center">
+    <img style="max-height: 256px" src="/img/password-similarity/US_keyboard_layout.png" />
+</div>
+<p><br /></p>
+
+<h2 id="splitting-dataset">Splitting dataset</h2>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/split_dataset.py"><code class="language-plaintext highlighter-rouge">split_dataset.py</code></a></p>
+
+<p>Both datasets are splitted in training set (which is 90% of the original dataset) and test set (the remaining 10% of the original dataset).</p>
+
+<hr />
+<h1 id="training-fasttext">Training FastText</h1>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/FastText_training.ipynb"><code class="language-plaintext highlighter-rouge">FastText_training.ipynb</code></a> <strong>and</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/PasswordRetriever.py"><code class="language-plaintext highlighter-rouge">PasswordRetriever.py</code></a></p>
+
+<p>In this file FastText will be trained based on the given training set.
+In order to understand better <code class="language-plaintext highlighter-rouge">FastText_training.ipynb</code> and FastText, Word2Vec is briefly introduced.</p>
+
+<h2 id="word2vec">Word2Vec</h2>
+<p>Word2Vec is a set of architectural and optimization models which learn word embeddings from a large dataset, using deep neural networks.
+A model trained with Word2Vec can detect similar words (based on context) thanks to <em>cosine similarity</em>.</p>
+
+<p>Word2Vec is based on two architectures:</p>
+
+<ul>
+    <li><b>CBOW</b> (continuous bag of words): the main purpose is to combine the representation of surrounding words, in order to predict the word in the middle.</li>
+    <li><b>Skip-gram</b>: similar to CBOW, except for the word in the middle, which is used to predict words related to the same context.</li>
+</ul>
+
+<p>CBOW is faster and effective with larger dataset, however, despite the greater complexity, Skip-gram is capable to find <em>out of dictionary</em> words for smaller datasets.</p>
+
+<div align="center">
+ <img style="max-height: 256px" src="/img/password-similarity/cbow_vs_skipgram.png" />
+</div>
+
+<p><br /></p>
+<h2 id="fasttext">FastText</h2>
+<p><a href="https://fasttext.cc/">FastText</a> is a open source library created by Facebook which extends Word2Vec and is capable to learn word representation and sentence classification efficiently. The training is based on password n-grams. 
+N-grams of a specific word that contains <code class="language-plaintext highlighter-rouge">n</code> characters are defined as follow:</p>
+
+<center>
+${c_{i1}, c_{i2},...,c_{in} \vert \displaystyle\sum_{j=1} ^{n}i_j - i_{j-1} &lt; 0}$
+</center>
+
+<p>For example, the ngrams of the word <code class="language-plaintext highlighter-rouge">world</code>, with <code class="language-plaintext highlighter-rouge">n_mingram = 1</code> and <code class="language-plaintext highlighter-rouge">n_maxgram = 5</code> are:</p>
+
+<p><code class="language-plaintext highlighter-rouge">world = { </code>
+<code class="language-plaintext highlighter-rouge">{w, o, r, l, d},</code>
+<code class="language-plaintext highlighter-rouge">{wo, or, rl, ld},</code>
+<code class="language-plaintext highlighter-rouge">{wor, orl, rld},</code>
+<code class="language-plaintext highlighter-rouge">{world}</code>
+<code class="language-plaintext highlighter-rouge">}</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">world</code> is represented as the subset of substrings with 1 and 5 as respectively minimum and maximum length.
+FastText, comparing to Word2Vec, is capable to obtain more <em>out of dictionary</em> words, which are unknown during the training phase.</p>
+
+<h2 id="environment-setup">Environment setup</h2>
+<p>In order to train the model, <a href="https://radimrehurek.com/gensim/models/fasttext.html"><code class="language-plaintext highlighter-rouge">gensim.FastText</code></a> was used. <br />
+<a href="https://radimrehurek.com/gensim/"><code class="language-plaintext highlighter-rouge">gensim</code></a> is a open source and cross-platform python library, with multiple pre-trained word embedding models. 
+<code class="language-plaintext highlighter-rouge">PasswordRetriever</code> class extracts all the passwords from the <code class="language-plaintext highlighter-rouge">.csv</code> preprocessed file.</p>
+
+<h2 id="fasttext-parameters">FastText parameters</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">negative</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">subsampling</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">min_count</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">min_n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">max_n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">SIZE</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">sg</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div></div>
+<p>In this project <em>Skip-gram</em> model (<code class="language-plaintext highlighter-rouge">sg = 1</code>) and negative sampling were used:</p>
+
+<ul>
+    <li>Skip-gram approach is chosen, as the distributed representation of the input word is used to predict the context. Skip-gram model works better with subword information, so it is recommended for learning passwords and rare words in general.</li>
+
+    <li>Negative sampling makes the training faster. Each training sample updates only a small percentage of the model weights. For larger datasets (like this case) it is recommended to set negative sampling between 2 and 5.</li>
+
+    <li>The dimension of vectors is set to 200, in order to have train the model faster. Generally it is recommended to have <code>SIZE = 300</code></li>
+
+    <li> The <code>subsampling</code> ignores the most frequent password (more than 1000 occurrences).</li>
+
+    <li><code>min_count</code> represents the minimum number of occurences of a password in the training dataset.</li>
+
+    <li><code>min_n</code> and <code>max_n</code> are the number of respectively minimum and maximum n-grams.</li>
+
+    <li>N-grams are used in statistical natural language processing to predict a word and/or the context of a word. In this case they represent a contiguous sequence of n characters and their purpose is to give subword information.</li>
+
+    <ul>
+        <li>For example a password <code>w = qwerty</code> with <code>min_n = 4</code> and <code>m_max = 5</code>, will have the following n-grams. 
+        <br /> 
+  <code>zw = { &lt;qwe, qwer, wert, erty, rty&gt;, &lt;qwer, qwert, werty, erty&gt; }</code></li>
+   <br />
+  NB &lt; and &gt; are considered as characters.
+    </ul>
+</ul>
+
+<h2 id="saving-the-model">Saving the model</h2>
+<p>Finally, the trained model is saved as <code class="language-plaintext highlighter-rouge">.bin</code>.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">gensim.models.fasttext</span> <span class="kn">import</span> <span class="n">save_facebook_model</span>
+<span class="n">save_facebook_model</span><span class="p">(</span><span class="n">trained_model</span><span class="p">,</span> <span class="s">"model_password_similarity.bin"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Model saved successfully."</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr />
+<h2 id="more-trainings">More trainings</h2>
+
+<p>5 models were trained:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 5</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 1</code> (Bijeeta et al.);</li>
+  <li><code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 5</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 2</code>;</li>
+  <li>no <code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 10</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 1</code>;</li>
+  <li>no <code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 10</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 2</code>;</li>
+  <li>no <code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 5</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 2</code>.</li>
+</ul>
+
+<hr />
+<h1 id="compressing-the-model">Compressing the model</h1>
+
+<p>The trained model is 4.8 GB. There are some problems about the size:</p>
+<ul>
+    <li>Too much space occupied in memory.</li>
+    <li>It is harder to use the model in client/server architectures. Everyone should use this model, which can be sent as a payload. Embeddings are not reversible, and they guarantee password anonymization.</li>
+</ul>
+
+<p>For these reasons, <a href="https://pypi.org/project/compress-fasttext/"><code class="language-plaintext highlighter-rouge">compress_fasttext</code></a> is used.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">gensim</span>
+<span class="kn">import</span> <span class="nn">compress_fasttext</span>
+</code></pre></div></div>
+
+<p>In order to obtain a compressed model, without impacting significantly on performances, product quantitation and feature selection are applied.</p>
+
+<ul>
+<li>Feature selection is the process of selecting a subset of relevant features for use in model construction or in other words, the selection of the most important features.</li>
+
+<li>Product quantization is a particolar type of vector quantization, a lossy compression technique used in speech and image coding. A product quantizer can generate anexponentially large codebook at very low memory/time cost.</li>
+
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">big_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="p">.</span><span class="n">models</span><span class="p">.</span><span class="n">fasttext</span><span class="p">.</span><span class="n">load_facebook_vectors</span><span class="p">(</span><span class="s">'model_password_similarity.bin'</span><span class="p">)</span>
+<span class="n">small_model</span> <span class="o">=</span> <span class="n">compress_fasttext</span><span class="p">.</span><span class="n">prune_ft_freq</span><span class="p">(</span><span class="n">big_model</span><span class="p">,</span> <span class="n">pq</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">small_model</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">'compressed_model'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The compressed model is 20MB.</p>
+
+<hr />
+<h1 id="evaluating-the-model">Evaluating the model</h1>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/w2kp_PRGraph.py"><code class="language-plaintext highlighter-rouge">w2kp_PRGraph.py</code></a> <strong>and</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/No_w2kp_PRGraph.py"><code class="language-plaintext highlighter-rouge">No_w2kp_PRGraph.py</code></a></p>
+
+<p>For the evaluation of the models, compressed versions obtained with product quantization were used. In order to measure any performance differences between the original model and the compressed version, Bijeeta et al. model is chosen, with the following features:</p>
+
+<ul>
+<li>translation of the sequence of key pressed for the password;</li>
+<li><code>min_gram = 1</code>;</li>
+<li><code>max_gram = 4</code>;</li>
+<li>epochs = 5.</li>
+</ul>
+
+<p>An effective valutation of both model is based on <em>precision</em> and <em>recall</em>. 
+Not remarkable differences were observed: for this reason only the compressed version of the models are considered.</p>
+
+<p><br /></p>
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/big_model.png" />
+</div>
+<center>Precision and recall in the uncompressed model of Bijeeta et al.</center>
+<p><br />
+<br /></p>
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/w2kp_nmingram=1_epochs=5.png" />
+</div>
+<center>Precision and recall in the compressed model of Bijeeta et al.</center>
+
+<h2 id="euristhics">Euristhics</h2>
+<p>For a proper evaluation the following euristhics is adopted:</p>
+
+<ul>
+<li>comparing the password to the lowercase version;</li>
+<li>comparing the password to the uppercase version;</li>
+<li>comparing the password to the <code>l33t</code> code version;</li>
+<li>verifing if edit distance is greater than 5.</li>
+</ul>
+
+<hr />
+<h2 id="ground-truth-and-prediction">Ground truth and prediction</h2>
+<p>Ground truth is the ideal result expected and it is used in order to verify how much correct are model prediction.
+The term <em>prediction</em> refers to the model output after the training. It is applied to new data when is required to verify an event probability.</p>
+
+<p>Ground truth depends on the candidate two passwords and the chosen euristhics, while prediction is obtained thanks to <code class="language-plaintext highlighter-rouge">gensim.similarity</code> function of the trained model (which is based on cosine similarity). In case of the <code class="language-plaintext highlighter-rouge">work2keypress</code> model, it is important to convert the candidate two password in key presses (<code class="language-plaintext highlighter-rouge">w2kp_PRGraph.py</code>).</p>
+
+<h2 id="precision-and-recall">Precision and recall</h2>
+<p><strong>Precision</strong> represents the number of true positive detected from true positives and false positives.
+<strong>Recall</strong> represents the number of positive elements detected from a set of false negatives and true positives.</p>
+
+<p><br /></p>
+<div align="center">
+  <img style="max-height: 500px" src="/img/password-similarity/precisionrecall.png" />
+</div>
+<p>In this case:</p>
+
+<ul>
+    <li>A couple of similar passwords detected correctly represents <b>true positives</b></li>
+    <li>A couple of different password detected as similar are <b>false positives</b>.</li>
+    <li>A couple of similar passwords not detected as similar are <b>false negatives</b>.</li>
+</ul>
+
+<p>In order to find out <em>precision</em> and <em>recall</em> it is important to re-define few concepts, according to <a href="#ground-truth-and-prediction">ground truth and prediction subchapter</a>:</p>
+
+<ul>
+    <li> <b>True positives (TP)</b>: its value increments only if both prediction and ground truth have a strictly positive value.</li>
+    <li> <b>False positives (FP)</b>: its value increments only if ground truth value is zero and  if prediction has a strictly positive value.</li>
+    <li> <b>False negatives (FP)</b>: its value increments only if ground truth value is strictly positive and if prediction value is zero.</li>
+</ul>
+
+<center>
+$ precision = \frac{TP}{TP + FP} $
+<br />
+$ recall = \frac{TP}{TP + FN} $
+</center>
+
+<p><br /></p>
+
+<hr />
+<h2 id="comparing-the-results-of-the-models">Comparing the results of the models</h2>
+<p>In order to classify passwords, it is necessary to define a threeshold α, which it is chosen considering the best precision and recall values.</p>
+
+<ul>
+    <li>Model with <code>word2keypress</code>, <code>n_mingram = 1</code>, <code>epochs = 5</code> (Bijeeta et al.):</li>
+
+  <ul>
+      <li>α = 0.5: precision ≈ 57%, recall ≈ 95%</li>
+      <li>α = 0.6: precision ≈ 67%, recall ≈ 89%</li>
+  </ul>
+
+    <li>Model without <code>word2keypress</code>, <code>n_mingram = 2</code>, <code>epochs = 5</code>: </li>
+    <ul>
+        <li>α = 0.5: precision ≈ 65%, recall ≈ 95%</li>
+        <li>α = 0.6: precision ≈ 77%, recall ≈ 89%</li>
+    </ul>
+</ul>
+
+<p>In this case study, it is more important an higher value of recall. In this way more similar passwords are detected. <br />
+It is also important to not have too many false positives identified by couples of password which are different from each other but are considered similar. For this reason I have chosen an higher value of precision, comparing to Bijeeta et al. paper and α = 0.6.</p>
+
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/w2kp_nmingram=1_epochs=5.png" />
+</div>
+
+<center>Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)</center>
+<p><br /></p>
+
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/no_w2kp_nmingram=2_epochs=5.png" />
+</div>
+
+<center>Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).</center>
+
+<hr />
+<h2 id="bijeeta-et-al-model-issues">Bijeeta et al. model issues</h2>
+<p>The worst performances were noticed in the Bijeeta et al. model. The main problems are:</p>
+
+<ul>
+<li><code>word2keypress</code> library translates each character as a key press sequence. When a password is expressed in camel notation, an alternation of capital letters and lowercase letters is present. As a consequence, different passwords in camel notation will be considered similar, because of the repetition of <code>&lt;s&gt;</code> and <code>&lt;c&gt;</code>.</li>
+<li>Two passwords expressed as key presses like:</li>
+<ul>
+    <br />
+    <li><code>$1mp@t1c*</code>  which is translated as <code>&lt;s&gt;41mp&lt;s&gt;2t1c&lt;s&gt;8</code></li>
+    <li><code>#wlng%p*m}</code> which is translated as <code>&lt;s&gt;3wlng&lt;s&gt;5p&lt;s&gt;8m&lt;s&gt;[</code></li>
+</ul>
+will be considered similar.   
+<li><code>SHIFT</code> is translated as <code>&lt;s&gt;</code>: for this reason two passwords which are secure will appear similar.</li>
+
+
+<li>Setting <code>n_mingram = 1</code> make the evaluation less precise than using <code>n_mingram = 2</code>.   
+  In fact, in passwords, single characters in passwords do not depend on syntactic rules (unlike in english literature). There are multiple factors really different from each other in order to establish a set of rules for the position of a character in a password, so it is impossible to define how a character is placed.</li>
+</ul>
+
+<hr />
+<h2 id="graphic-representation-of-words-distance">Graphic representation of words distance</h2>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/visualize_embeddings.py"><code class="language-plaintext highlighter-rouge">visualize_embeddings.py</code></a></p>
+
+<p>To simplify the comprehension of the project topic, password similarity is represented with a 3-dimensional graphic. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html"><code class="language-plaintext highlighter-rouge">t-SNE</code> algorithm</a> is used to reduce the model dimension from 200 to 3. In the next figure it is possible to see the top 5 most similar passwords to <code class="language-plaintext highlighter-rouge">ipwnedyou</code> and <code class="language-plaintext highlighter-rouge">numBerOne</code> and their distances.</p>
+
+<div align="center">
+ <img style="max-height: 350px" src="/img/password-similarity/3dplot.png" />
+</div>
+<hr />
+<h2 id="explanation-video-italian-only">Explanation video (Italian only)</h2>
+<p><img src="https://www.youtube.com/watch?v=G1sf4kpTGTk" alt="" /></p>
+:ET

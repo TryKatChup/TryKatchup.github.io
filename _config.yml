@@ -1,99 +1,75 @@
-# Site settings
-title: Karina's Blog (@TryKatChup)
-description: >-
-  My personal website and stream of consciousness land 🏕️  <a href="https://github.com/TryKatChup" target="_blank" rel="noopener">@github</a>.
-lang: en-US
-timezone: Rome/Europe
-image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
-repo: https://github.com/tryKatchup.github.io
-mode: "dark" # default theme "dark" | "light"
+#-------------------------------
+# General Site Settings
 
-# Profile settings
-author:
-  name: Karina
-  bio: >-
-   AI wizard by day, desperate sysadmin by night 👩‍💻 Cat lover and kiwi enthusiast 🥝 InfoSec 🌠
-  username: TryKatChup
-  email: karina.chichifoi@gmail.com
-  open_to_work: false
-  avatar: /assets/img/avatar.png
+title: Karina's blog
+description: My personal website and stream of consciousness land 🏕️ # this means to ignore newlines until "baseurl:"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://trykatchup.com" # the base hostname & protocol for your site, e.g. http://example.com
 
-# Url settings
-url: "https://trykatchup.com"
-permalink: /:title/
-google_analytics:
-fb_appid:
 
-email-share: True
-fb-share: True
-twitter-share: True
-linkedin-share: True
+#-------------------------------
+# About Section
+author-name:   Karina Chichifoi
+author-avatar: me2.jpg
 
-social:
-  - title: "twitter"
-    url: "https://twitter.com/KaryChan07"
-  - title: "github"
-    url: "https://github.com/TryKatChup"
-  - title: "linkedin"
-    url: "https://www.linkedin.com/in/karina-chichifoi/"
- 
-disqus:
-  shortname: 'TryKatChup'
 
-# Collection setting
-collections:
-  posts:
-    output: true
+#-------------------------------
+# Contact links
+linkedin: https://linkedin.com/karina-chichifoi
+github: https://github.com/trykatchup
 
-# Markdown settings
-markdown: kramdown
-highlighter: rouge
-kramdown:
-  syntax_highlighter: rouge
+#-------------------------------
+# Comment Section (Disqus)
+disqus-identifier: trykatchup # Add your shortname for Disqus Comment. For example mr-brown
 
-# Default front matter
-defaults:
-  - scope:
-      path: ""
-    values:
-      icon: "💭️"
-      layout: post
-      comments: false
 
-# Jekyll Compose default front matter
-jekyll_compose:
-  post_default_front_matter:
-    modified:
-    tags: []
-    description:
-  draft_default_front_matter:
-    modified:
-    tags: []
-    description:
+#-------------------------------
+# Instagram Feed
+instafeed: false # To enable the instafeed, use the value true. To turn off use the value false.
 
+
+#-------------------------------
+# Google Analytics
+google-analytics: # Add your identifier. For example UA-99631805-1.
+
+
+#-------------------------------
+# Newsletter
+mailchimp: # Add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
+
+
+#-------------------------------
 # Build settings
-sass:
-  style: compressed
-
-include:
-  - _redirects
-  - .htaccess
-
-exclude:
-  - CNAME
-  - Gemfile
-  - Gemfile.lock
-  - LICENSE
-  - CHANGELOG.md
-  - README.md
-  - node_modules
-  - bangsring.gemspec
-  - CODE_OF_CONDUCT.md
-
-# Plugins
+markdown: kramdown
+permalink: ':title/'
 plugins:
-  - jekyll-feed
-  - jekyll-data
-  - jekyll-sass-converter
+  - jekyll-paginate
   - jekyll-sitemap
   - jekyll-spaceship
+  - jekyll-seo-tag
+
+paginate: 7
+paginate_path: "/page/:num"
+
+include:
+  - _pages
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+collections:
+slides:
+    output: true
+port: 4444
+
+#-------------------------------
+# Exclude from processing.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
