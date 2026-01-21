@@ -218,6 +218,34 @@
   }
 }
 
+// RSS Widget
+.widget-rss {
+  text-align: center;
+  .rss-text {
+    max-width: 200px;
+    margin: 0 auto 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: $gray-blue;
+  }
+  .rss-link {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: $global-radius;
+    color: $white;
+    background: $blue-black;
+    transition: $global-transition;
+    i {
+      margin-right: 8px;
+    }
+    &:hover {
+      background: $primary-color;
+    }
+  }
+}
+
 // Tags Widget
 .tag-list {
   .tag-item {

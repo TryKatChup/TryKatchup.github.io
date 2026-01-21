@@ -20,8 +20,8 @@ linkedin: https://linkedin.com/karina-chichifoi
 github: https://github.com/trykatchup
 
 #-------------------------------
-# Comment Section (Disqus)
-disqus-identifier: trykatchup # Add your shortname for Disqus Comment. For example mr-brown
+# Comment Section (Disqus) - DISABLED
+# disqus-identifier: trykatchup
 
 
 #-------------------------------
