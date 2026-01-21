@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Password Similarity Detection Using Deep Neural Networks</title>
+  <meta name="description" content="My personal website and stream of consciousness land 🏕️">
+
+  <link rel="canonical" href="https://trykatchup.com/password-similarity-nlp/">
+  <link rel="alternate" type="application/rss+xml" title="Karina's blog" href="/feed.xml">
+  <link rel="icon" href="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/000000/external-moon-halloween-wanicon-lineal-color-wanicon.png">
+  <!--<a href="https://icons8.com/icon/R1zOqsP6h5B1/moon">Moon icon by Icons8</a>-->
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+  <!-- Ionicons -->
+  <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <style>
+  
+  /*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:rgba(0,0,0,0)}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,fieldset,legend,figure,hr{margin:0;padding:0}li>ul,li>ol{margin-bottom:0}table{border-collapse:collapse;border-spacing:0}h1,h2,h3,h4,h5,h6,ul,ol,dl,blockquote,p,address,hr,table,fieldset,figure,pre{margin-bottom:15px}ul,ol,dd{margin-left:15px}.highlight{background:#27293d}.highlighter-rouge .highlight{background:#282a36}.highlight .c{color:#6272a4;font-style:italic}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .k{color:#ff79c6}.highlight .o{color:#ff79c6}.highlight .cm{color:#6272a4;font-style:italic}.highlight .cp{color:#6272a4;font-weight:bold}.highlight .c1{color:#6272a4;font-style:italic}.highlight .cs{color:#6272a4;font-weight:bold;font-style:italic}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .ge{font-style:italic}.highlight .gr{color:#f55}.highlight .gh{color:#6272a4}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:bold}.highlight .gu{color:#aaa}.highlight .gt{color:#f55}.highlight .kc{color:#50fa7b}.highlight .kd{color:#50fa7b}.highlight .kp{color:#50fa7b}.highlight .kr{color:#50fa7b}.highlight .kt{color:#8be9fd;font-weight:bold}.highlight .m{color:#bd93f9}.highlight .s{color:#f1fa8c}.highlight .na{color:#50fa7b}.highlight .nb{color:#8be9fd}.highlight .nc{color:#8be9fd;font-weight:bold}.highlight .no{color:#50fa7b}.highlight .ni{color:purple}.highlight .ne{color:#50fa7b}.highlight .nf{color:#50fa7b}.highlight .nn{color:#50fa7b}.highlight .nt{color:#ff79c6}.highlight .nv{color:#50fa7b}.highlight .ow{color:#ff79c6}.highlight .w{color:#bbb}.highlight .mf{color:#bd93f9}.highlight .mh{color:#bd93f9}.highlight .mi{color:#bd93f9}.highlight .mo{color:#bd93f9}.highlight .sb{color:#f1fa8c}.highlight .sc{color:#f1fa8c}.highlight .sd{color:#f1fa8c}.highlight .s2{color:#f1fa8c}.highlight .se{color:#f1fa8c}.highlight .sh{color:#f1fa8c}.highlight .si{color:#f1fa8c}.highlight .sx{color:#f1fa8c}.highlight .sr{color:#f1fa8c}.highlight .s1{color:#f1fa8c}.highlight .ss{color:#f1fa8c}.highlight .bp{color:#6272a4}.highlight .vc{color:#50fa7b}.highlight .vg{color:#50fa7b}.highlight .vi{color:#50fa7b}.highlight .il{color:#bd93f9}.container{max-width:1200px;padding-left:15px;padding-right:15px;margin:0 auto}.container-full{max-width:100%;padding-left:15px;padding-right:15px;margin:0 auto}.row{display:flex;flex-wrap:wrap;flex:0 1 auto;flex-direction:row;box-sizing:border-box;margin-left:-15px;margin-right:-15px}.col{padding-left:15px;padding-right:15px}[class^=col-]{flex:auto}.col-0{width:0%}.col-1{width:8.3333333333%}.col-2{width:16.6666666667%}.col-3{width:25%}.col-4{width:33.3333333333%}.col-5{width:41.6666666667%}.col-6{width:50%}.col-7{width:58.3333333333%}.col-8{width:66.6666666667%}.col-9{width:75%}.col-10{width:83.3333333333%}.col-11{width:91.6666666667%}.col-12{width:100%}.push-0{margin-left:0%}.push-1{margin-left:8.3333333333%}.push-2{margin-left:16.6666666667%}.push-3{margin-left:25%}.push-4{margin-left:33.3333333333%}.push-5{margin-left:41.6666666667%}.push-6{margin-left:50%}.push-7{margin-left:58.3333333333%}.push-8{margin-left:66.6666666667%}.push-9{margin-left:75%}.push-10{margin-left:83.3333333333%}.push-11{margin-left:91.6666666667%}.push-12{margin-left:100%}.pull-0{margin-right:0%}.pull-1{margin-right:8.3333333333%}.pull-2{margin-right:16.6666666667%}.pull-3{margin-right:25%}.pull-4{margin-right:33.3333333333%}.pull-5{margin-right:41.6666666667%}.pull-6{margin-right:50%}.pull-7{margin-right:58.3333333333%}.pull-8{margin-right:66.6666666667%}.pull-9{margin-right:75%}.pull-10{margin-right:83.3333333333%}.pull-11{margin-right:91.6666666667%}.pull-12{margin-right:100%}@media(min-width: 768px){.col-t-0{width:0%}.col-t-1{width:8.3333333333%}.col-t-2{width:16.6666666667%}.col-t-3{width:25%}.col-t-4{width:33.3333333333%}.col-t-5{width:41.6666666667%}.col-t-6{width:50%}.col-t-7{width:58.3333333333%}.col-t-8{width:66.6666666667%}.col-t-9{width:75%}.col-t-10{width:83.3333333333%}.col-t-11{width:91.6666666667%}.col-t-12{width:100%}.push-t-0{margin-left:0%}.push-t-1{margin-left:8.3333333333%}.push-t-2{margin-left:16.6666666667%}.push-t-3{margin-left:25%}.push-t-4{margin-left:33.3333333333%}.push-t-5{margin-left:41.6666666667%}.push-t-6{margin-left:50%}.push-t-7{margin-left:58.3333333333%}.push-t-8{margin-left:66.6666666667%}.push-t-9{margin-left:75%}.push-t-10{margin-left:83.3333333333%}.push-t-11{margin-left:91.6666666667%}.push-t-12{margin-left:100%}.pull-t-0{margin-right:0%}.pull-t-1{margin-right:8.3333333333%}.pull-t-2{margin-right:16.6666666667%}.pull-t-3{margin-right:25%}.pull-t-4{margin-right:33.3333333333%}.pull-t-5{margin-right:41.6666666667%}.pull-t-6{margin-right:50%}.pull-t-7{margin-right:58.3333333333%}.pull-t-8{margin-right:66.6666666667%}.pull-t-9{margin-right:75%}.pull-t-10{margin-right:83.3333333333%}.pull-t-11{margin-right:91.6666666667%}.pull-t-12{margin-right:100%}}@media(min-width: 992px){.col-d-0{width:0%}.col-d-1{width:8.3333333333%}.col-d-2{width:16.6666666667%}.col-d-3{width:25%}.col-d-4{width:33.3333333333%}.col-d-5{width:41.6666666667%}.col-d-6{width:50%}.col-d-7{width:58.3333333333%}.col-d-8{width:66.6666666667%}.col-d-9{width:75%}.col-d-10{width:83.3333333333%}.col-d-11{width:91.6666666667%}.col-d-12{width:100%}.push-d-0{margin-left:0%}.push-d-1{margin-left:8.3333333333%}.push-d-2{margin-left:16.6666666667%}.push-d-3{margin-left:25%}.push-d-4{margin-left:33.3333333333%}.push-d-5{margin-left:41.6666666667%}.push-d-6{margin-left:50%}.push-d-7{margin-left:58.3333333333%}.push-d-8{margin-left:66.6666666667%}.push-d-9{margin-left:75%}.push-d-10{margin-left:83.3333333333%}.push-d-11{margin-left:91.6666666667%}.push-d-12{margin-left:100%}.pull-d-0{margin-right:0%}.pull-d-1{margin-right:8.3333333333%}.pull-d-2{margin-right:16.6666666667%}.pull-d-3{margin-right:25%}.pull-d-4{margin-right:33.3333333333%}.pull-d-5{margin-right:41.6666666667%}.pull-d-6{margin-right:50%}.pull-d-7{margin-right:58.3333333333%}.pull-d-8{margin-right:66.6666666667%}.pull-d-9{margin-right:75%}.pull-d-10{margin-right:83.3333333333%}.pull-d-11{margin-right:91.6666666667%}.pull-d-12{margin-right:100%}}@media(min-width: 768px){.col-t-0{width:0%}.col-t-1{width:8.3333333333%}.col-t-2{width:16.6666666667%}.col-t-3{width:25%}.col-t-4{width:33.3333333333%}.col-t-5{width:41.6666666667%}.col-t-6{width:50%}.col-t-7{width:58.3333333333%}.col-t-8{width:66.6666666667%}.col-t-9{width:75%}.col-t-10{width:83.3333333333%}.col-t-11{width:91.6666666667%}.col-t-12{width:100%}.push-t-0{margin-left:0%}.push-t-1{margin-left:8.3333333333%}.push-t-2{margin-left:16.6666666667%}.push-t-3{margin-left:25%}.push-t-4{margin-left:33.3333333333%}.push-t-5{margin-left:41.6666666667%}.push-t-6{margin-left:50%}.push-t-7{margin-left:58.3333333333%}.push-t-8{margin-left:66.6666666667%}.push-t-9{margin-left:75%}.push-t-10{margin-left:83.3333333333%}.push-t-11{margin-left:91.6666666667%}.push-t-12{margin-left:100%}.pull-t-0{margin-right:0%}.pull-t-1{margin-right:8.3333333333%}.pull-t-2{margin-right:16.6666666667%}.pull-t-3{margin-right:25%}.pull-t-4{margin-right:33.3333333333%}.pull-t-5{margin-right:41.6666666667%}.pull-t-6{margin-right:50%}.pull-t-7{margin-right:58.3333333333%}.pull-t-8{margin-right:66.6666666667%}.pull-t-9{margin-right:75%}.pull-t-10{margin-right:83.3333333333%}.pull-t-11{margin-right:91.6666666667%}.pull-t-12{margin-right:100%}}@media(min-width: 992px){.col-d-0{width:0%}.col-d-1{width:8.3333333333%}.col-d-2{width:16.6666666667%}.col-d-3{width:25%}.col-d-4{width:33.3333333333%}.col-d-5{width:41.6666666667%}.col-d-6{width:50%}.col-d-7{width:58.3333333333%}.col-d-8{width:66.6666666667%}.col-d-9{width:75%}.col-d-10{width:83.3333333333%}.col-d-11{width:91.6666666667%}.col-d-12{width:100%}.push-d-0{margin-left:0%}.push-d-1{margin-left:8.3333333333%}.push-d-2{margin-left:16.6666666667%}.push-d-3{margin-left:25%}.push-d-4{margin-left:33.3333333333%}.push-d-5{margin-left:41.6666666667%}.push-d-6{margin-left:50%}.push-d-7{margin-left:58.3333333333%}.push-d-8{margin-left:66.6666666667%}.push-d-9{margin-left:75%}.push-d-10{margin-left:83.3333333333%}.push-d-11{margin-left:91.6666666667%}.push-d-12{margin-left:100%}.pull-d-0{margin-right:0%}.pull-d-1{margin-right:8.3333333333%}.pull-d-2{margin-right:16.6666666667%}.pull-d-3{margin-right:25%}.pull-d-4{margin-right:33.3333333333%}.pull-d-5{margin-right:41.6666666667%}.pull-d-6{margin-right:50%}.pull-d-7{margin-right:58.3333333333%}.pull-d-8{margin-right:66.6666666667%}.pull-d-9{margin-right:75%}.pull-d-10{margin-right:83.3333333333%}.pull-d-11{margin-right:91.6666666667%}.pull-d-12{margin-right:100%}}@media(min-width: 768px){.col-t-0{width:0%}.col-t-1{width:8.3333333333%}.col-t-2{width:16.6666666667%}.col-t-3{width:25%}.col-t-4{width:33.3333333333%}.col-t-5{width:41.6666666667%}.col-t-6{width:50%}.col-t-7{width:58.3333333333%}.col-t-8{width:66.6666666667%}.col-t-9{width:75%}.col-t-10{width:83.3333333333%}.col-t-11{width:91.6666666667%}.col-t-12{width:100%}.push-t-0{margin-left:0%}.push-t-1{margin-left:8.3333333333%}.push-t-2{margin-left:16.6666666667%}.push-t-3{margin-left:25%}.push-t-4{margin-left:33.3333333333%}.push-t-5{margin-left:41.6666666667%}.push-t-6{margin-left:50%}.push-t-7{margin-left:58.3333333333%}.push-t-8{margin-left:66.6666666667%}.push-t-9{margin-left:75%}.push-t-10{margin-left:83.3333333333%}.push-t-11{margin-left:91.6666666667%}.push-t-12{margin-left:100%}.pull-t-0{margin-right:0%}.pull-t-1{margin-right:8.3333333333%}.pull-t-2{margin-right:16.6666666667%}.pull-t-3{margin-right:25%}.pull-t-4{margin-right:33.3333333333%}.pull-t-5{margin-right:41.6666666667%}.pull-t-6{margin-right:50%}.pull-t-7{margin-right:58.3333333333%}.pull-t-8{margin-right:66.6666666667%}.pull-t-9{margin-right:75%}.pull-t-10{margin-right:83.3333333333%}.pull-t-11{margin-right:91.6666666667%}.pull-t-12{margin-right:100%}}@media(min-width: 992px){.col-d-0{width:0%}.col-d-1{width:8.3333333333%}.col-d-2{width:16.6666666667%}.col-d-3{width:25%}.col-d-4{width:33.3333333333%}.col-d-5{width:41.6666666667%}.col-d-6{width:50%}.col-d-7{width:58.3333333333%}.col-d-8{width:66.6666666667%}.col-d-9{width:75%}.col-d-10{width:83.3333333333%}.col-d-11{width:91.6666666667%}.col-d-12{width:100%}.push-d-0{margin-left:0%}.push-d-1{margin-left:8.3333333333%}.push-d-2{margin-left:16.6666666667%}.push-d-3{margin-left:25%}.push-d-4{margin-left:33.3333333333%}.push-d-5{margin-left:41.6666666667%}.push-d-6{margin-left:50%}.push-d-7{margin-left:58.3333333333%}.push-d-8{margin-left:66.6666666667%}.push-d-9{margin-left:75%}.push-d-10{margin-left:83.3333333333%}.push-d-11{margin-left:91.6666666667%}.push-d-12{margin-left:100%}.pull-d-0{margin-right:0%}.pull-d-1{margin-right:8.3333333333%}.pull-d-2{margin-right:16.6666666667%}.pull-d-3{margin-right:25%}.pull-d-4{margin-right:33.3333333333%}.pull-d-5{margin-right:41.6666666667%}.pull-d-6{margin-right:50%}.pull-d-7{margin-right:58.3333333333%}.pull-d-8{margin-right:66.6666666667%}.pull-d-9{margin-right:75%}.pull-d-10{margin-right:83.3333333333%}.pull-d-11{margin-right:91.6666666667%}.pull-d-12{margin-right:100%}}@media(min-width: 992px){.d-hide{display:none !important}.d-show{display:block !important}}*,*::after,*::before{box-sizing:border-box}body{font-family:"Nunito",sans-serif;font-size:16px;line-height:28px;color:#c9d3e7;background:#27293d;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body input,body textarea{border:#3e4250 1px solid;outline:none}body input:focus:required:invalid,body textarea:focus:required:invalid{border-color:#e02f40}body input:required:valid,body textarea:required:valid{border-color:#34a74e}::placeholder{color:#666}*::selection{color:#fff;background-color:#b957ce}h1,h2,h3,h4,h5,h6{line-height:initial}h1{font-size:36px}h2{font-size:28px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}blockquote{padding-left:15px;border-left:3px solid #b957ce;font-style:normal}pre{overflow:auto;padding:15px;margin-bottom:0;font-size:14px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all}img{max-width:100%;height:auto;vertical-align:middle}img+em{text-align:center;display:block;margin-top:10px;font-weight:normal;font-size:16px;color:#707890}a{text-decoration:none;color:#b957ce;transition:.35s}a:hover{color:rgb(209.6774193548,146.2258064516,223.2741935484)}hr{display:block;height:2px;padding:0;margin:30px 0;line-height:0;border:0;background-color:#3e4250}blockquote{padding:15px 15px 15px 30px;font-size:18px;font-style:normal;border-left:4px solid #b957ce}blockquote p{margin-bottom:0}pre{overflow:auto;padding:15px;margin-bottom:0;font-size:14px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all}.table-container{max-width:100%;overflow-x:auto}table{font-size:12px;color:#1a1423;width:100%;border-width:1px;border-color:#707890;border-collapse:collapse}table th{padding:8px;font-size:16px;text-align:left;border:1px solid #707890;color:#fff;background-color:#b957ce}table tr{background-color:#fff;transition:all .3s ease}table tr:nth-child(even){background-color:#fff}table td{padding:8px;font-size:14px;border:1px solid #707890}table tr:hover{background-color:#fff}.preloader{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;overflow:hidden;background:#1a1423}.loader{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);padding:10px;font-family:"Nunito",sans-serif;font-size:21px;letter-spacing:.5em;text-transform:uppercase;font-weight:700;color:#fff;background:#1a1423}.loader span{color:#fff;mix-blend-mode:difference}.loader:before{content:"";position:absolute;top:0;left:0;width:60px;height:100%;background:#fff;animation:animate 3s linear infinite}@keyframes animate{0%{left:0}50%{left:calc(100% - 70px)}100%{left:0}}.button{display:inline-block;white-space:nowrap;vertical-align:middle;font:inherit;text-align:center;padding:8px 30px;border-radius:3px;cursor:pointer;transition:.35s}.button--primary{color:#fff;background-color:#b957ce}.button--primary:hover{background-color:rgb(146.6612903226,48.8870967742,167.6129032258);color:#fff;transition:.35s}.button--big{display:block;width:100%}.sidebar{margin-bottom:30px}.widget{padding:40px 15px;margin-bottom:30px;background:rgba(30,30,47,.95);box-shadow:0 9px 18px 0 rgba(0,0,0,.25)}.widget .widget-title{position:relative;padding-bottom:15px;margin-bottom:20px;font-size:21px;text-align:center}.widget .widget-title:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);display:block;width:50px;height:2px;background:#3e4250}.recent-posts{display:flex;flex-wrap:wrap;align-items:center;margin-bottom:15px}.recent-posts:hover .recent-image::before{background:rgba(0,0,0,.15);transition:all .5s ease}.recent-posts:hover .recent-content .recent-title a{color:rgb(209.6774193548,146.2258064516,223.2741935484)}.recent-posts:last-child{margin-bottom:0}.recent-posts .recent-header{width:100%;margin-bottom:10px;background:#1a1423}.recent-posts .recent-header.reveal-in .recent-image{opacity:1}.recent-posts .recent-image{position:relative;display:block;width:100%;height:220px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#1a1423;box-shadow:0 9px 18px 0 rgba(0,0,0,.25);opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.recent-posts .recent-image:after{content:"";display:table;padding-top:20%}.recent-posts .recent-image:before{content:"";position:absolute;width:100%;height:100%;transition:all .5s ease}.recent-posts .recent-content{margin:5px 0}.recent-posts .recent-content .recent-title{margin-bottom:0;font-weight:700}.recent-posts .recent-content .recent-title a{font-size:18px;color:#c9d3e7}.recent-posts .recent-content .recent-date{font-size:12px;color:#707890}.social-profiles{text-align:center}.social-profiles .social-profiles-item{display:inline-block;margin:3px}.social-profiles .social-profiles-link{display:inline-block;line-height:16px;padding:8px 10px;border:1px solid #3e4250;border-radius:3px;color:#3e4250}.social-profiles .social-profiles-link:hover{border-color:#b957ce;color:#b957ce}.social-profiles .social-profiles-link i{font-size:18px}.widget-instagram .instagram-box{text-align:center}.widget-instagram .instagram-box .instagram-grid{margin-bottom:30px}.widget-instagram .instagram-box .instagram-item{width:33.333%;padding:3px;float:left;overflow:hidden}.widget-instagram .instagram-box .instagram-item a{position:relative;display:block}.widget-instagram .instagram-box .instagram-item a:after{content:"";position:absolute;top:0;display:block;height:100%;width:100%;background:rgba(30,30,47,.3);transition:.35s}.widget-instagram .instagram-box .instagram-item a:hover:after{background:rgba(0,0,0,0)}.widget-instagram .instagram-box .instagram-prof{font-size:14px;color:#3e4250}.widget-instagram .instagram-box .instagram-prof:hover{text-decoration:underline}.widget-newsletter{text-align:center}.widget-newsletter .newsletter-subtitle{margin-bottom:20px;font-size:18px}.widget-newsletter .newsletter-text{max-width:170px;margin:0 auto 30px;font-size:14px;line-height:19px}.widget-newsletter .newsletter-group-top{position:relative}.widget-newsletter .email-icon{position:absolute;top:50%;left:10px;font-size:22px;transform:translateY(-50%);color:rgba(44,47,54,.4)}.widget-newsletter .newsletter-email,.widget-newsletter .newsletter-button{width:100%;height:50px;border:none;outline:none}.widget-newsletter .newsletter-email{padding:15px 15px 15px 33px}.widget-newsletter .newsletter-button{margin-top:20px;font-size:14px;font-weight:700;cursor:pointer;color:#fff;background:#27293d;transition:.35s}.widget-newsletter .newsletter-button:hover{background:#b957ce}.widget-rss{text-align:center}.widget-rss .rss-text{max-width:200px;margin:0 auto 20px;font-size:14px;line-height:1.5;color:#707890}.widget-rss .rss-link{display:inline-block;padding:12px 20px;font-size:14px;font-weight:700;border-radius:3px;color:#fff;background:#27293d;transition:.35s}.widget-rss .rss-link i{margin-right:8px}.widget-rss .rss-link:hover{background:#b957ce}.tag-list .tag-item{display:inline-block;margin:3px}.tag-list .tag-item:last-child{margin-right:0}.tag-list .tag-item .tag{display:inline-block;padding:5px 15px;font-size:12px;border-radius:3px;color:#c9d3e7;background:#27293d}.tag-list .tag-item .tag:hover{color:#fff;background:#b957ce}@media only screen and (min-width: 576px){.widget{padding:40px}}@media only screen and (min-width: 768px){.recent-posts .recent-header{margin-bottom:5px}.recent-posts .recent-image{height:120px}.recent-posts .recent-content .recent-title a{font-size:16px}}@media only screen and (min-width: 992px){.recent-posts{flex-wrap:nowrap}.recent-posts .recent-header{width:auto;margin-right:15px}.recent-posts .recent-image{width:110px}}.pagination{margin:20px 0 40px}.pagination .pagination-list{display:flex;align-items:center;text-align:center}.pagination .pagination-list .older-posts,.pagination .pagination-list .previous-posts,.pagination .pagination-list .newer-posts{display:inline-block;flex-grow:1}.pagination .pagination-list .older-posts .older-link,.pagination .pagination-list .older-posts .previous-link,.pagination .pagination-list .older-posts .newer-link,.pagination .pagination-list .previous-posts .older-link,.pagination .pagination-list .previous-posts .previous-link,.pagination .pagination-list .previous-posts .newer-link,.pagination .pagination-list .newer-posts .older-link,.pagination .pagination-list .newer-posts .previous-link,.pagination .pagination-list .newer-posts .newer-link{display:flex;justify-content:center;align-items:center;padding:20px 35px;font-size:14px;line-height:18px;font-weight:bold;color:#c9d3e7;background:rgba(30,30,47,.95);transition:.35s}.pagination .pagination-list .older-posts .older-link:hover,.pagination .pagination-list .older-posts .previous-link:hover,.pagination .pagination-list .older-posts .newer-link:hover,.pagination .pagination-list .previous-posts .older-link:hover,.pagination .pagination-list .previous-posts .previous-link:hover,.pagination .pagination-list .previous-posts .newer-link:hover,.pagination .pagination-list .newer-posts .older-link:hover,.pagination .pagination-list .newer-posts .previous-link:hover,.pagination .pagination-list .newer-posts .newer-link:hover{background:rgba(28,29,31,.95)}.pagination .pagination-list .older-link i{margin-left:10px}.pagination .pagination-list .previous-link i,.pagination .pagination-list .newer-link i{margin-right:10px}@media only screen and (min-width: 768px){.pagination{margin:20px 0}}.footer{padding:50px 0;margin-top:30px;background:#1a1423}.footer-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:15px;margin-bottom:10px;border-bottom:1px solid #3e4250}.footer-top .logo-text{font-size:16px;font-weight:700;line-height:16px;text-transform:uppercase;letter-spacing:5px;color:#c9d3e7}.footer-top .logo-text:hover{color:#707890}.footer-top .top{display:flex;justify-content:center;align-items:center;width:30px;height:30px;border:1px solid #27293d;background-color:#27293d;color:#c9d3e7;cursor:pointer;transition:.35s;opacity:.5}.footer-top .top:hover{opacity:1}.footer-bottom{display:flex;align-items:center;flex-wrap:wrap}.footer-bottom .copyright{margin-right:60px}.footer-bottom .copyright p{margin-bottom:0;font-size:13px;color:#707890}.footer-bottom .copyright p a{color:#707890}.footer-bottom .copyright p a:hover{color:#b957ce}.footer-bottom .footer-social ul li{display:inline-block;margin-left:15px}.footer-bottom .footer-social ul li:first-child{margin-left:0}.footer-bottom .footer-social ul li a{font-size:13px;font-weight:bold;color:#707890;transition:.35s}.footer-bottom .footer-social ul li a:hover{color:#b957ce}.header{margin-bottom:50px;background:#1a1423}.header,.header-box{height:60px}.header-box{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.header-box .logo-title .logo-text{font-size:16px;font-weight:700;line-height:16px;text-transform:uppercase;letter-spacing:5px;color:#c9d3e7}.header-box .logo-title .logo-text:hover{color:#fff}.nav-menu,.search{position:fixed;top:0;left:0;right:0;bottom:0;transform:scale(0.5);z-index:-1;background:#27293d;overflow-y:auto;opacity:0}.nav-menu.active,.search.active{-webkit-transition:opacity .3s ease-in-out;-moz-transition:opacity .3s ease-in-out;-ms-transition:opacity .3s ease-in-out;-o-transition:opacity .3s ease-in-out;opacity:.95;transform:scale(1);z-index:10}.menu-list{max-width:750px;width:100%;margin:5% auto 0;padding:15px;list-style:none;overflow-y:auto}.menu-list .menu-item{text-align:center}.menu-list .menu-link{position:relative;font-size:30px;font-weight:700;line-height:60px;color:#c9d3e7}.menu-list .menu-link:before{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;pointer-events:none;background:#b957ce;transform:scale3d(0, 1, 1);transform-origin:100% 50%;transition:transform .35s cubic-bezier(0.8, 0, 0.2, 1)}.menu-list .menu-link:hover:before{transform:scale3d(1, 1, 1);transform-origin:0 50%}.search-close-button{margin:0 auto 50px}.menu-close{margin:20% auto 0}.menu-close,.search-close-button{display:flex;justify-content:center;align-items:center;width:40px;height:40px;font-size:40px;border-radius:50%;border:2px solid #707890;color:#707890;transition:all .35s;cursor:pointer}.menu-close:hover,.search-close-button:hover{border-color:#c9d3e7;color:#c9d3e7}.nav-menu .menu-link,.nav-buttons i.ion{transition:color .35s}.nav-menu .menu-link:hover,.nav-buttons i.ion:hover{color:#fff}.nav-buttons i.ion{margin-left:10px;font-size:20px;vertical-align:middle;color:#c9d3e7;cursor:pointer}.nav-buttons i.ion:first-child{margin-left:0}.search-box{max-width:750px;width:100%;margin:10% auto 0;padding:15px;text-align:center}.search-box .search-text{border-radius:50px;width:100%;height:60px;margin-bottom:30px;text-align:center;font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c1c1c7;background:#1e1e2f}.search-box .search-text::placeholder{color:#c1c1c7}.search-results-list{margin:0}.search-results-list .search-item{margin-bottom:15px;list-style:decimal inside;text-align:left;border-bottom:2px solid #323743;white-space:nowrap}.search-results-list .search-item .search-link{display:inline-block;width:100%;padding:15px;font-size:21px;color:#fff;white-space:normal}.search-results-list .search-item .search-link:hover{color:#707890}.search-results-list .search-no-item{font-size:18px;color:#e02f40;list-style:none}.article-first{margin-bottom:30px;background:#1a1423}.article-first .article-image-first{position:relative;display:flex;align-items:center;min-height:450px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#1a1423;box-shadow:0 9px 18px 0 rgba(0,0,0,.25)}.article-first .article-image-first:before{content:"";display:table;padding-top:50%}.article-first .article-content-first{padding:20px;color:#c9d3e7}.article-first .article-content-first .article-tag .tag{font-size:12px}.article-first .article-content-first .article-date .date{font-size:12px;color:rgba(201,211,231,.8)}.article-first .article-content-first .article-title{margin-bottom:20px;font-size:30px;line-height:30px;font-weight:normal}.article-first .article-content-first .article-title a{color:#c9d3e7;transition:.35s}.article-first .article-content-first .article-excerpt{max-width:450px;margin-bottom:30px;font-size:14px;line-height:23px}.article-first .article-content-first .button{font-size:14px;font-weight:700;border:1px solid #c9d3e7;color:#c9d3e7;transition:.35s}.article-first .article-content-first .button:hover{border:1px solid #b957ce;background:#b957ce;color:#fff}.article{display:flex;margin-bottom:25px}.article:hover .article-image .image-overlay-text{opacity:1}.article:hover .article-image .image-overlay{opacity:.5;width:100%}.article .article-box{padding-bottom:20px;border-bottom:2px solid #3e4250}.article .article-head{background:#1a1423}.article .article-image{position:relative;display:block;margin-bottom:20px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#1a1423;box-shadow:0 9px 18px 0 rgba(0,0,0,.25)}.article .article-image:before{content:"";display:table;padding-top:75%}.article .article-image .image-overlay{position:absolute;top:0;right:0;bottom:0;left:0;width:0;height:100%;background-color:rgba(0,0,0,.8);opacity:0;transition:all .4s ease}.article .article-image .image-overlay-text{position:absolute;top:50%;left:50%;font-size:110px;text-align:center;letter-spacing:2px;color:#c9d3e7;transform:translate(-50%, -50%);transition:all .4s ease .3s;opacity:0}.article .article-content .article-info{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:5px}.article .article-content .article-info .article-date{font-size:12px;color:rgba(201,211,231,.8)}.article .article-content .article-info .article-tag .tag{display:inline-block;padding:2px 5px;margin-right:5px;font-size:12px;line-height:18px;font-weight:bold;border:1px solid #b957ce;border-radius:3px;text-transform:capitalize;color:#b957ce;transition:.35s}.article .article-content .article-info .article-tag .tag:last-child{margin-right:0}.article .article-content .article-info .article-tag .tag:hover{background:#b957ce;color:#fff}.article .article-content .article-title{margin-bottom:5px}.article .article-content .article-title a{font-size:24px;color:#c9d3e7}.article .article-content .article-excerpt{margin-bottom:0;font-size:15px;line-height:25px;color:#707890}.article-box{position:relative;overflow:hidden}.article-first .article-image-first,.article-box .article-image{position:relative;opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.article-first.reveal-in .article-image-first,.article-box.reveal-in .article-image{opacity:1}@media only screen and (min-width: 576px){.article-first .article-content-first .article-title{font-size:45px;line-height:45px}.article-first .article-content-first .article-excerpt{margin-bottom:50px}.menu-list .menu-link{font-size:50px;line-height:80px}.menu-list .menu-link:before{height:8px}.search-box .search-text{height:80px;margin-bottom:30px;font-size:24px}}@media only screen and (min-width: 768px){.article-first .article-content-first{padding:60px 40px 0}}@media only screen and (min-width: 992px){.nav-menu{position:relative;display:block;transform:none;opacity:1;z-index:10;background:rgba(0,0,0,0)}.nav-menu .menu-list{padding:0;margin:0}.nav-menu .menu-list .menu-item{display:inline-block;margin:0 15px 0 0}.nav-menu .menu-list .menu-item:last-child{margin-right:0}.nav-menu .menu-list .menu-link{font-size:13px;font-weight:700;text-transform:uppercase;line-height:19px}.nav-menu .menu-list .menu-link:before{content:none}.nav-menu .menu-close{display:none}.nav-menu .menu-link,.nav-buttons i.ion{transition:color .35s}.nav-menu .menu-link:hover,.nav-buttons i.ion:hover{color:#fff}}.post{margin-bottom:20px}.post-image-box{background:#1a1423}.post-image-box.reveal-in .post-image{opacity:1}.post-image{min-height:430px;margin-bottom:30px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#1a1423;box-shadow:0 9px 18px 0 rgba(0,0,0,.25);position:relative;opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.post-image:after{content:"";display:table;width:100%;padding-top:50%}.post-head,.post-content{background:rgba(30,30,47,.95)}.post-content{padding:40px 15px;box-shadow:0 9px 18px 0 rgba(0,0,0,.25)}.post-head,.post-body{margin-bottom:20px;border-bottom:1px solid #3e4250}.post-head{padding-bottom:30px}.post-head .post-tag{margin-bottom:20px;text-align:center}.post-head .post-tag .tag{display:inline-block;padding:5px 15px;margin-right:5px;font-size:12px;line-height:18px;font-weight:bold;border:1px solid #b957ce;text-transform:capitalize;color:#b957ce;transition:.35s}.post-head .post-tag .tag:last-child{margin-right:0}.post-head .post-tag .tag:hover{background:#b957ce;color:#fff}.post-head .post-title{font-size:28px;text-align:center;font-weight:normal;line-height:28px;margin-bottom:5px}.post-head .post-date span{font-size:12px}.post-info,.post-info-author{display:flex;justify-content:center;align-items:center;flex-wrap:wrap}.post-info .post-info-author .info-author-avatar{display:inline-block;width:32px;height:32px;margin-right:10px;border-radius:50%;background-position:center;background-size:cover;background-repeat:no-repeat}.post-info .post-info-author .info-author-name,.post-info .post-info-author span{font-size:12px;text-transform:uppercase}.post-info .post-info-author span{margin-right:10px}.post-info .post-info-author .info-author-name{position:relative;padding-right:20px;margin-right:15px;color:#c9d3e7}.post-info .post-info-author .info-author-name:after{content:"";position:absolute;top:50%;right:0;transform:translateY(-50%);display:block;width:2px;height:12px;background:#3e4250}.post-body{padding-bottom:20px}.post-share{padding:10px 0}.post-share .share-item{display:inline-block;padding-right:15px}.post-share .share-item a{color:#3e4250}.post-share .share-item a:hover{color:#b957ce}.post-share .share-item a i.ion{font-size:20px}.post-navigation{display:flex;flex-wrap:wrap;margin-top:30px}.prev,.next{flex-basis:100%;padding:15px;background:#27293d}.prev:hover,.next:hover{background:rgb(33.033,34.727,51.667)}.prev:hover .post-nav-title,.next:hover .post-nav-title{color:#b957ce;transition:.35s}.prev .post-nav-arrow,.next .post-nav-arrow{font-size:14px;color:#c9d3e7}.prev .post-nav-title,.next .post-nav-title{font-size:18px;color:#c9d3e7;transition:.35s}.prev{margin-bottom:10px}.prev,.next{text-align:center}.comments{padding:0 15px;background:#1e1e2f}@media only screen and (min-width: 576px){.post-content{padding:40px}.post-head .post-title{font-size:43px;line-height:43px;margin-bottom:10px}.post-navigation{display:flex;justify-content:space-between;flex-wrap:nowrap}.prev,.next{flex-basis:48%;padding:20px}.prev .post-nav-title,.next .post-nav-title{font-size:21px}.prev{text-align:left;margin-bottom:0}.next{text-align:right}.comments{padding:0 40px}}.page{margin-bottom:20px}.page-image-box{background:#1a1423}.page-image-box.reveal-in .page-image{opacity:1}.page-image{min-height:230px;margin-bottom:30px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#1a1423;box-shadow:0 9px 18px 0 rgba(0,0,0,.25);opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.page-image:after{content:"";display:table;width:100%;padding-top:50%}.page-content{padding:40px 15px;box-shadow:0 9px 18px 0 rgba(0,0,0,.25);background:rgba(30,30,47,.95)}.page-head{padding-bottom:30px}.page-head .page-title{font-size:28px;text-align:center;font-weight:normal;line-height:28px;margin-bottom:0}.page-head,.page-body{margin-bottom:20px;border-bottom:1px solid #3e4250}.page-body{padding-bottom:20px}@media only screen and (min-width: 576px){.page-content{padding:40px}.page-head .page-title{font-size:43px;line-height:43px;margin-bottom:10px}}.tags-list{display:flex;flex-wrap:wrap;margin:40px 0;padding:0;list-style:none}.tags-list .tags-item{margin:5px}.tags-list .tags-link{display:inline-block;padding:7px 12px;font-size:14px;border-radius:4px;color:#c9d3e7;font-weight:700;background:#27293d}.tags-list .tags-link:hover{color:#fff;background:#b957ce}.tags-title{margin-bottom:5px}.tags-group{margin-bottom:30px}.text-left{text-align:left}.text-right{text-align:right}.text-center{text-align:center}.text-justify{text-align:justify}.block{display:block}.inline-block{display:inline-block}.inline{display:inline}.vertical-center{display:flex;align-items:center;justify-content:center}.show{display:block !important}.hide{display:none !important}.invisible{visibility:hidden}.float-left{float:left}.float-right{float:right}.no-padding{padding:0}.no-margin{margin:0}.clearfix::after,.clearfix ::before{content:"";display:table;clear:both}.list-reset{list-style-type:none;margin:0;padding:0}.screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}
+  </style>
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+
+<body>
+
+  
+  <div class="preloader">
+  <div class="loader">
+    <span>Loading</span>
+  </div>
+</div> <!-- /.loader -->
+  <header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <div class="header-box">
+          <div class="logo-title">
+            <a href="/" class="logo-text">Karina</a>
+          </div>
+
+          <nav class="nav-menu">
+            <i class="menu-close ion ion-ios-close"></i>
+            <ul class="menu-list">
+              <li class="menu-item"><a href="/" class="menu-link">Home</a></li>
+              
+                
+              
+                
+              
+              <li class="menu-item"><a href="/about/" class="menu-link">About</a></li>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </ul>
+          </nav>
+          <div class="nav-buttons">
+            <i class="menu-button d-hide ion ion-ios-menu"></i>
+            <i class="search-button ion ion-ios-search"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search">
+    <div class="search-box">
+      <i class="search-close-button ion ion-ios-close"></i>
+      <label for="js-search-input" class="screen-reader-text"></label>
+      <input type="text" id="js-search-input" class="search-text" autocomplete="off" placeholder="Search Something...">
+      <ol id="js-results-container" class="search-results-list"></ol>
+    </div>
+  </div>
+</header> <!-- /.header -->
+
+
+      <div class="container">
+	<div class="row">
+		<div class="col col-12">
+			<div class="post-image-box">
+				<div class="post-image" style="background-image: url(/img/bart.png)"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<article class="col col-12 col-t-8 post">
+			<div class="post-content">
+
+				<div class="post-head">
+					
+					<div class="post-tag">
+						
+						<a href="/tags#password-similarity" class="tag">password-similarity</a>
+						
+						<a href="/tags#NLP" class="tag">NLP</a>
+						
+						<a href="/tags#privacy" class="tag">privacy</a>
+						
+						<a href="/tags#word-embedding" class="tag">word-embedding</a>
+						
+					</div>
+					
+					<h1 class="post-title">Password Similarity Detection Using Deep Neural Networks</h1>
+					<div class="post-info">
+						<div class="post-info-author">
+							<div class="info-author-avatar" style="background-image: url(/img/me2.jpg)"></div>
+							<span>by</span>
+							<span class="info-author-name">Karina Chichifoi</span>
+						</div>
+						<div class="post-date">
+							<span>
+								<time datetime="2021-04-07T23:00:00+00:00">Apr 07, 2021</time>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="post-body">
+					<p>This project was the case study of my bachelor’s thesis.</p>
+
+<p>Source code can be found <a href="https://github.com/TryKatChup/password-similarity-nlp">here</a></p>
+<div align="center">
+ <img src="/img/password-similarity/logo.png">
+</div>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Nowadays people tend to create more profiles or change password of their current profiles for security reasons. Existent passwords and literature-based words have a great impact on the candidate password. This could be a risk for the user privacy. For example, an user has the password <code class="language-plaintext highlighter-rouge">mum77</code> and he/she wants to create a new account for a different website. A candidate password could be <code class="language-plaintext highlighter-rouge">mommy1977</code>, which is a variation of <code class="language-plaintext highlighter-rouge">mum77</code> and it more risky if an attacker has discovered the first password in a leak.</p>
+
+<p>The purpose of this project is to give a feedback about password similarity between the new password and the old one using Deep Neural Networks. 
+As a reference, a <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8835247was">scientific article published at IEEE Symposium on Security and Privacy 2019</a> chosen. Then the entire architecture was reimplemented and improved, and a comparison between the obtained results and the case study was made.</p>
+
+<hr>
+<h1 id="data-pre-processing">Data pre-processing</h1>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/preparing_dataset.py"><code class="language-plaintext highlighter-rouge">preparing_dataset.py</code></a></p>
+
+<p>First of all I used a compilation of password leaks containing 1.4 billion email-password pairs from the Deep Web. Further operations were applied on the dataset:</p>
+<td style="text-align: left;">
+<ul>
+    <li>Passwords longer than 30 characters or shorter than 4 removal.</li>
+    <li>Non ASCII printable characters in password removal.</li>
+    <li>Bot (which are recognisable by the same mail used more than 100 times) removal.</li>
+    <li>HEX passwords (identified by <code>$HEX[]</code>) and <code>\x</code> removal.</li>
+    <li>HTML char set removal, for example:</li>  
+    <ul>
+        <li><code>&amp;gt</code></li>
+        <li><code>&amp;ge</code></li>
+        <li><code>&amp;lt</code></li>
+        <li><code>&amp;le</code></li>
+        <li>
+<code>&amp;#</code>(HTML entity code)</li>
+        <li><code>amp</code></li>
+    </ul>
+    <li>Due to the impossibility of similarity detection, accounts with less than 2 password were removed.</li> 
+</ul>
+</td>
+<p>After that, two dataset were build:</p>
+
+<ul>
+    <li>The first one, according with Bijeeta et alii, contains all the passwords in key-presses format (using the <code>word2keypress</code> package).</li>
+    <li>The second one contains all the passwords as they are.</li>
+</ul>
+
+<p>The filtered datasets were saved in two <code class="language-plaintext highlighter-rouge">.csv</code> files in this format:</p>
+
+<ul>
+    <li>in the first dataset: <code>sample@gmail.com:["'97314348'", "'voyager&lt;s&gt;1'"]</code>
+</li>
+    <li>in the second dataset: <code>sample@gmail.com:["'97314348'", "'voyager!'"]</code>
+</li>
+</ul>
+
+<h2 id="word2keypress">Word2keypress</h2>
+
+<p>Every password in the first dataset was translated in a keypress sequence on an ANSI american keyboard:</p>
+
+<ul>
+    <li>Every capital letter was represented by <code>&lt;s&gt;</code> (the <code>SHIFT</code> key) before the lowercase version.
+        <br>e.g. <code>Hello -&gt; &lt;s&gt;hello</code>
+</li>
+    <li>If there is a sequence of consecutive capital letters, followed by lowercase letters, the <code>&lt;c&gt;</code> tag (the <code>CAPS LOCK</code> key) is inserted <i>before</i> and <i>after</i> the sequence, which will be represented by lowercase letters. 
+  e.g. <br><code>Password -&gt; &lt;c&gt;pass&lt;c&gt;word</code>
+</li>
+    <li>If a sequence of capital letters ends at the end of the word, the <code>&lt;c&gt;</code> tag wil be placed before the sequence.
+ <br>e.g.<br> <code>PASSWORD -&gt; &lt;c&gt;password</code>
+  <br><code>passWORD -&gt; pass&lt;c&gt;word</code>
+</li>
+    <li>If a password contains ASCII 128 special characters, the <code>&lt;s&gt;</code> tag will be placed before the special character, which is translated as <code>SHIFT + &lt;key for the specific character&gt;</code>
+        <br>e.g. <br><code>PASSWORD! -&gt; &lt;c&gt;password&lt;s&gt;1</code>
+        <br><code>Hello@!! -&gt; &lt;s&gt;hello&lt;s&gt;2&lt;s&gt;1&lt;s&gt;1</code>
+</li>
+</ul>
+
+<div align="center">
+    <img style="max-height: 256px" src="/img/password-similarity/US_keyboard_layout.png">
+</div>
+<p><br></p>
+
+<h2 id="splitting-dataset">Splitting dataset</h2>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/split_dataset.py"><code class="language-plaintext highlighter-rouge">split_dataset.py</code></a></p>
+
+<p>Both datasets are splitted in training set (which is 90% of the original dataset) and test set (the remaining 10% of the original dataset).</p>
+
+<hr>
+<h1 id="training-fasttext">Training FastText</h1>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/FastText_training.ipynb"><code class="language-plaintext highlighter-rouge">FastText_training.ipynb</code></a> <strong>and</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/PasswordRetriever.py"><code class="language-plaintext highlighter-rouge">PasswordRetriever.py</code></a></p>
+
+<p>In this file FastText will be trained based on the given training set.
+In order to understand better <code class="language-plaintext highlighter-rouge">FastText_training.ipynb</code> and FastText, Word2Vec is briefly introduced.</p>
+
+<h2 id="word2vec">Word2Vec</h2>
+<p>Word2Vec is a set of architectural and optimization models which learn word embeddings from a large dataset, using deep neural networks.
+A model trained with Word2Vec can detect similar words (based on context) thanks to <em>cosine similarity</em>.</p>
+
+<p>Word2Vec is based on two architectures:</p>
+
+<ul>
+    <li>
+<b>CBOW</b> (continuous bag of words): the main purpose is to combine the representation of surrounding words, in order to predict the word in the middle.</li>
+    <li>
+<b>Skip-gram</b>: similar to CBOW, except for the word in the middle, which is used to predict words related to the same context.</li>
+</ul>
+
+<p>CBOW is faster and effective with larger dataset, however, despite the greater complexity, Skip-gram is capable to find <em>out of dictionary</em> words for smaller datasets.</p>
+
+<div align="center">
+ <img style="max-height: 256px" src="/img/password-similarity/cbow_vs_skipgram.png">
+</div>
+
+<p><br></p>
+<h2 id="fasttext">FastText</h2>
+<p><a href="https://fasttext.cc/">FastText</a> is a open source library created by Facebook which extends Word2Vec and is capable to learn word representation and sentence classification efficiently. The training is based on password n-grams. 
+N-grams of a specific word that contains <code class="language-plaintext highlighter-rouge">n</code> characters are defined as follow:</p>
+
+<center>
+${c_{i1}, c_{i2},...,c_{in} \vert \displaystyle\sum_{j=1} ^{n}i_j - i_{j-1} &lt; 0}$
+</center>
+
+<p>For example, the ngrams of the word <code class="language-plaintext highlighter-rouge">world</code>, with <code class="language-plaintext highlighter-rouge">n_mingram = 1</code> and <code class="language-plaintext highlighter-rouge">n_maxgram = 5</code> are:</p>
+
+<p><code class="language-plaintext highlighter-rouge">world = { </code>
+<code class="language-plaintext highlighter-rouge">{w, o, r, l, d},</code>
+<code class="language-plaintext highlighter-rouge">{wo, or, rl, ld},</code>
+<code class="language-plaintext highlighter-rouge">{wor, orl, rld},</code>
+<code class="language-plaintext highlighter-rouge">{world}</code>
+<code class="language-plaintext highlighter-rouge">}</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">world</code> is represented as the subset of substrings with 1 and 5 as respectively minimum and maximum length.
+FastText, comparing to Word2Vec, is capable to obtain more <em>out of dictionary</em> words, which are unknown during the training phase.</p>
+
+<h2 id="environment-setup">Environment setup</h2>
+<p>In order to train the model, <a href="https://radimrehurek.com/gensim/models/fasttext.html"><code class="language-plaintext highlighter-rouge">gensim.FastText</code></a> was used. <br>
+<a href="https://radimrehurek.com/gensim/"><code class="language-plaintext highlighter-rouge">gensim</code></a> is a open source and cross-platform python library, with multiple pre-trained word embedding models. 
+<code class="language-plaintext highlighter-rouge">PasswordRetriever</code> class extracts all the passwords from the <code class="language-plaintext highlighter-rouge">.csv</code> preprocessed file.</p>
+
+<h2 id="fasttext-parameters">FastText parameters</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">negative</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">subsampling</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">min_count</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">min_n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">max_n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">SIZE</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">sg</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div></div>
+<p>In this project <em>Skip-gram</em> model (<code class="language-plaintext highlighter-rouge">sg = 1</code>) and negative sampling were used:</p>
+
+<ul>
+    <li>Skip-gram approach is chosen, as the distributed representation of the input word is used to predict the context. Skip-gram model works better with subword information, so it is recommended for learning passwords and rare words in general.</li>
+
+    <li>Negative sampling makes the training faster. Each training sample updates only a small percentage of the model weights. For larger datasets (like this case) it is recommended to set negative sampling between 2 and 5.</li>
+
+    <li>The dimension of vectors is set to 200, in order to have train the model faster. Generally it is recommended to have <code>SIZE = 300</code>
+</li>
+
+    <li> The <code>subsampling</code> ignores the most frequent password (more than 1000 occurrences).</li>
+
+    <li>
+<code>min_count</code> represents the minimum number of occurences of a password in the training dataset.</li>
+
+    <li>
+<code>min_n</code> and <code>max_n</code> are the number of respectively minimum and maximum n-grams.</li>
+
+    <li>N-grams are used in statistical natural language processing to predict a word and/or the context of a word. In this case they represent a contiguous sequence of n characters and their purpose is to give subword information.</li>
+
+    <ul>
+        <li>For example a password <code>w = qwerty</code> with <code>min_n = 4</code> and <code>m_max = 5</code>, will have the following n-grams. 
+        <br> 
+  <code>zw = { &lt;qwe, qwer, wert, erty, rty&gt;, &lt;qwer, qwert, werty, erty&gt; }</code>
+</li>
+   <br>
+  NB &lt; and &gt; are considered as characters.
+    </ul>
+</ul>
+
+<h2 id="saving-the-model">Saving the model</h2>
+<p>Finally, the trained model is saved as <code class="language-plaintext highlighter-rouge">.bin</code>.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">gensim.models.fasttext</span> <span class="kn">import</span> <span class="n">save_facebook_model</span>
+<span class="nf">save_facebook_model</span><span class="p">(</span><span class="n">trained_model</span><span class="p">,</span> <span class="sh">"</span><span class="s">model_password_similarity.bin</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Model saved successfully.</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr>
+<h2 id="more-trainings">More trainings</h2>
+
+<p>5 models were trained:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 5</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 1</code> (Bijeeta et al.);</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 5</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 2</code>;</li>
+  <li>no <code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 10</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 1</code>;</li>
+  <li>no <code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 10</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 2</code>;</li>
+  <li>no <code class="language-plaintext highlighter-rouge">word2keypress</code>, <code class="language-plaintext highlighter-rouge">epochs = 5</code>, <code class="language-plaintext highlighter-rouge">n_mingram = 2</code>.</li>
+</ul>
+
+<hr>
+<h1 id="compressing-the-model">Compressing the model</h1>
+
+<p>The trained model is 4.8 GB. There are some problems about the size:</p>
+<ul>
+    <li>Too much space occupied in memory.</li>
+    <li>It is harder to use the model in client/server architectures. Everyone should use this model, which can be sent as a payload. Embeddings are not reversible, and they guarantee password anonymization.</li>
+</ul>
+
+<p>For these reasons, <a href="https://pypi.org/project/compress-fasttext/"><code class="language-plaintext highlighter-rouge">compress_fasttext</code></a> is used.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">gensim</span>
+<span class="kn">import</span> <span class="n">compress_fasttext</span>
+</code></pre></div></div>
+
+<p>In order to obtain a compressed model, without impacting significantly on performances, product quantitation and feature selection are applied.</p>
+
+<ul>
+<li>Feature selection is the process of selecting a subset of relevant features for use in model construction or in other words, the selection of the most important features.</li>
+
+<li>Product quantization is a particolar type of vector quantization, a lossy compression technique used in speech and image coding. A product quantizer can generate anexponentially large codebook at very low memory/time cost.</li>
+
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">big_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="p">.</span><span class="n">models</span><span class="p">.</span><span class="n">fasttext</span><span class="p">.</span><span class="nf">load_facebook_vectors</span><span class="p">(</span><span class="sh">'</span><span class="s">model_password_similarity.bin</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">small_model</span> <span class="o">=</span> <span class="n">compress_fasttext</span><span class="p">.</span><span class="nf">prune_ft_freq</span><span class="p">(</span><span class="n">big_model</span><span class="p">,</span> <span class="n">pq</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">small_model</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="sh">'</span><span class="s">compressed_model</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The compressed model is 20MB.</p>
+
+<hr>
+<h1 id="evaluating-the-model">Evaluating the model</h1>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/w2kp_PRGraph.py"><code class="language-plaintext highlighter-rouge">w2kp_PRGraph.py</code></a> <strong>and</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/No_w2kp_PRGraph.py"><code class="language-plaintext highlighter-rouge">No_w2kp_PRGraph.py</code></a></p>
+
+<p>For the evaluation of the models, compressed versions obtained with product quantization were used. In order to measure any performance differences between the original model and the compressed version, Bijeeta et al. model is chosen, with the following features:</p>
+
+<ul>
+<li>translation of the sequence of key pressed for the password;</li>
+<li>
+<code>min_gram = 1</code>;</li>
+<li>
+<code>max_gram = 4</code>;</li>
+<li>epochs = 5.</li>
+</ul>
+
+<p>An effective valutation of both model is based on <em>precision</em> and <em>recall</em>. 
+Not remarkable differences were observed: for this reason only the compressed version of the models are considered.</p>
+
+<p><br></p>
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/big_model.png">
+</div>
+<center>Precision and recall in the uncompressed model of Bijeeta et al.</center>
+<p><br>
+<br></p>
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/w2kp_nmingram=1_epochs=5.png">
+</div>
+<center>Precision and recall in the compressed model of Bijeeta et al.</center>
+
+<h2 id="euristhics">Euristhics</h2>
+<p>For a proper evaluation the following euristhics is adopted:</p>
+
+<ul>
+<li>comparing the password to the lowercase version;</li>
+<li>comparing the password to the uppercase version;</li>
+<li>comparing the password to the <code>l33t</code> code version;</li>
+<li>verifing if edit distance is greater than 5.</li>
+</ul>
+
+<hr>
+<h2 id="ground-truth-and-prediction">Ground truth and prediction</h2>
+<p>Ground truth is the ideal result expected and it is used in order to verify how much correct are model prediction.
+The term <em>prediction</em> refers to the model output after the training. It is applied to new data when is required to verify an event probability.</p>
+
+<p>Ground truth depends on the candidate two passwords and the chosen euristhics, while prediction is obtained thanks to <code class="language-plaintext highlighter-rouge">gensim.similarity</code> function of the trained model (which is based on cosine similarity). In case of the <code class="language-plaintext highlighter-rouge">work2keypress</code> model, it is important to convert the candidate two password in key presses (<code class="language-plaintext highlighter-rouge">w2kp_PRGraph.py</code>).</p>
+
+<h2 id="precision-and-recall">Precision and recall</h2>
+<p><strong>Precision</strong> represents the number of true positive detected from true positives and false positives.
+<strong>Recall</strong> represents the number of positive elements detected from a set of false negatives and true positives.</p>
+
+<p><br></p>
+<div align="center">
+  <img style="max-height: 500px" src="/img/password-similarity/precisionrecall.png">
+</div>
+<p>In this case:</p>
+
+<ul>
+    <li>A couple of similar passwords detected correctly represents <b>true positives</b>
+</li>
+    <li>A couple of different password detected as similar are <b>false positives</b>.</li>
+    <li>A couple of similar passwords not detected as similar are <b>false negatives</b>.</li>
+</ul>
+
+<p>In order to find out <em>precision</em> and <em>recall</em> it is important to re-define few concepts, according to <a href="#ground-truth-and-prediction">ground truth and prediction subchapter</a>:</p>
+
+<ul>
+    <li> <b>True positives (TP)</b>: its value increments only if both prediction and ground truth have a strictly positive value.</li>
+    <li> <b>False positives (FP)</b>: its value increments only if ground truth value is zero and  if prediction has a strictly positive value.</li>
+    <li> <b>False negatives (FP)</b>: its value increments only if ground truth value is strictly positive and if prediction value is zero.</li>
+</ul>
+
+<center>
+$ precision = \frac{TP}{TP + FP} $
+<br>
+$ recall = \frac{TP}{TP + FN} $
+</center>
+
+<p><br></p>
+
+<hr>
+<h2 id="comparing-the-results-of-the-models">Comparing the results of the models</h2>
+<p>In order to classify passwords, it is necessary to define a threeshold α, which it is chosen considering the best precision and recall values.</p>
+
+<ul>
+    <li>Model with <code>word2keypress</code>, <code>n_mingram = 1</code>, <code>epochs = 5</code> (Bijeeta et al.):</li>
+
+  <ul>
+      <li>α = 0.5: precision ≈ 57%, recall ≈ 95%</li>
+      <li>α = 0.6: precision ≈ 67%, recall ≈ 89%</li>
+  </ul>
+
+    <li>Model without <code>word2keypress</code>, <code>n_mingram = 2</code>, <code>epochs = 5</code>: </li>
+    <ul>
+        <li>α = 0.5: precision ≈ 65%, recall ≈ 95%</li>
+        <li>α = 0.6: precision ≈ 77%, recall ≈ 89%</li>
+    </ul>
+</ul>
+
+<p>In this case study, it is more important an higher value of recall. In this way more similar passwords are detected. <br>
+It is also important to not have too many false positives identified by couples of password which are different from each other but are considered similar. For this reason I have chosen an higher value of precision, comparing to Bijeeta et al. paper and α = 0.6.</p>
+
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/w2kp_nmingram=1_epochs=5.png">
+</div>
+
+<center>Precision and recall with word2keypress, n_mingram = 1, epochs = 5 (worst model)</center>
+<p><br></p>
+
+<div align="center">
+  <img style="max-height: 350px" src="/img/password-similarity/no_w2kp_nmingram=2_epochs=5.png">
+</div>
+
+<center>Precision and recall without word2keypress, n_mingram = 2, epochs = 5 (best model).</center>
+
+<hr>
+<h2 id="bijeeta-et-al-model-issues">Bijeeta et al. model issues</h2>
+<p>The worst performances were noticed in the Bijeeta et al. model. The main problems are:</p>
+
+<ul>
+<li>
+<code>word2keypress</code> library translates each character as a key press sequence. When a password is expressed in camel notation, an alternation of capital letters and lowercase letters is present. As a consequence, different passwords in camel notation will be considered similar, because of the repetition of <code>&lt;s&gt;</code> and <code>&lt;c&gt;</code>.</li>
+<li>Two passwords expressed as key presses like:</li>
+<ul>
+    <br>
+    <li>
+<code>$1mp@t1c*</code>  which is translated as <code>&lt;s&gt;41mp&lt;s&gt;2t1c&lt;s&gt;8</code>
+</li>
+    <li>
+<code>#wlng%p*m}</code> which is translated as <code>&lt;s&gt;3wlng&lt;s&gt;5p&lt;s&gt;8m&lt;s&gt;[</code>
+</li>
+</ul>
+will be considered similar.   
+<li>
+<code>SHIFT</code> is translated as <code>&lt;s&gt;</code>: for this reason two passwords which are secure will appear similar.</li>
+
+
+<li>Setting <code>n_mingram = 1</code> make the evaluation less precise than using <code>n_mingram = 2</code>.   
+  In fact, in passwords, single characters in passwords do not depend on syntactic rules (unlike in english literature). There are multiple factors really different from each other in order to establish a set of rules for the position of a character in a password, so it is impossible to define how a character is placed.</li>
+</ul>
+
+<hr>
+<h2 id="graphic-representation-of-words-distance">Graphic representation of words distance</h2>
+<p><strong>File:</strong> <a href="https://github.com/TryKatChup/password-similarity-nlp/blob/main/visualize_embeddings.py"><code class="language-plaintext highlighter-rouge">visualize_embeddings.py</code></a></p>
+
+<p>To simplify the comprehension of the project topic, password similarity is represented with a 3-dimensional graphic. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html"><code class="language-plaintext highlighter-rouge">t-SNE</code> algorithm</a> is used to reduce the model dimension from 200 to 3. In the next figure it is possible to see the top 5 most similar passwords to <code class="language-plaintext highlighter-rouge">ipwnedyou</code> and <code class="language-plaintext highlighter-rouge">numBerOne</code> and their distances.</p>
+
+<div align="center">
+ <img style="max-height: 350px" src="/img/password-similarity/3dplot.png">
+</div>
+<hr>
+<h2 id="explanation-video-italian-only">Explanation video (Italian only)</h2>
+<p><iframe id="media-G1sf4kpTGTk" class="media" src="https://www.youtube.com/embed/G1sf4kpTGTk" title="" width="100%" height="350" style="max-width: 600px;outline: none" allow="encrypted-media; picture-in-picture" frameborder="0" allowfullscreen></iframe></p>
+
+
+					<div class="post-share">
+						<ul class="share-list list-reset">
+							<li class="share-item">
+								<a class="share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://trykatchup.com/password-similarity-nlp/" onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" rel="nofollow">
+									<i class="ion ion-logo-facebook"></i>
+								</a>
+							</li>
+					
+							<li class="share-item">
+								<a class="share-twitter" href="https://twitter.com/intent/tweet?text=Password%20Similarity%20Detection%20Using%20Deep%20Neural%20Networks&url=https://trykatchup.com/password-similarity-nlp/" onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" rel="nofollow">
+									<i class="ion ion-logo-twitter"></i>
+								</a>
+							</li>
+					
+							<li class="share-item">
+								<a class="share-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://trykatchup.com/password-similarity-nlp/&amp;title=Password%20Similarity%20Detection%20Using%20Deep%20Neural%20Networks&amp;summary=&amp;source=Karina's%20blog" onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" rel="nofollow">
+									<i class="ion ion-logo-linkedin"></i>
+								</a>
+							</li>
+					
+							<li class="share-item">
+								<a class="share-pinterest" href="http://pinterest.com/pin/create/button/?url=https://trykatchup.com/password-similarity-nlp/&amp;media=https://trykatchup.com/img/bart.png&amp;description=Password%20Similarity%20Detection%20Using%20Deep%20Neural%20Networks" onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;" title="Share on Pinterest" rel="nofollow">
+									<i class="ion ion-logo-pinterest"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="post-navigation">
+					
+					<a href="/some-poetry-of-mine/" class="prev">
+						<div class="post-nav-arrow">
+<i class="ion ion-ios-arrow-round-back"></i> Previous Article</div>
+						<h2 class="post-nav-title">Some poetry of mine</h2>
+					</a>
+					 
+					<a href="/nanocon-security-hospitals/" class="next">
+						<div class="post-nav-arrow">Next Article <i class="ion ion-ios-arrow-round-forward"></i>
+</div>
+						<h2 class="post-nav-title">A Security Vaccine for Healthcare - How To Protect Sensitive Data</h2>
+					</a>
+					
+				</div>
+
+			</div>
+			
+	</article> <!-- /.post -->
+
+	<div class="col col-12 col-t-4">
+		<aside class="sidebar">
+  
+  
+  <div class="widget widget-recent">
+    <h3 class="widget-title">Recent Posts</h3>
+    
+    <div class="recent-posts">
+      
+      <div class="recent-header">
+        <a class="recent-image" href="/nanocon-security-hospitals/" style="background-image: url(/img/hacker.jpg)"></a>
+      </div>
+      
+      <div class="recent-content">
+        <h6 class="recent-title"><a href="/nanocon-security-hospitals/">A Security Vaccine for Healthcare - How To Protect Sensitive Data</a></h6>
+        <div class="recent-date">
+          <time datetime="2021-12-25T23:00:00+00:00">December 25, 2021</time>
+        </div>
+      </div>
+    </div>
+    
+    <div class="recent-posts">
+      
+      <div class="recent-header">
+        <a class="recent-image" href="/password-similarity-nlp/" style="background-image: url(/img/bart.png)"></a>
+      </div>
+      
+      <div class="recent-content">
+        <h6 class="recent-title"><a href="/password-similarity-nlp/">Password Similarity Detection Using Deep Neural Networks</a></h6>
+        <div class="recent-date">
+          <time datetime="2021-04-07T23:00:00+00:00">April 7, 2021</time>
+        </div>
+      </div>
+    </div>
+    
+    <div class="recent-posts">
+      
+      <div class="recent-header">
+        <a class="recent-image" href="/some-poetry-of-mine/" style="background-image: url(/img/moths.png)"></a>
+      </div>
+      
+      <div class="recent-content">
+        <h6 class="recent-title"><a href="/some-poetry-of-mine/">Some poetry of mine</a></h6>
+        <div class="recent-date">
+          <time datetime="2020-03-28T23:00:00+00:00">March 28, 2020</time>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+
+  <div class="widget widget-rss">
+    <h3 class="widget-title">Stay Updated</h3>
+    <p class="rss-text">Subscribe via RSS to get notified when I publish new content.</p>
+    <a href="/feed.xml" class="rss-link" target="_blank" rel="noopener">
+      <i class="ion ion-logo-rss"></i> Subscribe to RSS Feed
+    </a>
+  </div>
+
+  
+
+  <div class="widget widget-tags">
+    <h3 class="widget-title">Tag Cloud</h3>
+     
+    <ul class="tag-list list-reset">
+    
+      
+        <li class="tag-item"><a href="/tags#NLP" class="tag">NLP</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#cybersecurity" class="tag">cybersecurity</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#data-anonymization" class="tag">data-anonymization</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#hospitals" class="tag">hospitals</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#moth" class="tag">moth</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#password-similarity" class="tag">password-similarity</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#poetry" class="tag">poetry</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#privacy" class="tag">privacy</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#word-embedding" class="tag">word-embedding</a></li>
+      
+    
+    
+    </ul>
+  </div>
+  
+</aside> <!-- /.sidebar -->
+	</div>
+
+	</div>
+</div>
+
+  <footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <div class="footer-top">
+          <h2 class="logo-title">
+            <a href="/" class="logo-text">Karina</a>
+          </h2>
+          <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+        </div>
+        <div class="footer-bottom">
+          <div class="copyright">
+            <p>© 2026 <a href="https://github.com/trykatchup">Karina Chichifoi</a></p>
+          </div>
+          <div class="footer-social">
+            <ul class="list-reset">
+               
+
+               
+
+               
+
+               
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> <!-- /.footer -->
+
+  <script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/simple-jekyll-search.min.js"></script>
+<script>
+  SimpleJekyllSearch({
+  searchInput: document.getElementById("js-search-input"),
+  resultsContainer: document.getElementById("js-results-container"),
+  json: "/search.json",
+  searchResultTemplate:
+    '<li class="search-item"><a class="search-link" href="{url}">{title}</a></li>',
+  noResultsText: '<li class="search-no-item">No results found</li>'
+  });
+</script>
+<script src="/js/instafeed.min.js"></script>
+<script src="/js/jquery.waitforimages.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script src="/js/common.js"></script>
+
+
+</body>
+
+</html>

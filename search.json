@@ -1,0 +1,27 @@
+[
+  
+    {
+      "title"    : "A Security Vaccine for Healthcare - How To Protect Sensitive Data",
+      "category" : "",
+      "tags"     : "cybersecurity, hospitals, and data-anonymization",
+      "url"      : "/nanocon-security-hospitals/",
+      "date"     : "2021-12-25 23:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Password Similarity Detection Using Deep Neural Networks",
+      "category" : "",
+      "tags"     : "password-similarity, NLP, privacy, and word-embedding",
+      "url"      : "/password-similarity-nlp/",
+      "date"     : "2021-04-07 23:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Some poetry of mine",
+      "category" : "",
+      "tags"     : "poetry and moth",
+      "url"      : "/some-poetry-of-mine/",
+      "date"     : "2020-03-28 23:00:00 +0000"
+    } 
+  
+]
